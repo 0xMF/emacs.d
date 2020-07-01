@@ -1,127 +1,42 @@
-[![Build Status](https://github.com/purcell/emacs.d/workflows/CI/badge.svg)](https://github.com/purcell/emacs.d/actions)
-<a href="https://www.patreon.com/sanityinc"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 
-# A reasonable Emacs config
+# A reasonable Emacs config for a seasoned vi/Vim user
 
-This is my emacs configuration tree, continually used and tweaked
-since 2000, and it may be a good starting point for other Emacs
-users, especially web developers. These days it's
-somewhat geared towards OS X, but it is known to also work on Linux
-and Windows.
+This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor. It tweaks [Steve
+Purcell's emacs.d](https://github.com/purcell/emacs.d) and makes his setup more natural for me, a
+seasoned vi/[Vim](https://www.vim.org) user, to use.
 
-Emacs itself comes with support for many programming languages. This
-config adds improved defaults and extended support for the following, listed
-in the approximate order of how much I use them, from most to least:
+In late 2017 I began by putting Emacs-specific settings into a sub-directory within my
+[dotfiles](https://github.com/0xMF/dotfiles) repo but by May 2020 I found that strategy ineffective
+and counter-intuitive particularly when making significant commit history changes. Once after I
+cloned my `dotfiles` on several machines and realized I probably would never use the desktop
+version of Emacs on those machines, I decided to fork Purcell's repo and put all my Emacs settings
+in here so these settings and my `dotfiles` settings continue to be independent of each other at
+all times.
 
-* Haskell / Purescript / Elm / OCaml
-* Ruby / Ruby on Rails
-* SQL
-* CSS / LESS / SASS / SCSS
-* Javascript / Typescript / Coffeescript
-* HTML / HAML / Markdown / Textile / ERB
-* Common Lisp (with Slime)
-* Python
-* Rust
-* Clojure (with Cider and nRepl)
-* PHP
-* Erlang
+Purcell's `emacs.d` repo proved dependable (logically consistent and remarkably stable) over
+the years I used it. The eye-candy features Purcell keeps adding to his `emacs.d` setup has made
+Emacs truly a delight to enjoy using. Thanks Steve! If you are new to Purcell's setup, read his
+[README](README_Purcell.md) (archived here since July 2020).
 
-In particular, there's a nice config for *autocompletion* with
-[company](https://company-mode.github.io/), and
-[flycheck](http://www.flycheck.org) is used to immediately highlight
-syntax errors in Ruby, Python, Javascript, Haskell and a number of
-other languages.
+# Warning
 
-## Supported Emacs versions
+Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite because I
+use `git push -f` to my publicly available repos whenever I want a linear git commit history
+without needless commits. I often do all my work on master alone (Gasp!). This means I may squash,
+remove, or amend commits and their contents at any time.
 
-The config should run on Emacs 25.1 or greater and is designed to
-degrade smoothly - see the CI build - but note that much newer
-versions are required for an increasing number of key packages, so to
-get full functionality you should use the latest Emacs version
-available to you.
+My knowledge of both Emacs and Elisp is extremely limited so I simply use the first change that
+works. I cannot provide *any* support for *any* Emacs or Elisp feature related to the setup here,
+unfortunately.
 
-Some Windows users might need to follow
-[these instructions](http://xn--9dbdkw.se/diary/how_to_enable_GnuTLS_for_Emacs_24_on_Windows/index.en.html)
-to get TLS (ie. SSL) support included in their Emacs.
+Expert and experienced Emacs users may find my use [Evil](https://github.com/emacs-evil/evil)
+mode and [General](https://github.com/noctuid/general.el) in all their glory appalling, so this
+repo would not be their ideal choice. In addition, experienced vi and Vim users may find my
+keybinding choice horribly confusing (as I default to the Emacs keybindings whenever I see fit) so
+they, too, would benefit from alternative approaches to using Emacs for vi/Vim users.
 
-## Other requirements
+# Support Purcell's work
 
-To make the most of the programming language-specific support in this
-config, further programs will likely be required, particularly those
-that [flycheck](https://github.com/flycheck/flycheck) uses to provide
-on-the-fly syntax checking.
+Should you find this repo beneficial, please consider [💝 supporting Purcell's Open Source
+work](https://www.patreon.com/sanityinc).
 
-## Installation
-
-To install, clone this repo to `~/.emacs.d`, i.e. ensure that the
-`init.el` contained in this repo ends up at `~/.emacs.d/init.el`:
-
-```
-git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
-```
-
-Upon starting up Emacs for the first time, further third-party
-packages will be automatically downloaded and installed. If you
-encounter any errors at that stage, try restarting Emacs, and possibly
-running `M-x package-refresh-contents` before doing so.
-
-
-## Updates
-
-Update the config with `git pull`. You'll probably also want/need to
-update the third-party packages regularly too, because that's what I
-do, and the config assumes it:
-
-<kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
-
-You should usually restart Emacs after pulling changes or updating
-packages so that they can take effect. Emacs should usually restore
-your working buffers when you restart due to this configuration's use
-of the `desktop` and `session` packages.
-
-## Changing themes and adding your own customization
-
-To add your own customization, use <kbd>M-x customize</kbd>, <kbd>M-x
-customize-themes</kbd> etc. and/or create a file
-`~/.emacs.d/lisp/init-local.el` which looks like this:
-
-```el
-... your code here ...
-
-(provide 'init-local)
-```
-
-If you need initialisation code which executes earlier in the startup process,
-you can also create an `~/.emacs.d/lisp/init-preload-local.el` file.
-
-If you plan to customize things more extensively, you should probably
-just fork the repo and hack away at the config to make it your own!
-Remember to regularly merge in changes from this repo, so that your
-config remains compatible with the latest package and Emacs versions.
-
-*Please note that I cannot provide support for customised versions of
-this configuration.*
-
-## Similar configs
-
-You might also want to check out `emacs-starter-kit` and `prelude`.
-
-## Support / issues
-
-If you hit any problems, please first ensure that you are using the latest version
-of this code, and that you have updated your packages to the most recent available
-versions (see "Updates" above). If you still experience problems, go ahead and
-[file an issue on the github project](https://github.com/purcell/emacs.d).
-
--Steve Purcell
-
-<hr>
-
-
-[💝 Support this project and my other Open Source work](https://www.patreon.com/sanityinc)
-
-[💼 LinkedIn profile](https://uk.linkedin.com/in/stevepurcell)
-
-[✍ sanityinc.com](http://www.sanityinc.com/)
-
-[🐦 @sanityinc](https://twitter.com/sanityinc)
