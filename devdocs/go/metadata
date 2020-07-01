@@ -1,0 +1,2 @@
+(1 (name . "Go") (slug . "go") (type . "go") (links (home . "https://golang.org/") (code . "https://go.googlesource.com/go")) (release . "1.24.0") (mtime . 1739345535) (db_size . 4463602) (attribution . "&copy; Google, Inc.<br>
+      Licensed under the Creative Commons Attribution License 3.0.") (alias . :null))

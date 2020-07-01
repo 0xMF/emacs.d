@@ -1,6 +1,10 @@
 # 0xMF: gitignore -
 /agenda
+/diary
+/nov-places
+/sounds
 /themes
+/projectile-frecency.eld
 # ---- xXoXx ----
 
 /url/cache
