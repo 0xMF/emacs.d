@@ -43,7 +43,7 @@
                                     elisp-slime-nav elm-mode elm-test-runner embark embark-consult envrc eradio erlang
                                     evil-collection evil-magit exec-path-from-shell expand-region fill-column-indicator flycheck
                                     flycheck-clojure flycheck-color-mode-line flycheck-elm flycheck-ledger flycheck-nim
-                                    flycheck-package flycheck-relint flycheck-rust forge fullframe general git-blamed git-commit
+                                    flycheck-package flycheck-relint flycheck-rust forge general fullframe git-blamed git-commit
                                     git-timemachine gitconfig-mode github-clone github-review gitignore-mode gnu-elpa-keyring-update
                                     gnuplot go-mode goto-line-preview haml-mode haskell-mode hide-mode-line
                                     highlight-escape-sequences highlight-quoted hindent htmlize httprepl ibuffer-projectile
