@@ -24,9 +24,9 @@ This means I may squash, remove, or amend commits and their contents at any time
 
 As of July 2022, I use Emacs daily.
 This means I know more Emacs and Elisp than when I started (late 2017).
-All my edits are in [init-0xMF-evil.el](lisp/init-0xMF-evil.el).
-As my knowledge of both Emacs and Elisp is limited, I tend to use the first edit that works.
-Unfortunately this means I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
+All my vi/Vim related setup is kept in [init-0xMF-evil.el](lisp/init-0xMF-evil.el).
+So while my knowledge of Emacs and Elisp is more than when I began (late 2017) it is still limited.
+I use the first edit that works the way I want Emacs to work like how I use Vim.
 
 Experienced Emacs users may find my use of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el) in all their awesome glory appalling.
 Whereas experienced vi/Vim users may find some of my keybinding choices horribly confusing.
