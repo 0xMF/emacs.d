@@ -18,6 +18,10 @@ Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcel
 [README](README_Purcell.md) (archived here since July 2020).
 
 # Warning
+Purcell's `emacs.d` repo proved dependable (logically consistent and remarkably stable) over
+the years I used it. The eye-candy features Purcell keeps adding to his `emacs.d` setup has made
+Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcell's setup, read his
+[README](README_Purcell.md) (archived here since July 2020).
 
 Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite. I often use
 `git push -f` to my publicly available repos. I want a linear git commit history without needless
