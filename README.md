@@ -32,5 +32,7 @@ Experienced Emacs users may find my use of [Evil mode](https://github.com/emacs-
 experienced vi and Vim users may find my keybinding choice horribly confusing because at times I
 default to Emacs keybindings when I see fit.
 
+# Support Purcell's work
+
 Should you find this repo beneficial, please consider [💝 supporting Purcell's Open Source
 work](https://www.patreon.com/sanityinc).
