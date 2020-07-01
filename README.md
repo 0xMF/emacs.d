@@ -1,21 +1,18 @@
-# A reasonable Emacs config for a seasoned vi/Vim user
+# A reasonable Emacs config for this vi/Vim user
 
-This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor. It tweaks [Steve
-Purcell's emacs.d](https://github.com/purcell/emacs.d) and makes his setup more natural for me, a
-seasoned vi/[Vim](https://www.vim.org) user, to use.
+This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor.
+It builds on [Steve Purcell's emacs.d](https://github.com/purcell/emacs.d) by making that configuration feel a bit more natural to me - a seasoned vi/[Vim](https://www.vim.org) user.
 
-In late 2017 I began by putting Emacs-specific settings into a sub-directory within my
-[dotfiles](https://github.com/0xMF/dotfiles) repo but by May 2020 I found that strategy ineffective
-and counter-intuitive particularly when making significant commit history changes. Once after I
-cloned my `dotfiles` on several machines and realized I probably would never use the desktop
-version of Emacs on those machines, I decided to fork Purcell's repo and put all my Emacs settings
-in here so these settings and my `dotfiles` settings continue to be independent of each other at
-all times.
+In late 2017 I put my Emacs-specific settings into a sub-directory of my [dotfiles](https://github.com/0xMF/dotfiles) repo.
+By May 2020 I accumulated many commits that configured Emacs to work the way I liked to work with Vim.
+Once after I cloned my `dotfiles` on several minimal Linux VMs I realized I would never use the GUI-based Emacs settings on those VMs.
+That is when I forked Purcell's repo and started to track changes to upstream in this repo here.
+The advantage of this approach means I can keep my dotfiles and emacs.d repos independent of each other.
 
-Purcell's `emacs.d` repo proved dependable (logically consistent and remarkably stable) over
-the years I used it. The eye-candy features Purcell keeps adding to his `emacs.d` setup has made
-Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcell's setup, read his
-[README](README_Purcell.md) (archived here since July 2020).
+Over the years of using of Purcell's `emacs.d` repo, I found it to be dependable (logically consistent and stable) yet seamlessly extensible to work with my own vi/Vim setup of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el).
+The eye-candy features Purcell keeps adding to his `emacs.d` has made Emacs truly a delight for me to keep using.
+Thanks Steve!
+If you are new to Purcell's setup, read his [README](README_Purcell.md) (archived here since July 2020).
 
 # Warning
 
@@ -25,9 +22,11 @@ This means I squash upstream often using `git push -f`.
 Gasp!
 This means I may squash, remove, or amend commits and their contents at any time (and I often do so).
 
-As of July 2022, I use Emacs daily, which means I know a bit more Emacs and Elisp than when I started.
-All my vi/Vim setup is in [init-0xMF-evil.el](lisp/init-0xMF-evil.el) but my knowledge of both Emacs and Elisp is limited.
-I use the first change that works. Unfortunately, I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
+As of July 2022, I use Emacs daily.
+This means I know more Emacs and Elisp than when I started (late 2017).
+All my edits are in [init-0xMF-evil.el](lisp/init-0xMF-evil.el).
+As my knowledge of both Emacs and Elisp is limited, I tend to use the first edit that works.
+Unfortunately this means I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
 
 Experienced Emacs users may find my use of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el) in all their awesome glory appalling.
 Whereas experienced vi/Vim users may find some of my keybinding choices horribly confusing.
