@@ -34,6 +34,10 @@
 ;; prefer newer source instead of older bytecode
 (setq load-prefer-newer t)
 
+;; use Noto Color Emoji for emoji support
+(when (member "Noto Color Emoji" (font-family-list))
+  (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend))
+
 ;;----------------------------------------------------------------------------
 ;; Evil mode settings
 ;;----------------------------------------------------------------------------
