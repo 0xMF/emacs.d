@@ -129,6 +129,7 @@
                     "B" 'paredit-backward-barf-sexp
                     "d" #'yafolding-toggle-all
                     "f" #'yafolding-toggle-element
+                    "k" #'0xMF/shrink
                     "g" 'save-this-word
                     "o" 'org-open-at-point
                     "s" 'paredit-forward-slurp-sexp
@@ -777,6 +778,11 @@ minibuffer."
   "Toggle line wrapping."
   (interactive)
   (toggle-truncate-lines))
+
+(defun 0xMF/shrink ()
+  "Shrink table according to cookie at point."
+  (interactive)
+  (org-table-shrink))
 
 (defun 0xMF/vi ()
   "Reset/set settings to vim."
