@@ -143,8 +143,8 @@
                     "a" 'org-toggle-link-display
                     "A" 'org-agenda
                     "b" 'switch-to-buffer
-                    "c" 'org-capture
-                    "d" 'org-agenda-list
+                    "C" 'org-capture
+                    "D" 'org-agenda-list
                     "e" 'org-babel-execute-src-block
                     "E" 'org-babel-open-src-block-result
                     "f" 'set-fill-column
