@@ -168,7 +168,8 @@
                     "v" '0xMF/vi
                     "t" '0xMF/my-theme-settings
                     "T" 'org-set-tags
-                    "w" '(lambda () (interactive) (org-agenda-list 7))
+                    "w" 'toggle-truncate-lines
+                    "W" '(lambda () (interactive) (org-agenda-list 7))
                     "x" 'evil-delete
                     "+" '(lambda () (interactive) (text-scale-increase 2))
                     "=" '(lambda () (interactive) (text-scale-increase 3))
