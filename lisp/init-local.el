@@ -17,7 +17,7 @@
 (setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator general go-mode hide-mode-line
                                   org-beautify-theme org-bullets org-caldav org-gcal org-noter-pdftools org-pdftools org-present
                                   org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme
-                                  ssh-agency use-package yafolding))
+                                  ssh-agency undo-tree use-package yafolding))
 
 (dolist (package my-required-packages)
   (unless (package-installed-p package)
@@ -507,6 +507,7 @@ minibuffer."
 (add-hook 'text-mode-hook '(lambda() (set-fill-column 99)))
 
 ;; replaces Emacs undo-redo system with something MUCH nicer!
+(require 'undo-tree)
 (global-undo-tree-mode t)
 (setq undo-tree-auto-save-history t)
 
