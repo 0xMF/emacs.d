@@ -25,6 +25,10 @@ use `git push -f` to my publicly available repos whenever I want a linear git co
 without needless commits. I often do all my work on master alone (Gasp!). This means I may squash,
 remove, or amend commits and their contents at any time.
 
+As this repo tracks upstream and applies all changes on top of upstream (to maintain a linear
+commit history on this repo) meaning the side-effect of using `git push -f` *always* happens
+whenever conflict changes are brought in from upstream.
+
 My knowledge of both Emacs and Elisp is extremely limited so I simply use the first change that
 works. I cannot provide *any* support for *any* Emacs or Elisp feature related to the setup here,
 unfortunately.
