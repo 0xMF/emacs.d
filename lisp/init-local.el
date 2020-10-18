@@ -418,7 +418,7 @@ minibuffer."
 (global-set-key (kbd "C-<prior>") 'previous-buffer)
 (global-set-key (kbd "C-<next>") 'next-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-; u") 'undo-tree-visualize)
+;;(global-set-key (kbd "C-; u") 'undo-tree-visualize)
 (global-set-key (kbd "<tab>") 'tab-to-tab-stop)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -507,9 +507,9 @@ minibuffer."
 (add-hook 'text-mode-hook '(lambda() (set-fill-column 99)))
 
 ;; replaces Emacs undo-redo system with something MUCH nicer!
-(require 'undo-tree)
-(global-undo-tree-mode t)
-(setq undo-tree-auto-save-history t)
+;;(require 'undo-tree)
+;;(global-undo-tree-mode t)
+;;(setq undo-tree-auto-save-history t)
 
 ;; M-x slime calls sbcl
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
