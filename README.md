@@ -20,21 +20,24 @@ Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcel
 
 # Warning
 
-Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite because I
-use `git push -f` to my publicly available repos because I want a linear git commit history
-without needless commits. I often do all my work on master alone (Gasp!). This means I may squash,
-remove, or amend commits and their contents at any time.
+Unlike Purcell whose `emacs.d` repo is dependable, this repo can be and, at times, has been unstable because I value a linear commit history and will use the first Elisp or Emacs settings that work the way I want.
+I track Purcell's upstream repo and apply my own settings to upstream master before merging it back here.
+This means I squash upstream often using `git push -f`.
+Gasp!
+This means I may squash, remove, or amend commits and their contents at any time (and I often do so).
 
-As of July 2022, I use Emacs daily, which means I know a bit more Emacs and Elisp than when I
-started. All my vi/Vim setup is in [init-0xMF-evil.el](lisp/init-0xMF-evil.el) but my knowledge of
-both Emacs and Elisp is limited. I use the first change that works. Unfortunately, I cannot provide
-*any* support for *any* Emacs or Elisp feature related to this setup.
+As of July 2022, I use Emacs daily, which means I know a bit more Emacs and Elisp than when I started.
+All my vi/Vim setup is in [init-0xMF-evil.el](lisp/init-0xMF-evil.el) but my knowledge of both Emacs and Elisp is limited.
+I use the first change that works. Unfortunately, I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
 
-Expert and experienced Emacs users may find my use [Evil](https://github.com/emacs-evil/evil)
-mode and [General](https://github.com/noctuid/general.el) in all their glory appalling, so this
-repo would not be their ideal choice. In addition, experienced vi and Vim users may find my
-keybinding choice horribly confusing (as I default to the Emacs keybindings whenever I see fit) so
-they, too, would benefit from alternative approaches to using Emacs for vi/Vim users.
+Experienced Emacs users may find my use of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el) in all their awesome glory appalling.
+Whereas experienced vi/Vim users may find some of my keybinding choices horribly confusing.
+At times I default to sticking with the Emacs keybindings and Emacs way of doing things.
 
-Should you find this repo beneficial, please consider [💝 supporting Purcell's Open Source
-work](https://www.patreon.com/sanityinc).
+This repo tracks upstream and applies all my changes (using `git push -f`) on top of upstream (to maintain a linear commit history on this repo) meaning the side-effect of using `git push -f` *always* happens whenever conflict changes are brought in from upstream.
+
+I cannot provide support for Emacs or Elisp that I configured here.
+
+# Support Purcell's work
+
+Should you find this repo beneficial, please consider [💝 supporting Purcell's Open Source work](https://www.patreon.com/sanityinc).
