@@ -17,7 +17,7 @@
 (setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator general go-mode hide-mode-line
                                   org-beautify-theme org-bullets org-caldav org-gcal org-noter-pdftools org-pdftools org-present
                                   org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme
-                                  ssh-agency use-package yafolding))
+                                  ssh-agency undo-fu use-package yafolding))
 
 (dolist (package my-required-packages)
   (unless (package-installed-p package)
@@ -42,6 +42,7 @@
 (require 'evil-collection)
 (require 'evil-magit)
 (require 'general)
+(require 'undo-fu)
 
 (defun my-default-cursor()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
@@ -196,6 +197,7 @@
     (define-key map (kbd "k") 'evil-previous-visual-line)
     (define-key map (kbd "p") 'evil-paste-after)
     (define-key map (kbd "q") 'keyboard-quit)
+    (define-key map (kbd "u") 'undo)
     (define-key map [escape] 'keyboard-quit)
     (define-key map [escape] 'keyboard-quit)
     (define-key map [prior] 'evil-scroll-page-up)
@@ -204,7 +206,8 @@
     (define-key map (kbd "C-j") (lambda () (interactive) (evil-scroll-down nil)))
     (define-key map (kbd "C-d") 'save-buffer)
     (define-key map (kbd "C-n") 'next-buffer)
-    (define-key map (kbd "C-p") 'previous-buffer))
+    (define-key map (kbd "C-p") 'previous-buffer)
+    (define-key map (kbd "C-r") 'undo-fu-only-redo))
 
   (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
