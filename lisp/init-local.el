@@ -438,18 +438,18 @@ minibuffer."
 ;; Org mode settings
 ;;----------------------------------------------------------------------------
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-(setq org-hide-leading-stars t)
-(setq org-indent-mode-turns-off-org-adapt-indentation nil)
-(setq org-indent-mode-turns-on-hiding-stars nil)
-(setq org-pretty-entities t)
 (setq org-export-with-section-numbers nil)
-(setq org-table-auto-blank-field nil)
-(setq org-startup-indented nil)
-(setq org-startup-folded 'content)
+(setq org-hide-leading-stars t)
+(setq org-indent-mode-turns-on-hiding-stars nil)
+(setq org-indent-mode-turns-off-org-adapt-indentation nil)
 (setq org-list-allow-alphabetical t)
-
-
+(setq org-pretty-entities t)
+(setq org-startup-align-all-table t)
+(setq org-startup-folded 'content)
+(setq org-startup-indented nil)
+(setq org-table-auto-blank-field nil)
 (setq org-time-stamp-custom-formats '("<%b-%d %a>" "<%m/%d/%y %a>" "<%m/%d/%y %a %H:%M>"))
+
 
 ;; Use bullets (default if uncommented)
 (require 'org-bullets)
