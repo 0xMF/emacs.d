@@ -14,7 +14,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq my-required-packages '(evil evil-collection fill-column-indicator general go-mode hide-mode-line
+(setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator general go-mode hide-mode-line
                                   org-beautify-theme org-bullets org-caldav org-gcal org-noter-pdftools org-pdftools org-present
                                   org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme
                                   ssh-agency undo-fu use-package yafolding))
@@ -40,6 +40,7 @@
 ;;----------------------------------------------------------------------------
 (require 'evil)
 (require 'evil-collection)
+(require 'evil-magit)
 (require 'general)
 (require 'undo-fu)
 
@@ -51,6 +52,7 @@
 
 (evil-mode 1)
 (evil-collection-init)
+(evil-magit-init)
 
 (setq evil-default-state-cursor '("green" box))
 (setq evil-normal-state-cursor '("green" box))
