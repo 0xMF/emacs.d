@@ -601,6 +601,7 @@ minibuffer."
           (setq 0xMF-current-theme "light"))
         (progn
           (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
+          (custom-set-faces '(org-hide ((t (:foreground "#180248")))))
           (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
           (setq 0xMF-current-theme "dark"))
         (mapcar #'(lambda (f) (set-face-background f bg)
