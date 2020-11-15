@@ -597,11 +597,15 @@ minibuffer."
         (progn
           (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "NavyBlue" :box `(:line-width -3 :color ,bg :style "released-button"))
           (custom-set-faces '(org-macro ((t (:foreground "DarkOliveGreen" :bold t)))))
+          (custom-set-faces '(org-table ((t (:foreground "MidnightBlue")))))
+          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#d9d900")))))
           (custom-set-faces '(org-hide ((t (:foreground "#f5f5dc")))))
           (setq 0xMF-current-theme "light"))
         (progn
           (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
           (custom-set-faces '(org-hide ((t (:foreground "#180248")))))
+          (custom-set-faces '(org-table ((t (:foreground "#ebbbff")))))
+          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#d9d900")))))
           (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
           (setq 0xMF-current-theme "dark"))
         (mapcar #'(lambda (f) (set-face-background f bg)
