@@ -740,6 +740,7 @@ minibuffer."
   (when (get-buffer "*Compile-Log*")
     (kill-buffer "*Compile-Log*"))
   (0xMF/kill-some-buffers "^\\*Calculator*")
+  (0xMF/kill-some-buffers "^\\Diary")
   (0xMF/kill-some-buffers "^\\*Packages*")
   (0xMF/kill-some-buffers "^\\*compilation*")
   (when (bound-and-true-p 0xMF/kill-all-magit)
