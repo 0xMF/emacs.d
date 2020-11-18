@@ -14,10 +14,12 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator general go-mode hide-mode-line
-                                  org-beautify-theme org-bullets org-caldav org-gcal org-noter-pdftools org-pdftools org-present
-                                  org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme
-                                  ssh-agency undo-fu use-package yafolding))
+(setq my-required-packages '(evil evil-collection evil-magit evil-org fill-column-indicator
+                                  general go-mode hide-mode-line org-beautify-theme org-bullets
+                                  org-caldav org-gcal org-noter-pdftools org-pdftools org-present
+                                  org-static-blog powerline racket-mode smart-mode-line
+                                  smart-mode-line-powerline-theme ssh-agency undo-fu use-package
+                                  yafolding))
 
 (dolist (package my-required-packages)
   (unless (package-installed-p package)
@@ -41,6 +43,8 @@
 (require 'evil)
 (require 'evil-collection)
 (require 'evil-magit)
+(require 'evil-org)
+(require 'evil-org-agenda)
 (require 'general)
 (require 'undo-fu)
 
@@ -66,6 +70,9 @@
 
 
 (add-hook 'evil-mode-hook 'my-default-cursor)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(evil-org-agenda-set-keys)
 
 ;;----------------------------------------------------------------------------
 ;; General keymap settings
