@@ -155,8 +155,8 @@
                     "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
                     "l" 'whitespace-mode
-                    "m" 'magit-mode
                     "L" 'org-open-at-point
+                    "m" 'magit-mode
                     "n" 'display-line-numbers-mode
                     "o" 'find-file
                     "O" 'org-open-at-point
@@ -166,13 +166,15 @@
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
-                    "u" 'undo-tree-undo
-                    "v" '0xMF/vi
                     "t" '0xMF/settings/theme
                     "T" 'org-set-tags
+                    "u" 'undo-tree-undo
+                    "v" '0xMF/vi
                     "w" 'toggle-truncate-lines
                     "W" '(lambda () (interactive) (org-agenda-list 7))
                     "x" 'evil-delete
+                    "y" 'timeclock-out
+                    "Y" 'timeclock-in
                     "z" '0xMF/zero
                     "+" '(lambda () (interactive) (text-scale-increase 2))
                     "=" '(lambda () (interactive) (text-scale-increase 3))
@@ -834,6 +836,7 @@ With a prefix argument,the date is inserted without the day of the week."
   "Put Emacs into distraction free mode."
   (interactive)
   (0xMF/kill-some-buffers "^\\*Fancy Diary Entries*")
+  (0xMF/kill-some-buffers "^\\timelog")
   (0xMF/kill-some-buffers "^\\*Info*")
   (0xMF/startup)
   (message "0xMF/zero"))
