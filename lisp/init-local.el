@@ -712,9 +712,9 @@ minibuffer."
 (evil-set-initial-state 'calendar-mode 'emacs)
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
-  "Insert today's date using the current locale, default does not OMIT-DAY-OF-WEEK-P.
-With a prefix argument, the date is inserted without the day of
-the week."
+  "Insert today's date using the current locale.
+Default does not OMIT-DAY-OF-WEEK-P.
+With a prefix argument,the date is inserted without the day of the week."
   (interactive "P*")
   (insert (calendar-date-string (calendar-current-date) nil
                                 omit-day-of-week-p)))
