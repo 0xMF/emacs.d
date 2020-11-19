@@ -1,11 +1,16 @@
 # 0xMF: gitignore -
+/abbrev_defs
 /agenda
+/aspell.en.prepl
+/aspell.en.pws
+/custom.el
 /diary
 /nov-places
+/projectile-frecency.eld
 /request
 /sounds
 /themes
-/projectile-frecency.eld
+/timelog
 # ---- xXoXx ----
 
 /url/cache
