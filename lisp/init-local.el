@@ -144,6 +144,7 @@
                     "A" 'org-agenda
                     "b" 'switch-to-buffer
                     "C" 'org-capture
+                    "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
                     "e" 'org-babel-execute-src-block
                     "E" 'org-babel-open-src-block-result
@@ -702,9 +703,21 @@ minibuffer."
   (when (member "Source Code Pro" (font-family-list))
     (set-frame-font "Source Code Pro-13:style=Semibold" nil t)))
 
+;; ----------------------------------
+;; Calendar setup
 ;; avoid evil keybindings in these modes by default
+(require 'calendar)
+
 (add-to-list 'evil-emacs-state-modes 'calendar-mode)
 (evil-set-initial-state 'calendar-mode 'emacs)
+
+(defun insdate-insert-current-date (&optional omit-day-of-week-p)
+  "Insert today's date using the current locale, default does not OMIT-DAY-OF-WEEK-P.
+With a prefix argument, the date is inserted without the day of
+the week."
+  (interactive "P*")
+  (insert (calendar-date-string (calendar-current-date) nil
+                                omit-day-of-week-p)))
 
 (defun 0xMF/settings/calendar-mode ()
   "My calendar mode settings."
