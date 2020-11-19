@@ -709,7 +709,7 @@ minibuffer."
 (defun 0xMF/settings/calendar-mode ()
   "My calendar mode settings."
   (interactive)
-  (local-set-key (kbd "i") 'diary-insert-entry)
+  ;;(local-set-key (kbd "i") 'diary-insert-entry)
   (message "added settings for calendar-mode"))
 
 (defun 0xMF/settings/orgmode ()
