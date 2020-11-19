@@ -1,8 +1,9 @@
 # 0xMF: gitignore -
 /agenda
-/themes
-/request
 /diary
+/request
+/themes
+/timelog
 # ---- xXoXx ----
 
 /url/cache
