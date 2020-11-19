@@ -68,6 +68,7 @@
 
 (add-hook 'evil-mode-hook '0xMF/default-cursor)
 (add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
+(add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
 
 ;;----------------------------------------------------------------------------
 ;; General keymap settings
@@ -708,8 +709,9 @@ minibuffer."
 ;; avoid evil keybindings in these modes by default
 (require 'calendar)
 
-(add-to-list 'evil-emacs-state-modes 'calendar-mode)
+(add-to-list 'evil-emacs-state-modes 'calendar-mode 'package-menu-mode)
 (evil-set-initial-state 'calendar-mode 'emacs)
+(evil-set-initial-state 'package-menu-mode 'emacs)
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
@@ -736,6 +738,11 @@ With a prefix argument,the date is inserted without the day of the week."
   "Remove TAG from line."
   (interactive "sTag:")
   (org-toggle-tag tag 'off))
+
+(defun 0xMF/settings/package-menu-mode ()
+  "My settings for package menu."
+  (define-key package-menu-mode-map (kbd "/ n") nil )
+  (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
 
 (defun 0xMF/insert-braces ()
   "Source: stackoverflow.com/questions/2951797/wrapping-selecting-text-in-enclosing-characters-in-emacs."
