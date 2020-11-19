@@ -14,7 +14,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq my-required-packages '(evil evil-collection evil-magit evil-org fill-column-indicator
+(setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator
                                   general go-mode hide-mode-line org-beautify-theme org-bullets
                                   org-caldav org-gcal org-noter-pdftools org-pdftools org-present
                                   org-static-blog powerline racket-mode smart-mode-line
@@ -43,8 +43,6 @@
 (require 'evil)
 (require 'evil-collection)
 (require 'evil-magit)
-(require 'evil-org)
-(require 'evil-org-agenda)
 (require 'general)
 (require 'undo-fu)
 
@@ -68,11 +66,8 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-
 (add-hook 'evil-mode-hook 'my-default-cursor)
-(add-hook 'org-mode-hook 'evil-org-mode)
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(evil-org-agenda-set-keys)
+(add-hook 'calendar-mode-hook '0xMF/calendar-mode-settings)
 
 ;;----------------------------------------------------------------------------
 ;; General keymap settings
@@ -706,6 +701,16 @@ minibuffer."
   (interactive)
   (when (member "Source Code Pro" (font-family-list))
     (set-frame-font "Source Code Pro-13:style=Semibold" nil t)))
+
+;; avoid evil keybindings in these modes by default
+(add-to-list 'evil-emacs-state-modes 'calendar-mode)
+(evil-set-initial-state 'calendar-mode 'emacs)
+
+(defun 0xMF/calendar-mode-settings ()
+  "My calendar mode settings."
+  (interactive)
+  (local-set-key (kbd "i") 'diary-insert-entry)
+  (message "added-settings-for-calendar-mode"))
 
 (defun 0xMF/my-orgmode-settings ()
   "My Orgmode settings."
