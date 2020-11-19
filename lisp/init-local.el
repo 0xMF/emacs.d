@@ -14,14 +14,14 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq my-required-packages '(evil evil-collection evil-magit fill-column-indicator
-                                  general go-mode hide-mode-line org-beautify-theme org-bullets
-                                  org-caldav org-gcal org-noter-pdftools org-pdftools org-present
-                                  org-static-blog powerline racket-mode smart-mode-line
-                                  smart-mode-line-powerline-theme ssh-agency undo-fu use-package
-                                  yafolding))
+(setq 0xMF-required-packages '(evil evil-collection evil-magit fill-column-indicator
+                                    general go-mode hide-mode-line org-beautify-theme org-bullets
+                                    org-caldav org-gcal org-noter-pdftools org-pdftools org-present
+                                    org-static-blog powerline racket-mode smart-mode-line
+                                    smart-mode-line-powerline-theme ssh-agency undo-fu use-package
+                                    yafolding))
 
-(dolist (package my-required-packages)
+(dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -46,7 +46,7 @@
 (require 'general)
 (require 'undo-fu)
 
-(defun my-default-cursor()
+(defun 0xMF/default-cursor()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
   (if (string= (symbol-value 'evil-state) "normal")
       (set-cursor-color "green")
@@ -66,8 +66,8 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(add-hook 'evil-mode-hook 'my-default-cursor)
-(add-hook 'calendar-mode-hook '0xMF/calendar-mode-settings)
+(add-hook 'evil-mode-hook '0xMF/default-cursor)
+(add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
 
 ;;----------------------------------------------------------------------------
 ;; General keymap settings
@@ -138,8 +138,8 @@
                     "t" 'save-this-word)
 
 ;; named prefix key allows ; to be used a mapper for my keybindings
-(setq my-leader1 ";")
-(general-define-key :prefix my-leader1
+(setq 0xMF-leader1 ";")
+(general-define-key :prefix 0xMF-leader1
                     "a" 'org-toggle-link-display
                     "A" 'org-agenda
                     "b" 'switch-to-buffer
@@ -150,7 +150,7 @@
                     "f" 'set-fill-column
                     "F" 'file-reload
                     "g" 'magit-status
-                    "i" '0xMF/Info-mode-settings
+                    "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
                     "l" 'whitespace-mode
                     "m" 'magit-mode
@@ -158,7 +158,7 @@
                     "n" 'display-line-numbers-mode
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "p" '0xMF/my-theme-settings
+                    "p" '0xMF/settings/theme
                     "P" '0xMF/start-slideshow ;;'org-present
                     "q" 'fill-paragraph
                     "r" '0xMF/reset
@@ -166,7 +166,7 @@
                     "s" '0xMF/startup
                     "u" 'undo-tree-undo
                     "v" '0xMF/vi
-                    "t" '0xMF/my-theme-settings
+                    "t" '0xMF/settings/theme
                     "T" 'org-set-tags
                     "w" 'toggle-truncate-lines
                     "W" '(lambda () (interactive) (org-agenda-list 7))
@@ -190,8 +190,8 @@
       scroll-conservatively 9999
       scroll-step 1)
 
-(defun 0xMF/my-vi-settings ()
-  "My Vi-settings."
+(defun 0xMF/settings/vi ()
+  "My Vi settings."
   ;; jump j/k always even in visual mode
   (turn-on-evil-mode)
   (dolist (map  (list evil-normal-state-map))
@@ -277,7 +277,7 @@ minibuffer."
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 (add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
 
-(defun my-eww-settings ()
+(defun 0xMF/settings/eww ()
   "Enable vi-style keybindings."
   (dolist (map  (list eww-mode-map))
     (define-key map (kbd "h") 'previous-char)
@@ -286,9 +286,9 @@ minibuffer."
     (define-key map (kbd "l") 'next-char)
     (define-key map (kbd "n") 'eww-forward-url)
     (define-key map (kbd "p") 'eww-back-url)))
-(add-hook 'eww-mode-hook 'my-eww-settings)
+(add-hook 'eww-mode-hook '0xMF/settings/eww)
 
-(defun my-pdf-view-settings ()
+(defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
   (evil-set-initial-state 'pdf-view-mode 'emacs)
   (add-hook 'pdf-view-mode-hook
@@ -308,7 +308,7 @@ minibuffer."
               (local-set-key (kbd "?") 'isearch-backward)
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))))
-(add-hook 'pdf-view-mode-hook 'my-pdf-view-settings)
+(add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
 (require 'powerline)
@@ -435,7 +435,7 @@ minibuffer."
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 (global-set-key (kbd "M-[") 'insert-pair)
-(global-set-key (kbd "M-{") '0xMF/my-insert-braces)
+(global-set-key (kbd "M-{") '0xMF/insert-braces)
 (global-set-key (kbd "M-\"") 'insert-pair)
 
 ;;----------------------------------------------------------------------------
@@ -566,7 +566,7 @@ minibuffer."
             (setq show-trailing-whitespace nil)))
 
 (add-hook 'Info-mode-hook
-          (defun 0xMF/Info-mode-settings ()
+          (defun 0xMF/settings/Info-mode ()
             "Enable vi-style keybindings."
             (interactive)
             (turn-off-evil-mode)
@@ -576,7 +576,7 @@ minibuffer."
               (define-key map (kbd "n") 'Info-forward-node)
               (define-key map (kbd "p") 'Info-backward-node)
               (define-key map (kbd "m") 'Info-menu))
-            (message "0xMF/Info-mode-settings")))
+            (message "0xMF/settings/Info-mode")))
 
 (defun hide-mode-line-toggle ()
   "Toggle mode line toggle."
@@ -589,7 +589,7 @@ minibuffer."
 ;;  https://emacs.stackexchange.com/questions/7748/why-cant-i-use-a-variable-when-defining-the-color-to-draw-a-box-with
 ;;  https://ftp.gnu.org/old-gnu/Manuals/elisp-manual-21-2.8/html_node/elisp_634.html
 (defvar 0xMF-current-theme "dark" "Value of current theme: dark mode or light.")
-(defun 0xMF/my-theme-settings ()
+(defun 0xMF/settings/theme ()
   "Bring sanity back to my current theme after changing themes."
   (interactive)
   (load-theme 'org-beautify)
@@ -617,13 +617,13 @@ minibuffer."
                 '(org-checkbox org-macro org-hide))))
   (message "changed to %s mode" 0xMF-current-theme))
 
-(defun 0xMF/ivy-minibuffer-settings ()
+(defun 0xMF/settings/ivy-minibuffer ()
   "Bring sanity back to up/down keybindings."
   (interactive)
   (dolist (map  (list ivy-minibuffer-map))
     (define-key map [up] 'ivy-previous-line)))
-(add-hook 'ivy-minibuffer-hook '0xMF/ivy-minibuffer-settings)
-(add-hook 'ivy-mode-hook '0xMF/ivy-minibuffer-settings)
+(add-hook 'ivy-minibuffer-hook '0xMF/settings/ivy-minibuffer)
+(add-hook 'ivy-mode-hook '0xMF/settings/ivy-minibuffer)
 
 (require 'org-present)
 (require 'hide-mode-line)
@@ -706,13 +706,13 @@ minibuffer."
 (add-to-list 'evil-emacs-state-modes 'calendar-mode)
 (evil-set-initial-state 'calendar-mode 'emacs)
 
-(defun 0xMF/calendar-mode-settings ()
+(defun 0xMF/settings/calendar-mode ()
   "My calendar mode settings."
   (interactive)
   (local-set-key (kbd "i") 'diary-insert-entry)
-  (message "added-settings-for-calendar-mode"))
+  (message "added settings for calendar-mode"))
 
-(defun 0xMF/my-orgmode-settings ()
+(defun 0xMF/settings/orgmode ()
   "My Orgmode settings."
   ;; make org-mode default for scratch (new) buffers
   (setq initial-major-mode 'org-mode)
@@ -724,13 +724,13 @@ minibuffer."
   (interactive "sTag:")
   (org-toggle-tag tag 'off))
 
-(defun 0xMF/my-insert-braces ()
+(defun 0xMF/insert-braces ()
   "Source: stackoverflow.com/questions/2951797/wrapping-selecting-text-in-enclosing-characters-in-emacs."
   (interactive)
   (if (region-active-p)
       (insert-pair 1 ?{ ?})
-    (insert "{}")
-    (backward-char)))
+      (insert "{}")
+      (backward-char)))
 
 (defun 0xMF/kill-some-buffers (regexp)
   "Kill buffers matching REGEXP without confirmation."
@@ -766,7 +766,7 @@ minibuffer."
   (0xMF/kill-some-buffers "^\\*Org PDF Latex Output*")
   (0xMF/kill-some-buffers "^\\*PP Eval Output*")
   (0xMF/kill-some-buffers "^\\*Flycheck error messages*")
-  (0xMF/my-orgmode-settings)
+  (0xMF/settings/orgmode)
   (when (fboundp '0xMF/local)
     (0xMF/local))
   (get-buffer-create "*scratch*"))
@@ -784,12 +784,12 @@ minibuffer."
     (org-set-visibility-according-to-property)
     (setq electric-pair-mode nil))
   (when (equal major-mode 'Info-mode)
-    (0xMF/Info-mode-settings))
+    (0xMF/settings/Info-mode))
   (when (fboundp 'ivy-minibuffer-map)
-    (0xMF/ivy-minibuffer-settings))
+    (0xMF/settings/ivy-minibuffer))
   (when (fboundp '0xMF/local)
     (0xMF/local))
-  (0xMF/my-vi-settings)
+  (0xMF/settings/vi)
   (message "0xMF/startup"))
 
 (defun 0xMF/wrap ()
