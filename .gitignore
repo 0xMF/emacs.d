@@ -1,10 +1,15 @@
 # 0xMF: gitignore -
+/abbrev_defs
 /agenda
+/aspell.en.prepl
+/aspell.en.pws
+/custom.el
 /diary
 /nov-places
 /request
 /sounds
 /themes
+/timelog
 # ---- xXoXx ----
 
 /url/cache
