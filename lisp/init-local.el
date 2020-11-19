@@ -173,6 +173,7 @@
                     "w" 'toggle-truncate-lines
                     "W" '(lambda () (interactive) (org-agenda-list 7))
                     "x" 'evil-delete
+                    "z" '0xMF/zero
                     "+" '(lambda () (interactive) (text-scale-increase 2))
                     "=" '(lambda () (interactive) (text-scale-increase 3))
                     "-" 'text-scale-decrease
@@ -765,6 +766,7 @@ With a prefix argument,the date is inserted without the day of the week."
   (when (get-buffer "*Compile-Log*")
     (kill-buffer "*Compile-Log*"))
   (0xMF/kill-some-buffers "^\\*Calculator*")
+  (0xMF/kill-some-buffers "^\\*Calendar*")
   (0xMF/kill-some-buffers "^\\Diary")
   (0xMF/kill-some-buffers "^\\*Packages*")
   (0xMF/kill-some-buffers "^\\*compilation*")
@@ -827,6 +829,14 @@ With a prefix argument,the date is inserted without the day of the week."
   (interactive)
   (turn-on-evil-mode)
   (toggle-truncate-lines))
+
+(defun 0xMF/zero ()
+  "Put Emacs into distraction free mode."
+  (interactive)
+  (0xMF/kill-some-buffers "^\\*Fancy Diary Entries*")
+  (0xMF/kill-some-buffers "^\\*Info*")
+  (0xMF/startup)
+  (message "0xMF/zero"))
 
 (add-hook 'after-init-hook '0xMF/startup)
 
