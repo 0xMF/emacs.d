@@ -763,7 +763,8 @@ With a prefix argument,the date is inserted without the day of the week."
     (kill-matching-buffers regexp)))
 
 (defvar 0xMF/kill-all-magit t "Removes all magit-buffers (inucluding magit process).")
-(defun cleanup-Emacs-buffer-list ()
+
+(defun 0xMF/cleanup-Emacs-buffer-list ()
   "Remove all kinds of needless buffers."
   (when (get-buffer "*Compile-Log*")
     (kill-buffer "*Compile-Log*"))
@@ -791,14 +792,12 @@ With a prefix argument,the date is inserted without the day of the week."
   (0xMF/kill-some-buffers "^\\*PP Eval Output*")
   (0xMF/kill-some-buffers "^\\*Flycheck error messages*")
   (0xMF/settings/orgmode)
-  (when (fboundp '0xMF/local)
-    (0xMF/local))
   (get-buffer-create "*scratch*"))
 
 (defun 0xMF/startup ()
   "Start/reset Emacs the way like it ;-)."
   (interactive)
-  (cleanup-Emacs-buffer-list)
+  (0xMF/cleanup-Emacs-buffer-list)
   (global-display-line-numbers-mode -1)
   (display-line-numbers-mode -1)
   (line-number-mode t)
