@@ -94,6 +94,7 @@
                     "j" 'next-buffer
                     "k" 'kill-this-buffer
                     "l" 'previous-buffer
+                    "m" 'writeroom-mode
                     "n" 'next-buffer
                     "N" 'other-window
                     "t" 'whitespace-mode
