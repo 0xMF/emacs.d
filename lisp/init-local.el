@@ -337,7 +337,7 @@ minibuffer."
 :init
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook (lambda () (set-fill-column 99)))
+(add-hook 'markdown-mode-hook (lambda () (set-fill-column 81)))
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
@@ -477,9 +477,9 @@ minibuffer."
 
 (evil-define-key 'insert org-mode-map (kbd "C-<tab>") #'tab-to-tab-stop)
 
-;; Yup we want spell check to be turned on automatically in org mode and text wrap at 99.
+;; Yup we want spell check to be turned on automatically in org mode and text wrap at 81.
 (add-hook 'org-mode-hook 'turn-on-flyspell)
-(add-hook 'org-mode-hook '(lambda() (set-fill-column 99)))
+(add-hook 'org-mode-hook '(lambda() (set-fill-column 81)))
 
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)
@@ -512,9 +512,9 @@ minibuffer."
 (load-if-file-exists "~/.emacs.d/lisp/secrets.el")
 (load-if-file-exists "~/quicklisp/clhs-use-local.el")
 
-;; wrap lines (hard return) around column 99
+;; wrap lines (hard return) around column 81
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'text-mode-hook '(lambda() (set-fill-column 99)))
+(add-hook 'text-mode-hook '(lambda() (set-fill-column 81)))
 
 ;; M-x slime calls sbcl
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
