@@ -57,11 +57,12 @@
 (evil-magit-init)
 
 (setq evil-default-state-cursor '("green" box))
-(setq evil-normal-state-cursor '("green" box))
 (setq evil-insert-state-cursor '("red" bar))
-(setq evil-visual-state-cursor '("orange" box))
-(setq evil-replace-state-cursor '("red" box))
+(setq evil-magit-state 'motion)
+(setq evil-normal-state-cursor '("green" box))
 (setq evil-operator-state-cursor '("red" hollow))
+(setq evil-replace-state-cursor '("red" box))
+(setq evil-visual-state-cursor '("orange" box))
 
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
