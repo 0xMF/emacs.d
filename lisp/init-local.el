@@ -42,7 +42,6 @@
 ;;----------------------------------------------------------------------------
 (require 'evil)
 (require 'evil-collection)
-(require 'evil-magit)
 (require 'general)
 (require 'undo-fu)
 
@@ -54,11 +53,9 @@
 
 (evil-mode 1)
 (evil-collection-init)
-(evil-magit-init)
 
 (setq evil-default-state-cursor '("green" box))
 (setq evil-insert-state-cursor '("red" bar))
-(setq evil-magit-state 'motion)
 (setq evil-normal-state-cursor '("green" box))
 (setq evil-operator-state-cursor '("red" hollow))
 (setq evil-replace-state-cursor '("red" box))
@@ -843,6 +840,13 @@ With a prefix argument,the date is inserted without the day of the week."
   (message "0xMF/zero"))
 
 (add-hook 'after-init-hook '0xMF/startup)
+
+(defun 0xMF/evil-magit ()
+  "Enable evil-magit support."
+  (interactive)
+  (require 'evil-magit)
+  (evil-magit-init)
+  (setq evil-magit-state 'motion))
 
 (defun file-reload ()
   "Reload file without confirmation."
