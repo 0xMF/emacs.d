@@ -743,6 +743,8 @@ With a prefix argument,the date is inserted without the day of the week."
 
 (defun 0xMF/settings/package-menu-mode ()
   "My settings for package menu."
+
+  (define-key package-menu-mode-map (kbd "; s") '0xMF/startup)
   (define-key package-menu-mode-map (kbd "/ n") nil )
   (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
 
