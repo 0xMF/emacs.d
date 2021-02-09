@@ -14,12 +14,13 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq 0xMF-required-packages '(evil evil-collection evil-magit fill-column-indicator
-                                    general go-mode hide-mode-line org-beautify-theme org-bullets
-                                    org-caldav org-edna org-gcal org-gtd org-noter-pdftools
-                                    org-pdftools org-present org-static-blog powerline racket-mode
-                                    smart-mode-line smart-mode-line-powerline-theme ssh-agency
-                                    undo-fu use-package yafolding))
+(setq 0xMF-required-packages '(evil evil-collection
+                                    fill-column-indicator general go-mode hide-mode-line
+                                    org-beautify-theme org-bullets org-caldav org-edna org-gcal
+                                    org-gtd org-noter-pdftools org-pdftools org-present
+                                    org-static-blog powerline racket-mode smart-mode-line
+                                    smart-mode-line-powerline-theme ssh-agency undo-fu use-package
+                                    yafolding))
 
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
