@@ -284,6 +284,7 @@ minibuffer."
 
 (defun 0xMF/settings/eww ()
   "Enable vi-style keybindings."
+  (interactive)
   (dolist (map  (list eww-mode-map))
     (define-key map (kbd "h") 'previous-char)
     (define-key map (kbd "j") 'next-line)
@@ -295,9 +296,11 @@ minibuffer."
 
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
+  (interactive)
   (evil-set-initial-state 'pdf-view-mode 'emacs)
   (add-hook 'pdf-view-mode-hook
             (lambda ()
+              (setq-hook! 'pdf-view-mode blink-cursor-mode nil)
               (setq pdf-view-continuous 't)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
               (local-set-key (kbd  "j") 'pdf-view-next-line-or-next-page)
@@ -307,8 +310,9 @@ minibuffer."
               (local-set-key (kbd "J") 'pdf-view-next-page)
               (local-set-key (kbd "K") 'pdf-view-previous-page)
               (local-set-key (kbd "g") 'pdf-view-goto-page)
-              (local-set-key (kbd "G") 'pdf-view-last-page)
-              (local-set-key (kbd "l") 'pdf-view-first-page)
+              (local-set-key (kbd "G") 'pdf-view-goto-page)
+              (local-set-key (kbd "h") 'pdf-view-previous-page)
+              (local-set-key (kbd "l") 'pdf-view-next-page)
               (local-set-key (kbd "/") 'isearch-forward)
               (local-set-key (kbd "?") 'isearch-backward)
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
