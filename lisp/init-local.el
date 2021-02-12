@@ -298,9 +298,9 @@ minibuffer."
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
   (interactive)
   (evil-set-initial-state 'pdf-view-mode 'emacs)
+  (setq blink-cursor-mode nil)
   (add-hook 'pdf-view-mode-hook
             (lambda ()
-              (setq-hook! 'pdf-view-mode blink-cursor-mode nil)
               (setq pdf-view-continuous 't)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
               (local-set-key (kbd  "j") 'pdf-view-next-line-or-next-page)
@@ -318,6 +318,7 @@ minibuffer."
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
+(0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
 (require 'powerline)
