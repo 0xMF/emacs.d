@@ -161,7 +161,7 @@
                     "o" 'find-file
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/theme
-                    "P" '0xMF/start-slideshow ;;'org-present
+                    "P" '0xMF/settings/pdf-view ;;start-slideshow ;;'org-present
                     "q" 'fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
@@ -313,6 +313,9 @@ minibuffer."
               (local-set-key (kbd "G") 'pdf-view-goto-page)
               (local-set-key (kbd "h") 'pdf-view-previous-page)
               (local-set-key (kbd "l") 'pdf-view-next-page)
+              (local-set-key (kbd "W") 'pdf-view-fit-width-to-window)
+              (local-set-key (kbd "H") 'pdf-view-fit-height-to-window)
+              (local-set-key (kbd "P") 'pdf-view-fit-page-to-window)
               (local-set-key (kbd "/") 'isearch-forward)
               (local-set-key (kbd "?") 'isearch-backward)
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
