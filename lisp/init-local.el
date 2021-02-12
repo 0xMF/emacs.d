@@ -161,7 +161,7 @@
                     "o" 'find-file
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/theme
-                    "P" '0xMF/settings/pdf-view ;;start-slideshow ;;'org-present
+                    "P" '0xMF/settings/pdf-view ;;start-slideshw ;;'org-present
                     "q" 'fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
@@ -303,6 +303,10 @@ minibuffer."
             (lambda ()
               (setq pdf-view-continuous 't)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
+              (local-unset-key (kbd  "C-n"))
+              (local-unset-key (kbd  "C-p"))
+              (local-set-key (kbd  "C-n") 'next-buffer)
+              (local-set-key (kbd  "C-p") 'previous-buffer)
               (local-set-key (kbd  "j") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "k") 'pdf-view-previous-line-or-previous-page)
               (local-set-key (kbd "n") 'pdf-view-scroll-up-or-next-page)
