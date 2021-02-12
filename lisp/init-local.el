@@ -302,6 +302,7 @@ minibuffer."
   (add-hook 'pdf-view-mode-hook
             (lambda ()
               (setq pdf-view-continuous 't)
+              (hide-mode-line-mode)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
               (local-unset-key (kbd  "C-n"))
               (local-unset-key (kbd  "C-p"))
@@ -595,7 +596,7 @@ minibuffer."
               (define-key map (kbd "m") 'Info-menu))
             (message "0xMF/settings/Info-mode")))
 
-(defun hide-mode-line-toggle ()
+(defun 0xMF/settings/hide-mode-line-toggle ()
   "Toggle mode line toggle."
   (interactive)
   (hide-mode-line-mode (if hide-mode-line-mode -1 +1))
