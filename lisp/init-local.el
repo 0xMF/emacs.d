@@ -308,6 +308,8 @@ minibuffer."
               (local-unset-key (kbd  "C-p"))
               (local-set-key (kbd  "C-n") 'next-buffer)
               (local-set-key (kbd  "C-p") 'previous-buffer)
+              (local-unset-key (kbd  "b"))
+              (local-set-key (kbd "b") 'pdf-view-previous-line-or-previous-page)
               (local-set-key (kbd  "j") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "k") 'pdf-view-previous-line-or-previous-page)
               (local-set-key (kbd "n") 'pdf-view-scroll-up-or-next-page)
