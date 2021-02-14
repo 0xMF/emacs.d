@@ -302,6 +302,7 @@ minibuffer."
   (add-hook 'pdf-view-mode-hook
             (lambda ()
               (setq pdf-view-continuous 't)
+              (pdf-links-minor-mode)
               (hide-mode-line-mode)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
               (local-unset-key (kbd  "C-n"))
@@ -309,8 +310,10 @@ minibuffer."
               (local-set-key (kbd  "C-n") 'next-buffer)
               (local-set-key (kbd  "C-p") 'previous-buffer)
               (local-unset-key (kbd  "b"))
-              (local-set-key (kbd "b") 'pdf-view-previous-line-or-previous-page)
-              (local-set-key (kbd  "j") 'pdf-view-next-line-or-next-page)
+              (local-unset-key (kbd  "f"))
+              (local-set-key (kbd "b") 'pdf-view-scroll-down-or-previous-page)
+              (local-set-key (kbd "f") 'pdf-view-scroll-up-or-next-page)
+              (local-set-key (kbd "j") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "k") 'pdf-view-previous-line-or-previous-page)
               (local-set-key (kbd "n") 'pdf-view-scroll-up-or-next-page)
               (local-set-key (kbd "p") 'pdf-view-scroll-down-or-previous-page)
@@ -328,6 +331,7 @@ minibuffer."
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
+(add-hook 'pdf-view-mode-hook (lambda () (pdf-links-minor-mode -1)))
 (0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
