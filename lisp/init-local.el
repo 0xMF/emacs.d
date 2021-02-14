@@ -294,6 +294,19 @@ minibuffer."
     (define-key map (kbd "p") 'eww-back-url)))
 (add-hook 'eww-mode-hook '0xMF/settings/eww)
 
+;; Credit: Bozhidar Batsov
+;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
+(defun 0xMF/settings/pdf-view-mode-hook ()
+  "Reset f keybinding from 'pdf-links-isearch-link."
+  (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
+        (newmap (make-sparse-keymap)))
+    (set-keymap-parent newmap oldmap)
+    (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
+    (make-local-variable 'minor-mode-overriding-map-alist)
+    (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist)
+    (message "f unbound from 'pdf-links-isearch-link")) )
+(add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view-mode-hook)
+
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
   (interactive)
@@ -302,15 +315,13 @@ minibuffer."
   (add-hook 'pdf-view-mode-hook
             (lambda ()
               (setq pdf-view-continuous 't)
-              (pdf-links-minor-mode)
               (hide-mode-line-mode)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
+              (0xMF/settings/pdf-view-mode-hook)
               (local-unset-key (kbd  "C-n"))
               (local-unset-key (kbd  "C-p"))
               (local-set-key (kbd  "C-n") 'next-buffer)
               (local-set-key (kbd  "C-p") 'previous-buffer)
-              (local-unset-key (kbd  "b"))
-              (local-unset-key (kbd  "f"))
               (local-set-key (kbd "b") 'pdf-view-scroll-down-or-previous-page)
               (local-set-key (kbd "f") 'pdf-view-scroll-up-or-next-page)
               (local-set-key (kbd "j") 'pdf-view-next-line-or-next-page)
@@ -324,14 +335,13 @@ minibuffer."
               (local-set-key (kbd "h") 'pdf-view-previous-page)
               (local-set-key (kbd "l") 'pdf-view-next-page)
               (local-set-key (kbd "W") 'pdf-view-fit-width-to-window)
+              (local-set-key (kbd "w") 'pdf-view-fit-width-to-window)
               (local-set-key (kbd "H") 'pdf-view-fit-height-to-window)
               (local-set-key (kbd "P") 'pdf-view-fit-page-to-window)
               (local-set-key (kbd "/") 'isearch-forward)
               (local-set-key (kbd "?") 'isearch-backward)
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))))
-(add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
-(add-hook 'pdf-view-mode-hook (lambda () (pdf-links-minor-mode -1)))
 (0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
