@@ -315,8 +315,10 @@ minibuffer."
   (add-hook 'pdf-view-mode-hook
             (lambda ()
               (setq pdf-view-continuous 't)
-              (hide-mode-line-mode)
+              (hide-mode-line-mode  )
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
+              (set (make-local-variable 'evil-evilified-state-cursor) (list nil))
+              (set (make-local-variable 'evil-normal-state-cursor) (list nil))
               (0xMF/settings/pdf-view-mode-hook)
               (local-unset-key (kbd  "C-n"))
               (local-unset-key (kbd  "C-p"))
