@@ -296,20 +296,21 @@ minibuffer."
 
 ;; Credit: Bozhidar Batsov
 ;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
-(defun 0xMF/settings/pdf-view-mode-hook ()
+(defun 0xMF/settings/pdf-links-minor-mode ()
   "Reset f keybinding from 'pdf-links-isearch-link."
   (interactive)
-  (dolist (map  (list pdf-links-minor-mode-map))
-    (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
-    (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
-  (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
-        (newmap (make-sparse-keymap)))
-    (set-keymap-parent newmap oldmap)
-    (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
-    (make-local-variable 'minor-mode-overriding-map-alist)
-    (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist)
-    (message "f unbound from 'pdf-links-isearch-link")) )
-(add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view-mode-hook)
+  (when (boundp 'pdf-links-minor-mode)
+    (dolist (map  (list pdf-links-minor-mode-map))
+      (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+      (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
+    (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
+          (newmap (make-sparse-keymap)))
+      (set-keymap-parent newmap oldmap)
+      (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
+      (make-local-variable 'minor-mode-overriding-map-alist)
+      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist)
+      (message "f unbound from 'pdf-links-isearch-link"))))
+(add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
 
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
@@ -324,7 +325,7 @@ minibuffer."
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
               (set (make-local-variable 'evil-evilified-state-cursor) (list nil))
               (set (make-local-variable 'evil-normal-state-cursor) (list nil))
-              (0xMF/settings/pdf-view-mode-hook)
+              (0xMF/settings/pdf-links-minor-mode)
               (local-unset-key (kbd  "C-n"))
               (local-unset-key (kbd  "C-p"))
               (local-set-key (kbd  "C-n") 'next-buffer)
