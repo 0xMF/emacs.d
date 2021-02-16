@@ -298,6 +298,10 @@ minibuffer."
 ;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
 (defun 0xMF/settings/pdf-view-mode-hook ()
   "Reset f keybinding from 'pdf-links-isearch-link."
+  (interactive)
+  (dolist (map  (list pdf-links-minor-mode-map))
+    (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+    (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
   (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
         (newmap (make-sparse-keymap)))
     (set-keymap-parent newmap oldmap)
@@ -314,6 +318,7 @@ minibuffer."
   (setq blink-cursor-mode nil)
   (add-hook 'pdf-view-mode-hook
             (lambda ()
+              (evil-mode)
               (setq pdf-view-continuous 't)
               (hide-mode-line-mode)
               (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
@@ -398,6 +403,7 @@ minibuffer."
       x-select-enable-primary t
       save-interprogram-paste-before-kill t
       apropos-do-all t
+      apropos-sort-by-scores t
       mouse-yank-at-point t
       require-final-newline t
       visible-bell t
@@ -804,6 +810,7 @@ With a prefix argument,the date is inserted without the day of the week."
   "Remove all kinds of needless buffers."
   (when (get-buffer "*Compile-Log*")
     (kill-buffer "*Compile-Log*"))
+  (0xMF/kill-some-buffers "^\\*Aprops*")
   (0xMF/kill-some-buffers "^\\*Calculator*")
   (0xMF/kill-some-buffers "^\\*Calendar*")
   (0xMF/kill-some-buffers "^\\Diary")
@@ -827,6 +834,7 @@ With a prefix argument,the date is inserted without the day of the week."
   (0xMF/kill-some-buffers "^\\*Org-Babel Error Output*")
   (0xMF/kill-some-buffers "^\\*Org PDF Latex Output*")
   (0xMF/kill-some-buffers "^\\*PP Eval Output*")
+  (0xMF/kill-some-buffers "^\\*Outline ")
   (0xMF/kill-some-buffers "^\\*WoMan-Log*")
   (0xMF/settings/orgmode)
   (get-buffer-create "*scratch*"))
