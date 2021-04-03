@@ -26,6 +26,9 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; disable cl-lib deprecated warnings
+(setq byte-compile-warnings '(cl-functions))
+
 ;; install the missing packages when using Emacs 24.5.1 and below
 (setq vc-follow-symlinks t)
 (show-paren-mode t)
