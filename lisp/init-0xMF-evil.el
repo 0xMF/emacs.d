@@ -607,7 +607,6 @@ minibuffer."
 
 (evil-define-key 'insert org-mode-map (kbd "C-<tab>") #'tab-to-tab-stop)
 
-
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)
 
