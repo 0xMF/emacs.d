@@ -16,9 +16,9 @@
   (package-refresh-contents))
 
 (setq 0xMF-required-packages '(evil evil-collection
-                                    fill-column-indicator general go-mode hide-mode-line
-                                    org-beautify-theme org-bullets org-caldav org-edna org-gcal
-                                    org-gtd org-noter-pdftools org-pdftools org-present
+                                    fill-column-indicator general go-mode haskell-mode hide-mode-line
+                                    hindent org-beautify-theme org-bullets org-caldav org-edna
+                                    org-gcal org-gtd org-noter-pdftools org-pdftools org-present
                                     org-static-blog powerline racket-mode smart-mode-line
                                     smart-mode-line-powerline-theme ssh-agency undo-fu use-package
                                     yafolding))
@@ -375,6 +375,18 @@ minibuffer."
 ;;----------------------------------------------------------------------------
 ;; Language mode settings
 ;;----------------------------------------------------------------------------
+
+(require 'haskell-mode)
+(require 'hindent)
+
+(defun 0xMF/settings/haskell-mode ()
+  "Override some evil-mode settings when in haskell-mode."
+  (interactive)
+  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill)
+  (message "0xMF/settings/haskell-mode: ;-q"))
+
+(with-eval-after-load 'haskell-mode
+  (add-hook 'haskell-mode-hook '0xMF/settings/haskell-mode))
 
 (use-package markdown-mode)
 :init
