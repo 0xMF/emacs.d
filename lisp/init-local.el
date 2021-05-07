@@ -1,11 +1,8 @@
 ;;; package -- init.el
-
 ;;; Commentary:
-
-;;  defer all my initialization to init-0xMF-evil.el.
-
 ;;; Code:
 
+;;  defer initialization to init-0xMF-evil.el.
 (load "init-0xMF-evil")
 
 ;; Local Variables:
@@ -13,7 +10,6 @@
 ;; no-byte-compile: t
 ;; End:
 
-;; keep purcell's emacs.d settings happy
 (provide 'init-local)
 
 ;;;  -*- mode: Lisp;-*
