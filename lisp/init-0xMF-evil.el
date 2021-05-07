@@ -174,7 +174,7 @@
 (general-define-key :prefix 0xMF-leader1
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
-                    "b" 'switch-to-buffer
+                    "B" 'switch-to-buffer
                     "c" 'comment-region
                     "C" 'org-capture
                     "d" 'insdate-insert-current-date
@@ -306,6 +306,16 @@
     (define-key map [tab] 'vertico-insert)
     (define-key map (kbd "C-l") 'vertico-insert)
     (define-key map (kbd "<return>") 'vertico-exit)
+    (define-key map (kbd "C-<return>") 'vertico-exit)
+    (define-key map (kbd "M-<return>") 'vertico-exit)))
+(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
+
+(defun 0xMF/settings/vertico ()
+  "My setup for vertico-mode."
+  (interactive)
+  (dolist (map (list vertico-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map [tab] 'vertico-insert)
     (define-key map (kbd "C-<return>") 'vertico-exit)
     (define-key map (kbd "M-<return>") 'vertico-exit)))
 (add-hook 'vertico-mode-hook '0xMF/settings/vertico)
@@ -511,14 +521,13 @@ minibuffer."
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
-;; yes to powerline on a smart-mode-line
 (require 'powerline)
 (require 'smart-mode-line)
 (require 'smart-mode-line-powerline-theme)
-(setq powerline-arrow-shape 'arrow)
-(powerline-vim-theme)
 (setq sml/theme 'powerline)
 (setq sml/no-confirm-load-theme t)
+(setq powerline-arrow-shape 'arrow)
+(powerline-vim-theme)
 (setf rm-blacklist "")
 (display-time-mode t)
 (sml/setup)
@@ -693,6 +702,7 @@ minibuffer."
 (add-hook 'after-change-major-mode-hook 'kill-misc-buffers)
 
 (evil-define-key 'insert org-mode-map (kbd "C-<tab>") #'tab-to-tab-stop)
+
 
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)

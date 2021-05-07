@@ -1,11 +1,8 @@
 ;;; package -- init.el
-
 ;;; Commentary:
-
-;;  defer all my initialization to init-0xMF-evil.el.
-
 ;;; Code:
 
+;;  defer initialization to init-0xMF-evil.el.
 (load "init-0xMF-evil")
 
 ;; Local Variables:
