@@ -1337,8 +1337,7 @@ minibuffer."
 (defun 0xMF/settings/haskell-mode ()
   "Override some evil-mode settings when in haskell-mode."
   (interactive)
-  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill)
-  (message "0xMF/settings/haskell-mode: ;-q"))
+  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill))
 
 (with-eval-after-load 'haskell-mode
   (add-hook 'haskell-mode-hook '0xMF/settings/haskell-mode))
