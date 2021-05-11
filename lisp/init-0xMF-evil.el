@@ -874,6 +874,7 @@ minibuffer."
     (kill-buffer "*Compile-Log*"))
   (0xMF/kill-some-buffers "^\\*Ediff Registry*")
   (0xMF/kill-some-buffers "^\\*dante:")
+  (0xMF/kill-some-buffers "^\\*hs-lint*")
   (0xMF/kill-some-buffers "^\\*Flycheck error messages*")
   (0xMF/kill-some-buffers "^\\*Flymake log*")
   (0xMF/kill-some-buffers "^\\*Help*")
