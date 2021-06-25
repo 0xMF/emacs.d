@@ -1267,13 +1267,14 @@ minibuffer."
       (set-keymap-parent newmap oldmap)
       (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
       (make-local-variable 'minor-mode-overriding-map-alist)
-      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist)
-      (message "f unbound from 'pdf-links-isearch-link"))))
+      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
 (add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
 
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
   (interactive)
+  (pdf-view-mode)
+  (0xMF/settings/pdf-links-minor-mode)
   (evil-set-initial-state 'pdf-view-mode 'emacs)
   (setq blink-cursor-mode nil)
   (add-hook 'pdf-view-mode-hook
@@ -1312,7 +1313,6 @@ minibuffer."
               (local-set-key (kbd "?") 'isearch-backward)
               (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
               (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))))
-(0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
 (require 'powerline)
