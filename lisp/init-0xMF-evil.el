@@ -244,6 +244,8 @@
   (dolist (map (list vertico-map))
     (local-unset-key (kbd  "C-<return>"))
     (define-key map [tab] 'vertico-insert)
+    (define-key map (kbd "C-l") 'vertico-insert)
+    (define-key map (kbd "<return>") 'vertico-exit)
     (define-key map (kbd "C-<return>") 'vertico-exit)
     (define-key map (kbd "M-<return>") 'vertico-exit)))
 (add-hook 'vertico-mode-hook '0xMF/settings/vertico)
