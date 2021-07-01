@@ -1157,6 +1157,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
 (defun 0xMF/settings/vi ()
   "My Vi settings."
   ;; jump j/k always even in visual mode
+  (interactive)
   (turn-on-evil-mode)
   (dolist (map  (list evil-normal-state-map))
     (define-key map (kbd "j") 'evil-next-visual-line)
@@ -1175,6 +1176,8 @@ Turn on spell check automatically; maketext wrap at 81; and make
     (define-key map (kbd "C-p") 'previous-buffer)
     (define-key map (kbd "C-r") 'undo-fu-only-redo))
 
+  (define-key minibuffer-local-map [tab] 'vertico-insert)
+  (define-key minibuffer-local-map (kbd "M-<return>") 'vertico-exit)
   (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
@@ -1189,6 +1192,16 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (define-key evil-normal-state-map (kbd "C-k") (lambda () (interactive) (evil-scroll-up nil)))
   ;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
   (global-set-key [?\S- ] 'evil-scroll-page-up))
+
+(defun 0xMF/settings/vertico ()
+  "My setup for vertico-mode."
+  (interactive)
+  (dolist (map (list vertico-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map [tab] 'vertico-insert)
+    (define-key map (kbd "C-<return>") 'vertico-exit)
+    (define-key map (kbd "M-<return>") 'vertico-exit)))
+(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
 
 ;; Credit: [StackOverflow] in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
 (defun save-this-word ()
