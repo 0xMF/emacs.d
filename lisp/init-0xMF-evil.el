@@ -658,6 +658,23 @@ minibuffer."
 
 (load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
 
+;; M-x slime calls sbcl
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(require 'slime-autoloads)
+(setq inferior-lisp-program "sbcl")
+(setq slime-default-lisp 'sbcl)
+(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (set (make-local-variable 'lisp-indent-function)
+                 'common-lisp-indent-function)))
+(put 'lambda 'lisp-indent-function 'defun)
+(put 'while 'lisp-indent-function 1)
+(put 'unless 'lisp-indent-function 1)
+(put 'if 'lisp-indent-function nil)
+(put 'do 'lisp-indent-function 2)
+(put 'do* 'lisp-indent-function 2)
+
 (menu-bar-mode -1)
 
 ;; Using mouse to select and copy text to the clipboard
@@ -734,6 +751,54 @@ minibuffer."
 (add-hook 'ivy-minibuffer-hook '0xMF/settings/ivy-minibuffer)
 (add-hook 'ivy-mode-hook '0xMF/settings/ivy-minibuffer)
 
+(require 'org-present)
+(require 'hide-mode-line)
+(autoload 'org-present "org-present" nil t)
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+                 (org-present-big)
+                 (turn-off-evil-mode)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (local-set-key (kbd "n") 'org-present-next)
+                 (local-set-key (kbd [space]) 'org-present-next)
+                 (local-set-key (kbd "p") 'org-present-prev)
+                 (local-set-key (kbd "q") 'org-present-quit)
+                 (local-set-key (kbd "<") 'org-present-beginning)
+                 (local-set-key (kbd "G") 'org-present-end)
+                 (local-set-key (kbd ">") 'org-present-end)
+                 (dolist (map  (list org-present-mode-map))
+                   (define-key map (kbd "gg")  'org-present-beginning)
+                   (define-key map [backspace] 'org-present-prev)
+                   (define-key map [?\S- ]  'org-present-prev)
+                   (define-key map [up]     'org-present-prev)
+                   (define-key map [down]   'org-present-next))
+                 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+                 (org-present-small)
+                 (local-unset-key (kbd "n"))
+                 (local-unset-key (kbd "p"))
+                 (local-unset-key (kbd "G"))
+                 (turn-on-evil-mode)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (hide-mode-line-mode -1)
+                 (org-present-read-write)))))
+
+(add-hook 'org-present-mode-hook #'hide-mode-line-mode)
+
+(setq counsel-find-file-ignore-regexp (concat "\\(.~undo-tree~\\|"
+                                              ".desktop\\|"
+                                              ".git\\|"
+                                              ".historian\\|"
+                                              ".lock\\|"
+                                              ".*.fasl\\|"
+                                              ".*~\\|"
+                                              "#*#\\)"))
+
 (defun 0xMF/toggle-browser-eww ()
   "Toggle between eww and chromium as default browser for html files."
   (interactive)
@@ -797,18 +862,18 @@ minibuffer."
   (font-lock-fontify-buffer))
 
 (defun 0xMF/settings/orgmode ()
-"My Org+Evil settings.
-  Turn on spell check automatically; maketext wrap at 81; and make
-  'org-mode' default for scratch (new) buffers."
-(interactive)
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message
-      (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
-(org-bullets-mode 1)
-(evil-define-key 'normal org-mode-map [tab] #'org-cycle)
-(evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
-(turn-on-flyspell)
-(set-fill-column 81))
+  "My Org+Evil settings.
+Turn on spell check automatically; maketext wrap at 81; and make
+'org-mode' default for scratch (new) buffers."
+  (interactive)
+  (setq initial-major-mode 'org-mode)
+  (setq initial-scratch-message
+        (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+  (org-bullets-mode 1)
+  (evil-define-key 'normal org-mode-map [tab] #'org-cycle)
+  (evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
+  (turn-on-flyspell)
+  (set-fill-column 81))
 (add-hook 'org-mode-hook '0xMF/settings/orgmode)
 
 (defun 0xMF/settings/textmode ()
