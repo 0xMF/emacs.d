@@ -188,7 +188,7 @@
                     "." 'org-tags-view
                     "\\" 'org-match-sparse-tree)
 
-;; bind a key in multiple states
+;;"Bind keys in multiple states of Org-mode."
 (general-define-key :keymaps 'org-mode-map
                     :states '(insert emacs)
                     "<tab>" 'org-cycle)
@@ -532,8 +532,6 @@ minibuffer."
 
 ;; Use bullets (default if uncommented)
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
 (require 'org-tempo)
 
 (defun kill-misc-buffers()
@@ -546,9 +544,6 @@ minibuffer."
 
 (evil-define-key 'insert org-mode-map (kbd "C-<tab>") #'tab-to-tab-stop)
 
-;; Yup we want spell check to be turned on automatically in org mode and text wrap at 81.
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-(add-hook 'org-mode-hook '(lambda() (set-fill-column 81)))
 
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)
@@ -580,10 +575,6 @@ minibuffer."
 
 (load-if-file-exists "~/.emacs.d/lisp/secrets.el")
 (load-if-file-exists "~/quicklisp/clhs-use-local.el")
-
-;; wrap lines (hard return) around column 81
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'text-mode-hook '(lambda() (set-fill-column 81)))
 
 ;; M-x slime calls sbcl
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
@@ -747,7 +738,6 @@ minibuffer."
                                               ".*.fasl\\|"
                                               ".*~\\|"
                                               "#*#\\)"))
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (defun 0xMF/toggle-browser-eww ()
   "Toggle between eww and chromium as default browser for html files."
@@ -801,11 +791,33 @@ With a prefix argument,the date is inserted without the day of the week."
   (message "added settings for calendar-mode"))
 
 (defun 0xMF/settings/orgmode ()
-  "My Orgmode settings."
-  ;; make org-mode default for scratch (new) buffers
+  "My Org+Evil settings.
+Turn on spell check automatically; maketext wrap at 81; and make
+'org-mode' default for scratch (new) buffers."
+  (interactive)
   (setq initial-major-mode 'org-mode)
   (setq initial-scratch-message
-        (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n")))
+        (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+  (org-bullets-mode 1)
+  (evil-define-key 'normal org-mode-map [tab] #'org-cycle)
+  (evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
+  (turn-on-flyspell)
+  (set-fill-column 81))
+(add-hook 'org-mode-hook '0xMF/settings/orgmode)
+
+(defun 0xMF/settings/textmode ()
+  "Wrap lines (hard return) around column 81."
+  (interactive)
+  (turn-on-auto-fill)
+  (set-fill-column 81)
+  (turn-on-visual-line-mode))
+(add-hook 'text-mode-hook '0xMF/settings/textmode)
+
+(defun 0xMF/settings/wrap-line-length (textwidth)
+  "Wrap lines (hard return) around TEXTWIDTH."
+  (interactive "nEnter text width for wrapping: ")
+  (set-fill-column textwidth)
+  (turn-on-auto-fill))
 
 (defun 0xMF/orgmode-remove-tag (tag)
   "Remove TAG from line."
