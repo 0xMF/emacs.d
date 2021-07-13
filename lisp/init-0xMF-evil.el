@@ -251,6 +251,8 @@
 
   (when (boundp 'company-mode-map)
     (define-key company-active-map [tab] 'company-complete-common))
+  (dolist (map  (list company-active-map))
+    (define-key map (kbd "<tab>") 'company-complete-common))
 
   (dolist (map  (list minibuffer-local-isearch-map))
     (define-key map (kbd "n") 'isearch-printing-char))
