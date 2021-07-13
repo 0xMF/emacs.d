@@ -116,12 +116,12 @@
                     "n" 'next-buffer
                     "N" 'other-window
                     "t" 'whitespace-mode
-                    "o" 'other-window
-                    "O" #'(lambda ()
+                    "o" #'(lambda ()
                             (interactive)
                             (other-window 1)
                             (unless (one-window-p)
                               (delete-other-windows)))
+                    "O" 'org-open-at-point
                     "p" 'previous-buffer
                     ;; "P" 'other-window
                     "r" 'evil-window-rotate-upwards
@@ -132,6 +132,23 @@
                     "W" 'delete-window
                     "0" 'delete-window
                     "1" 'delete-window)
+(general-define-key :prefix "b"
+                    "a" 'describe-bindings
+                    "b" 'evil-scroll-page-up
+                    "c" 'yank
+                    "d" 'org-time-stamp-inactive
+                    "D" 'org-time-stamp
+                    "f" 'markdown-follow-thing-at-point
+                    "h" 'previous-buffer
+                    "j" 'next-buffer
+                    "l" 'list-buffers
+                    "n" 'next-buffer
+                    "o" 'org-open-at-point
+                    "p" 'previous-buffer
+                    "r" '0xMF/reset
+                    "t" '(lambda () (interactive) (kill-buffer)(delete-window))
+                    "T" 'sanityinc/toggle-delete-other-windows
+                    "x" 'evil-delete)
 
 (general-define-key :prefix "z"
                     "b" 'paredit-forward-barf-sexp
@@ -157,7 +174,7 @@
 (general-define-key :prefix 0xMF-leader1
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
-                    "B" 'switch-to-buffer
+                    "b" 'switch-to-buffer
                     "c" 'comment-region
                     "C" 'org-capture
                     "d" 'insdate-insert-current-date
@@ -165,7 +182,7 @@
                     "e" 'eval-last-sexp
                     "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
                     "f" 'set-fill-column
-                    "F" 'fill-paragraph
+                    "F" 'file-reload ; 'fill-paragraph
                     "g" 'magit-status
                     "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
@@ -181,6 +198,7 @@
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
+                    "t" '0xMF/settings/theme
                     "T" 'org-set-tags
                     "u" 'undo-tree-undo
                     "v" '0xMF/vi
@@ -547,6 +565,13 @@ minibuffer."
 (require 'powerline)
 (require 'smart-mode-line)
 (require 'smart-mode-line-powerline-theme)
+(setq powerline-arrow-shape 'arrow)
+(powerline-vim-theme)
+(setq sml/theme 'powerline)
+(setq sml/no-confirm-load-theme t)
+(setf rm-blacklist "")
+(display-time-mode t)
+(sml/setup)
 (setq sml/no-confirm-load-theme t)
 (setq sml/theme 'powerline)
 
@@ -584,6 +609,14 @@ minibuffer."
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
+
+;; elm-mode
+(setq elm-interactive-command '("elm" "repl")
+      elm-reactor-command '("elm" "reactor")
+      elm-reactor-arguments '("--port" "8000")
+      elm-compile-command '("elm" "make")
+      elm-compile-arguments '("--output=elm.js" "--debug")
+      elm-package-command '("elm" "package"))
 
 ;;----------------------------------------------------------------------------
 ;; Other misc. yet imp stuff goes here. Credit: technomancy/better-defaults
@@ -740,6 +773,7 @@ minibuffer."
       (load-file FILE)))
 
 (load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
+(load-if-file-exists (expand-file-name "~/.comp.misc/lisp/quicklisp/clhs-use-local.el"))
 
 ;; M-x slime calls sbcl
 (load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
@@ -782,6 +816,8 @@ minibuffer."
  ((member "DejaVu Sans Mono" (font-family-list))
   (set-frame-font "DejaVu Sans Mono-10")))
 
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
+(setq exec-path (append exec-path '("~/bin")))
 (setq-default major-mode 'org-mode)
 
 (unless (version<= emacs-version "25")
@@ -963,8 +999,8 @@ minibuffer."
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
-  Default does not OMIT-DAY-OF-WEEK-P.
-  With a prefix argument,the date is inserted without the day of the week."
+Default does not OMIT-DAY-OF-WEEK-P.
+With a prefix argument,the date is inserted without the day of the week."
   (interactive "P*")
   (insert (calendar-date-string (calendar-current-date) nil
                                 omit-day-of-week-p)))
