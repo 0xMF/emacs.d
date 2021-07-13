@@ -1183,6 +1183,9 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
+  (dolist (map  (list company-active-map))
+    (define-key map (kbd "<tab>") 'company-complete-common))
+
   (dolist (map  (list minibuffer-local-isearch-map))
     (define-key map (kbd "n") 'isearch-printing-char))
 
@@ -1453,7 +1456,7 @@ minibuffer."
 (global-set-key (kbd "C-<prior>") 'previous-buffer)
 (global-set-key (kbd "C-<next>") 'next-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "<tab>") 'tab-to-tab-stop)
+;;(global-set-key (kbd "<tab>") 'tab-to-tab-stop)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
