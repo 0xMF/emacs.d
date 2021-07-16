@@ -479,6 +479,18 @@ minibuffer."
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
+;; yes to powerline on a smart-mode-line
+(require 'powerline)
+(require 'smart-mode-line)
+(require 'smart-mode-line-powerline-theme)
+(setq powerline-arrow-shape 'arrow)
+(powerline-vim-theme)
+(setq sml/theme 'powerline)
+(setq sml/no-confirm-load-theme t)
+(setf rm-blacklist "")
+(display-time-mode t)
+(sml/setup)
+
 
 ;;----------------------------------------------------------------------------
 ;; Language mode settings
@@ -841,6 +853,7 @@ minibuffer."
 (add-hook 'pdf-view-mode-hook
           (lambda ()
             (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+ 
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
