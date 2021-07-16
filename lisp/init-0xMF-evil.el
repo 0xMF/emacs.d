@@ -986,7 +986,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
   "Remove all kinds of needless buffers."
   (0xMF/kill-some-buffers "^\\Diary")
   (0xMF/kill-some-buffers "^\\*Aprops*")
-  (mapc (lambda (buffer)
+  (mapc #'(lambda (buffer)
           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
             (kill-buffer buffer))) (buffer-list))
   (0xMF/kill-some-buffers "^\\*Packages*")
