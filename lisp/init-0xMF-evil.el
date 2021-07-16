@@ -729,6 +729,10 @@ minibuffer."
 (add-to-list 'evil-emacs-state-modes 'calendar-mode 'package-menu-mode)
 (evil-set-initial-state 'calendar-mode 'emacs)
 (evil-set-initial-state 'package-menu-mode 'emacs)
+(evil-set-initial-state 'pdf-view-mode 'emacs)
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
