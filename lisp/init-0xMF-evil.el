@@ -846,18 +846,18 @@ minibuffer."
   (font-lock-fontify-buffer))
 
 (defun 0xMF/settings/orgmode ()
-  "My Org+Evil settings.
+"My Org+Evil settings.
 Turn on spell check automatically; maketext wrap at 81; and make
 'org-mode' default for scratch (new) buffers."
-  (interactive)
-  (setq initial-major-mode 'org-mode)
-  (setq initial-scratch-message
-        (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
-  (org-bullets-mode 1)
-  (evil-define-key 'normal org-mode-map [tab] #'org-cycle)
-  (evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
-  (turn-on-flyspell)
-  (set-fill-column 81))
+(interactive)
+(setq initial-major-mode 'org-mode)
+(setq initial-scratch-message
+      (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+(org-bullets-mode 1)
+(evil-define-key 'normal org-mode-map [tab] #'org-cycle)
+(evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
+(turn-on-flyspell)
+(set-fill-column 81))
 (add-hook 'org-mode-hook '0xMF/settings/orgmode)
 
 (defun 0xMF/settings/textmode ()
