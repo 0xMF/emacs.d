@@ -885,6 +885,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (0xMF/kill-some-buffers "^\\*PP Eval Output*")
   (0xMF/kill-some-buffers "^\\*Outline ")
   (0xMF/kill-some-buffers "^\\*WoMan-Log*")
+  (0xMF/kill-some-buffers "^\\*Warnings*")
   (0xMF/kill-some-buffers "^\\*cabal")
   (0xMF/kill-some-buffers "^\\*compilation*")
   (0xMF/kill-some-buffers "^\\*dante:")
