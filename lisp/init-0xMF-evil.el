@@ -91,14 +91,14 @@
 (setq general-default-keymaps 'evil-normal-state-map)
 
 ;; bind j and k in normal state globally
-(general-define-key "j" 'evil-next-line
-                    "k" 'evil-previous-line
+(general-define-key "j" 'evil-next-visual-line
+                    "k" 'evil-previous-visual-line
                     "SPC" 'evil-scroll-page-down
                     "DEL" 'evil-scroll-page-up)
 
 ;; bind wm and wc
 (general-define-key :prefix "w"
-                    "a" 'beginning-of-line
+                    "a" 'org-toggle-link-display ; 'beginning-of-line
                     "c" 'whitespace-cleanup
                     "d" #'(lambda ()
                             (interactive)
