@@ -1600,6 +1600,7 @@ minibuffer."
             (local-set-key (kbd "j") 'next-line)
             (local-set-key (kbd "k") 'previous-line)
             (local-set-key (kbd "l") 'right-char)
+            (local-set-key (kbd "<return>") 'Info-follow-nearest-node)
             (dolist (map  (list Info-mode-map))
               (define-key map (kbd "n") 'Info-forward-node)
               (define-key map (kbd "p") 'Info-backward-node)
