@@ -18,8 +18,8 @@
 (setq 0xMF-required-packages '(evil evil-collection
                                     fill-column-indicator general go-mode haskell-mode hide-mode-line
                                     hindent org-beautify-theme org-bullets org-caldav org-edna
-                                    org-gcal org-gtd org-noter-pdftools org-pdftools org-plus-contrib
-                                    org-present org-static-blog powerline racket-mode smart-mode-line
+                                    org-gcal org-gtd org-noter-pdftools org-pdftools org-present
+                                    org-static-blog powerline racket-mode smart-mode-line
                                     smart-mode-line-powerline-theme ssh-agency undo-fu use-package
                                     yafolding))
 (dolist (package 0xMF-required-packages)
@@ -586,7 +586,7 @@ minibuffer."
 (require 'slime-autoloads)
 (setq inferior-lisp-program "sbcl")
 (setq slime-default-lisp 'sbcl)
-(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
+(setq slime-contribs '(slime-scratch slime-editing-commands))
 (add-hook 'lisp-mode-hook
           (lambda ()
             (set (make-local-variable 'lisp-indent-function)
