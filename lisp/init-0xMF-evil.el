@@ -26,6 +26,10 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+(require 'exec-path-from-shell)
+(setq exec-path-from-shell-arguments nil)
+(exec-path-from-shell-initialize)
+
 ;; disable cl-lib deprecated warnings
 (setq byte-compile-warnings '(cl-functions))
 
