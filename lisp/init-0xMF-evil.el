@@ -486,6 +486,8 @@ minibuffer."
       (local-unset-key (kbd "l"))
       (define-key map (kbd "l") 'image-forward-hscroll)))
   (internal-show-cursor nil nil))
+  (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
@@ -903,6 +905,7 @@ minibuffer."
 (add-hook 'pdf-view-mode-hook
           (lambda ()
             (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+
 
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
