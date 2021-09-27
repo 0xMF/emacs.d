@@ -1538,11 +1538,12 @@ minibuffer."
       (load-file FILE)))
 
 (load-if-file-exists "~/.emacs.d/lisp/secrets.el")
-(load-if-file-exists "~/quicklisp/clhs-use-local.el")
+(load-if-file-exists "~/comp.misc/lisp/quicklisp/clhs-use-local.el")
 
 ;; M-x slime calls sbcl
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(load (expand-file-name "~/comp.misc/lisp/quicklisp/slime-helper.el"))
 (require 'slime-autoloads)
+;; Replace "sbcl" with the path to your implementation
 (setq inferior-lisp-program "sbcl")
 (setq slime-default-lisp 'sbcl)
 (setq slime-contribs '(slime-scratch slime-editing-commands))
