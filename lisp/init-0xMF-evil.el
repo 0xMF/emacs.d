@@ -587,9 +587,10 @@ minibuffer."
 
 ;; M-x slime calls sbcl
 (load (expand-file-name "~/comp.misc/lisp/quicklisp/slime-helper.el"))
-(require 'slime-autoloads)
 ;; Replace "sbcl" with the path to your implementation
 (setq inferior-lisp-program "sbcl")
+
+(require 'slime-autoloads)
 (setq slime-default-lisp 'sbcl)
 (setq slime-contribs '(slime-scratch slime-editing-commands))
 (add-hook 'lisp-mode-hook
