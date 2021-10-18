@@ -84,8 +84,8 @@
 (setq general-default-keymaps 'evil-normal-state-map)
 
 ;; bind j and k in normal state globally
-(general-define-key "j" 'evil-next-visual-line
-                    "k" 'evil-previous-visual-line
+(general-define-key "j" 'evil-next-line
+                    "k" 'evil-previous-line
                     "SPC" 'evil-scroll-page-down
                     "DEL" 'evil-scroll-page-up)
 
@@ -169,7 +169,7 @@
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/theme
                     "P" '0xMF/settings/pdf-view ;;start-slideshw ;;'org-present
-                    "q" 'fill-paragraph
+                    "q" 'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
@@ -829,7 +829,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
 (defun 0xMF/settings/textmode ()
   "Wrap lines (hard return) around column 81."
   (interactive)
-  (turn-on-auto-fill)
+  (turn-off-auto)
   (set-fill-column 81)
   (turn-on-visual-line-mode))
 (add-hook 'text-mode-hook '0xMF/settings/textmode)
