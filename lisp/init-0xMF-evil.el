@@ -179,6 +179,7 @@
                     "O" 'org-open-at-point
                     "P" '0xMF/settings/show-cursor-toggle
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
+                    "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
                     "T" 'org-set-tags
@@ -864,7 +865,7 @@ minibuffer."
 (add-hook 'pdf-view-mode-hook
           (lambda ()
             (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
- 
+
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
