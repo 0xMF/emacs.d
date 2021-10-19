@@ -1784,7 +1784,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
 (defun 0xMF/settings/textmode ()
   "Wrap lines (hard return) around column 81."
   (interactive)
-  (turn-off-auto)
+  (turn-off-auto-fill)
   (set-fill-column 81)
   (turn-on-visual-line-mode))
 (add-hook 'text-mode-hook '0xMF/settings/textmode)
