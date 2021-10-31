@@ -15,13 +15,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq 0xMF-required-packages '(evil evil-collection
-                                    fill-column-indicator general go-mode haskell-mode hide-mode-line
-                                    hindent org-beautify-theme org-bullets org-caldav org-edna
-                                    org-gcal org-gtd org-noter-pdftools org-pdftools org-plus-contrib
-                                    org-present org-static-blog powerline racket-mode smart-mode-line
-                                    smart-mode-line-powerline-theme ssh-agency undo-fu use-package
-                                    yafolding))
+(setq 0xMF-required-packages '(evil evil-collection fill-column-indicator general go-mode haskell-mode hide-mode-line hindent org-beautify-theme org-bullets org-caldav org-edna org-gcal org-gtd org-noter-pdftools org-pdftools org-plus-contrib org-present org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -386,10 +380,10 @@ minibuffer."
 (require 'powerline)
 (require 'smart-mode-line)
 (require 'smart-mode-line-powerline-theme)
-(setq powerline-arrow-shape 'arrow)
-(powerline-vim-theme)
 (setq sml/theme 'powerline)
 (setq sml/no-confirm-load-theme t)
+(setq powerline-arrow-shape 'arrow)
+(powerline-vim-theme)
 (setf rm-blacklist "")
 (display-time-mode t)
 (sml/setup)
