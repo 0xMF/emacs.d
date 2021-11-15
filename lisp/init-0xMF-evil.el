@@ -15,7 +15,15 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq 0xMF-required-packages '(evil evil-collection fill-column-indicator general go-mode haskell-mode hide-mode-line hindent org-beautify-theme org-bullets org-caldav org-edna org-gcal org-gtd org-noter-pdftools org-pdftools org-plus-contrib org-present org-static-blog powerline racket-mode smart-mode-line smart-mode-line-powerline-theme ssh-agency undo-fu use-package yafolding))
+(setq 0xMF-required-packages '(evil evil-collection
+                                    fill-column-indicator general go-mode
+                                    haskell-mode hide-mode-line hindent
+                                    org-beautify-theme org-bullets org-caldav
+                                    org-edna org-gcal org-gtd org-noter-pdftools
+                                    org-pdftools org-plus-contrib org-present
+                                    org-static-blog powerline racket-mode
+                                    smart-mode-line smart-mode-line-powerline-theme
+                                    ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -87,7 +95,11 @@
 (general-define-key :prefix "w"
                     "a" 'org-toggle-link-display
                     "c" 'whitespace-cleanup
-                    "d" '(lambda () (interactive) (kill-buffer) (unless (one-window-p)(delete-window)))
+                    "d" '(lambda ()
+                           (interactive)
+                           (kill-buffer)
+                           (unless (one-window-p)
+                             (delete-window)))
                     "f" '0xMF/toggle-font-large-normal
                     "|" 'fci-mode
                     "h" 'previous-buffer
@@ -151,7 +163,7 @@
                     "e" 'org-babel-execute-src-block
                     "E" 'org-babel-open-src-block-result
                     "f" 'set-fill-column
-                    "F" 'file-reload
+                    "F" 'fill-paragraph
                     "g" 'magit-status
                     "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
