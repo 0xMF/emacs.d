@@ -1633,8 +1633,6 @@ minibuffer."
 (defun 0xMF/settings/theme ()
   "Bring sanity back to my current theme after changing themes."
   (interactive)
-  (load-theme 'org-beautify)
-  (org-toggle-pretty-entities)
   (let ((bg (face-background 'default)))
     (if (string= 0xMF-current-theme "dark")
         (progn
@@ -1644,6 +1642,7 @@ minibuffer."
           (custom-set-faces '(org-hide ((t (:foreground "#f5f5dc")))))
           (custom-set-faces '(org-macro ((t (:foreground "DarkOliveGreen" :bold t)))))
           (custom-set-faces '(org-table ((t (:foreground "MidnightBlue")))))
+          (load-theme 'blueknight-light)
           (setq 0xMF-current-theme "light"))
         (progn
           (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
@@ -1652,10 +1651,15 @@ minibuffer."
           (custom-set-faces '(org-hide ((t (:foreground "#180248")))))
           (custom-set-faces '(org-table ((t (:foreground "#ebbbff")))))
           (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
+          (load-theme 'blueknight-dark)
           (setq 0xMF-current-theme "dark"))
         (mapcar #'(lambda (f) (set-face-background f bg)
                     (set-border-color bg))
                 '(org-checkbox org-macro org-hide))))
+  (load-theme 'org-beautify)
+  (org-toggle-pretty-entities)
+  (when (string= 0xMF-current-theme "light")
+    (load-theme 'blueknight-light))
   (message "changed to %s mode" 0xMF-current-theme))
 
 (defun 0xMF/settings/ivy-minibuffer ()
