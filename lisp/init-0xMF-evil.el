@@ -531,7 +531,6 @@ minibuffer."
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
-;; yes to powerline on a smart-mode-line
 (require 'powerline)
 (require 'smart-mode-line)
 (require 'smart-mode-line-powerline-theme)
