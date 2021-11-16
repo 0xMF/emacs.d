@@ -21,9 +21,8 @@
                                     org-beautify-theme org-bullets org-caldav
                                     org-edna org-gcal org-gtd org-noter-pdftools
                                     org-pdftools org-plus-contrib org-present
-                                    org-static-blog powerline racket-mode
-                                    smart-mode-line smart-mode-line-powerline-theme
-                                    ssh-agency undo-fu use-package yafolding))
+                                    org-static-blog racket-mode ssh-agency
+                                    undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -388,22 +387,6 @@ minibuffer."
   (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
-(require 'powerline)
-(require 'smart-mode-line)
-(require 'smart-mode-line-powerline-theme)
-(setq sml/no-confirm-load-theme t)
-(setq sml/theme 'powerline)
-
-(defun 0xMF/settings/powerline ()
-  "Set/Reset powerline on a smart-mode-line."
-  (interactive)
-  (powerline-vim-theme)
-  (setf rm-blacklist "")
-  (setq powerline-arrow-shape 'arrow)
-  (display-time-mode t)
-  (sml/setup))
-(0xMF/settings/powerline)
-
 
 ;;----------------------------------------------------------------------------
 ;; Language mode settings
@@ -674,48 +657,6 @@ minibuffer."
   (hide-mode-line-mode (if hide-mode-line-mode -1 +1))
   (unless hide-mode-line-mode
     (redraw-display)))
-
-;; Helpful links:
-;;  https://emacs.stackexchange.com/questions/7748/why-cant-i-use-a-variable-when-defining-the-color-to-draw-a-box-with
-;;  https://ftp.gnu.org/old-gnu/Manuals/elisp-manual-21-2.8/html_node/elisp_634.html
-(defvar 0xMF-current-theme "dark" "Value of current theme: dark mode or light.")
-(defun 0xMF/settings/theme ()
-  "Bring sanity back to my current theme after changing themes."
-  (interactive)
-  (let ((bg (face-background 'default)))
-    (if (string= 0xMF-current-theme "dark")
-        (progn
-          (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "NavyBlue" :box `(:line-width -3 :color ,bg :style "released-button"))
-          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#7f0007")))))
-          (custom-set-faces '(org-drawer ((t (:foreground "Wheat" :background "#f5f5dc")))))
-          (custom-set-faces '(org-hide ((t (:foreground "#f5f5dc")))))
-          (custom-set-faces '(org-macro ((t (:foreground "DarkOliveGreen" :bold t)))))
-          (custom-set-faces '(org-table ((t (:foreground "MidnightBlue")))))
-          (load-theme 'blueknight-light)
-          (load-theme 'smart-mode-line-light-powerline)
-          (setq 0xMF-current-theme "light"))
-        (progn
-          (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
-          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#d9d900")))))
-          (custom-set-faces '(org-drawer ((t (:foreground "#270372" :background "#180248")))))
-          (custom-set-faces '(org-hide ((t (:foreground "#180248")))))
-          (custom-set-faces '(org-table ((t (:foreground "#ebbbff")))))
-          (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
-          (setq sml/theme 'dark)
-          (load-theme 'blueknight-dark)
-          (0xMF/settings/powerline)
-          (custom-set-faces '(powerline-active1 ((t (:background "#00346e")))))
-          (custom-set-faces '(powerline-active2 ((t (:background "#003f8e")))))
-          (load-theme 'smart-mode-line-powerline)
-          (setq 0xMF-current-theme "dark"))
-        (mapcar #'(lambda (f) (set-face-background f bg)
-                    (set-border-color bg))
-                '(org-checkbox org-macro org-hide))))
-  (load-theme 'org-beautify)
-  (org-toggle-pretty-entities)
-  (when (string= 0xMF-current-theme "light")
-    (load-theme 'blueknight-light))
-  (message "changed to %s mode" 0xMF-current-theme))
 
 (defun 0xMF/settings/ivy-minibuffer ()
   "Bring sanity back to up/down keybindings."
