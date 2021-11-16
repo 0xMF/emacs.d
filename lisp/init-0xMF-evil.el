@@ -1343,17 +1343,21 @@ minibuffer."
   (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
-;; yes to powerline on a smart-mode-line
 (require 'powerline)
 (require 'smart-mode-line)
 (require 'smart-mode-line-powerline-theme)
-(setq sml/theme 'powerline)
-(setq sml/no-confirm-load-theme t)
-(setq powerline-arrow-shape 'arrow)
-(powerline-vim-theme)
-(setf rm-blacklist "")
-(display-time-mode t)
-(sml/setup)
+
+(defun 0xMF/settings/powerline ()
+  "Set/Reset powerline on a smart-mode-line."
+  (interactive)
+  (setq sml/theme 'powerline)
+  (setq sml/no-confirm-load-theme t)
+  (setq powerline-arrow-shape 'arrow)
+  (powerline-vim-theme)
+  (setf rm-blacklist "")
+  (display-time-mode t)
+  (sml/setup))
+(0xMF/settings/powerline)
 
 
 ;;----------------------------------------------------------------------------
@@ -1643,6 +1647,7 @@ minibuffer."
           (custom-set-faces '(org-macro ((t (:foreground "DarkOliveGreen" :bold t)))))
           (custom-set-faces '(org-table ((t (:foreground "MidnightBlue")))))
           (load-theme 'blueknight-light)
+          (load-theme 'smart-mode-line-light-powerline)
           (setq 0xMF-current-theme "light"))
         (progn
           (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
@@ -1652,6 +1657,8 @@ minibuffer."
           (custom-set-faces '(org-table ((t (:foreground "#ebbbff")))))
           (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
           (load-theme 'blueknight-dark)
+          (0xMF/settings/powerline)
+          (load-theme 'smart-mode-line-light)
           (setq 0xMF-current-theme "dark"))
         (mapcar #'(lambda (f) (set-face-background f bg)
                     (set-border-color bg))
