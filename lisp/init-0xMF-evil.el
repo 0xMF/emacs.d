@@ -174,7 +174,7 @@
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/theme
                     "P" '0xMF/settings/pdf-view ;;start-slideshw ;;'org-present
-                    "q" 'visual-line-mode ;;fill-paragraph
+                    "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
