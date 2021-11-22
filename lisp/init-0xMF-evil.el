@@ -1162,6 +1162,14 @@ Turn on spell check automatically; maketext wrap at 81; and make
       scroll-conservatively 9999
       scroll-step 1)
 
+(defun 0xMF/settings/slime ()
+  "My slime settings."
+  (interactive)
+  (turn-on-evil-mode)
+  (dolist (map (list slime-repl-mode-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map (kbd "C-<return>") 'slime-repl-newline-and-indent)))
+
 (defun 0xMF/settings/vi ()
   "My Vi settings."
   ;; jump j/k always even in visual mode
