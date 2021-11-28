@@ -26,7 +26,8 @@
 ;; force TLS1.3
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 (load "~/.emacs.d/init")
 
@@ -50,7 +51,7 @@
                                     magit-todos marginalia markdown-mode merlin merlin-company merlin-eldoc mmm-mode
                                     mode-line-bell move-dup multiple-cursors nginx-mode nim-mode nix-buffer nix-mode nix-sandbox
                                     nixos-options nixpkgs-fmt orderless org org-beautify-theme org-bullets org-caldav
-                                    org-cliplink org-gcal org-gtd org-noter-pdftools org-plus-contrib org-pomodoro org-present
+                                    org-cliplink org-gcal org-gtd org-noter-pdftools org-pomodoro org-present
                                     org-static-blog origami ox-asciidoc page-break-lines paredit php-mode pip-requirements
                                     powerline prettier-js projectile projectile-rails psc-ide psci purescript-mode racer
                                     racket-mode rainbow-delimiters rainbow-mode reformatter regex-tool restclient robe rspec-mode
