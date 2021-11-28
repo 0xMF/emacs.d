@@ -340,6 +340,7 @@ minibuffer."
 (eval-after-load "org" '(require 'htmlize))
 
 (require 'use-package)
+(pdf-tools-install)
 (use-package org-pdftools
   :hook (org-load . org-pdftools-setup-link))
 (pdf-tools-install)
