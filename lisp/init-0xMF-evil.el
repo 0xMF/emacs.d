@@ -20,8 +20,7 @@
                                     haskell-mode hide-mode-line hindent
                                     org-beautify-theme org-bullets org-caldav
                                     org-edna org-gcal org-gtd org-noter-pdftools
-                                    org-pdftools org-plus-contrib org-present
-                                    org-static-blog racket-mode ssh-agency
+                                    org-pdftools org-present racket-mode ssh-agency
                                     undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
@@ -308,6 +307,7 @@ minibuffer."
 (eval-after-load "org" '(require 'org-pdftools))
 (eval-after-load "org" '(require 'htmlize))
 
+(require 'use-package)
 (pdf-tools-install)
 (use-package org-pdftools
   :hook (org-load . org-pdftools-setup-link))
