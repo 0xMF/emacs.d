@@ -91,13 +91,14 @@
 
 ;; bind wm and wc
 (general-define-key :prefix "w"
-                    "a" 'org-toggle-link-display
+                    "a" 'beginning-of-line
                     "c" 'whitespace-cleanup
                     "d" '(lambda ()
                            (interactive)
                            (kill-buffer)
                            (unless (one-window-p)
                              (delete-window)))
+                    "e" 'end-of-line
                     "f" '0xMF/toggle-font-large-normal
                     "|" 'fci-mode
                     "h" 'previous-buffer
@@ -116,7 +117,8 @@
                     "R" 'evil-window-rotate-downwards
                     "u" 'winner-undo
                     "U" 'winner-redo
-                    "w" 'delete-other-windows
+                    "w" 'beginning-of-line
+                    "W" 'delete-other-windows
                     "0" 'delete-window
                     "1" 'delete-window)
 (general-define-key :prefix "b"
