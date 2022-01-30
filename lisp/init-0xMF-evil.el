@@ -19,8 +19,8 @@
                                     fill-column-indicator general go-mode
                                     haskell-mode hide-mode-line hindent
                                     org-beautify-theme org-bullets org-caldav
-                                    org-edna org-gcal org-gtd org-noter-pdftools
-                                    org-pdftools org-present racket-mode ssh-agency
+                                    org-gcal org-noter-pdftools org-pdftools
+                                    org-present racket-mode ssh-agency
                                     undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
@@ -141,6 +141,8 @@
 (general-define-key :prefix "z"
                     "b" 'paredit-forward-barf-sexp
                     "B" 'paredit-backward-barf-sexp
+                    "c" 'comment-or-uncomment-region
+                    "e" 'eval-region
                     "d" #'yafolding-toggle-all
                     "f" #'yafolding-toggle-element
                     "k" #'0xMF/shrink
@@ -148,8 +150,8 @@
                     "o" 'org-open-at-point
                     "s" 'paredit-forward-slurp-sexp
                     "S" 'paredit-backward-slurp-sexp
-                    "x" '0xMF/orgmode-remove-tag
-                    "t" 'save-this-word)
+                    "t" 'save-this-word
+                    "x" '0xMF/orgmode-remove-tag)
 
 ;; named prefix key allows ; to be used a mapper for my keybindings
 (setq 0xMF-leader1 ";")
@@ -157,7 +159,7 @@
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
                     "b" 'switch-to-buffer
-                    "C" 'org-capture
+                    "c" 'org-capture
                     "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
                     "e" 'org-babel-execute-src-block
