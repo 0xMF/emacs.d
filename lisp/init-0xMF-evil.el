@@ -1179,6 +1179,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (interactive)
   (turn-on-evil-mode)
   (dolist (map  (list evil-normal-state-map))
+    (define-key map (kbd "b") 'evil-backward-word-begin)
     (define-key map (kbd "j") 'evil-next-visual-line)
     (define-key map (kbd "k") 'evil-previous-visual-line)
     (define-key map (kbd "p") 'evil-paste-after)
