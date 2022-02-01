@@ -20,8 +20,7 @@
                                     haskell-mode hide-mode-line hindent
                                     org-beautify-theme org-bullets org-caldav
                                     org-gcal org-noter-pdftools org-pdftools
-                                    org-present racket-mode ssh-agency
-                                    undo-fu use-package yafolding))
+                                    racket-mode ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
