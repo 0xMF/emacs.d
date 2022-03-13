@@ -1,4 +1,3 @@
-
 # A reasonable Emacs config for a seasoned vi/Vim user
 
 This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor. It tweaks [Steve
