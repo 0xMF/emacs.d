@@ -1090,7 +1090,8 @@ Turn on spell check automatically; maketext wrap at 81; and make
                     "c" 'comment-or-uncomment-region
                     "e" 'eval-region
                     "d" #'yafolding-toggle-all
-                    "f" #'yafolding-toggle-element
+                    "f" 'paredit-forward-slurp-sexp
+                    "F" 'paredit-backward-slurp-sexp
                     "k" #'0xMF/shrink
                     "g" 'save-this-word
                     "o" 'org-open-at-point
@@ -1098,7 +1099,8 @@ Turn on spell check automatically; maketext wrap at 81; and make
                     "s" 'paredit-forward-slurp-sexp
                     "S" 'paredit-backward-slurp-sexp
                     "t" 'save-this-word
-                    "x" '0xMF/orgmode-remove-tag)
+                    "x" '0xMF/orgmode-remove-tag
+                    "y" #'yafolding-toggle-element)
 
 ;; named prefix key allows ; to be used a mapper for my keybindings
 (setq 0xMF-leader1 ";")
@@ -1204,7 +1206,13 @@ Turn on spell check automatically; maketext wrap at 81; and make
 
   (define-key evil-normal-state-map (kbd "C-k") (lambda () (interactive) (evil-scroll-up nil)))
   ;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
-  (global-set-key [?\S- ] 'evil-scroll-page-up))
+  (global-set-key [?\S- ] 'evil-scroll-page-up)
+
+  ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
+  (evil-define-key nil evil-ex-map "wq" '(lambda ()
+                                           (interactive)
+                                           (save-current-buffer)
+                                           (kill-current-buffer))))
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
