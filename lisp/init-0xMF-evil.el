@@ -1064,7 +1064,11 @@ Turn on spell check automatically; maketext wrap at 81; and make
                     "N" 'other-window
                     "t" 'whitespace-mode
                     "o" 'other-window
-                    "O" 'org-open-at-point
+                    "O" '(lambda ()
+                           (interactive)
+                           (other-window 1)
+                           (unless (one-window-p)
+                             (delete-other-windows)))
                     "p" 'previous-buffer
                     ;; "P" 'other-window
                     "r" 'evil-window-rotate-upwards
@@ -1086,6 +1090,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
                     "k" #'0xMF/shrink
                     "g" 'save-this-word
                     "o" 'org-open-at-point
+                    "O" 'org-open-at-point
                     "s" 'paredit-forward-slurp-sexp
                     "S" 'paredit-backward-slurp-sexp
                     "t" 'save-this-word
