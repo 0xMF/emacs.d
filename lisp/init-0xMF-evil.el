@@ -174,13 +174,11 @@
                     "n" 'display-line-numbers-mode
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "p" '0xMF/settings/theme
                     "P" '0xMF/settings/pdf-view ;;start-slideshw ;;'org-present
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
-                    "t" '0xMF/settings/theme
                     "T" 'org-set-tags
                     "u" 'undo-tree-undo
                     "v" '0xMF/vi
