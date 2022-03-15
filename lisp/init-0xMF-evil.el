@@ -18,9 +18,10 @@
 (setq 0xMF-required-packages '(evil evil-collection
                                     fill-column-indicator general go-mode
                                     haskell-mode hide-mode-line hindent
-                                    org-beautify-theme org-bullets org-caldav
-                                    org-gcal org-noter-pdftools org-pdftools
-                                    racket-mode ssh-agency undo-fu use-package yafolding))
+                                    keychain-environment org-beautify-theme
+                                    org-bullets org-caldav org-gcal
+                                    org-noter-pdftools org-pdftools racket-mode
+                                    ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -39,6 +40,9 @@
 
 ;; prefer newer source instead of older bytecode
 (setq load-prefer-newer t)
+
+(keychain-refresh-environment)
+
 
 ;; use Noto Color Emoji for emoji support
 (when (member "Noto Color Emoji" (font-family-list))
