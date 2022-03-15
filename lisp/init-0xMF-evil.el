@@ -157,7 +157,7 @@
 (general-define-key :prefix 0xMF-leader1
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
-                    "B" 'switch-to-buffer
+                    "b" 'switch-to-buffer
                     "c" 'comment-region
                     "C" 'org-capture
                     "d" 'insdate-insert-current-date
