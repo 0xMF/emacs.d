@@ -1113,7 +1113,8 @@ Turn on spell check automatically; maketext wrap at 81; and make
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
                     "b" 'switch-to-buffer
-                    "c" 'org-capture
+                    "c" 'comment-region
+                    "C" 'org-capture
                     "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
                     "e" 'org-babel-execute-src-block
