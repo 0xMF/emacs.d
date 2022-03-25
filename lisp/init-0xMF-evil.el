@@ -1212,7 +1212,11 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (evil-define-key nil evil-ex-map "wq" '(lambda ()
                                            (interactive)
                                            (save-current-buffer)
-                                           (kill-current-buffer))))
+                                           (kill-current-buffer)))
+  (evil-define-key nil evil-ex-map "q" '(lambda ()
+                                          (interactive)
+                                          (save-current-buffer)
+                                          (kill-current-buffer))))
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
