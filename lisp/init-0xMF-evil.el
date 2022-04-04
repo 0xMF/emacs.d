@@ -20,8 +20,9 @@
                                     haskell-mode hide-mode-line hindent
                                     keychain-environment org-beautify-theme
                                     org-bullets org-caldav org-gcal
-                                    org-noter-pdftools org-pdftools racket-mode
-                                    ssh-agency undo-fu use-package yafolding))
+                                    org-noter-pdftools org-pdftools
+                                    org-present racket-mode ssh-agency
+                                    undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -591,27 +592,7 @@ minibuffer."
   (if (file-readable-p FILE)
       (load-file FILE)))
 
-(load-if-file-exists "~/.emacs.d/lisp/secrets.el")
-(load-if-file-exists "~/comp.misc/lisp/quicklisp/clhs-use-local.el")
-
-;; M-x slime calls sbcl
-(load (expand-file-name "~/comp.misc/lisp/quicklisp/slime-helper.el"))
-;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "sbcl")
-
-(require 'slime-autoloads)
-(setq slime-default-lisp 'sbcl)
-(setq slime-contribs '(slime-scratch slime-editing-commands))
-(add-hook 'lisp-mode-hook
-          (lambda ()
-            (set (make-local-variable 'lisp-indent-function)
-                 'common-lisp-indent-function)))
-(put 'lambda 'lisp-indent-function 'defun)
-(put 'while 'lisp-indent-function 1)
-(put 'unless 'lisp-indent-function 1)
-(put 'if 'lisp-indent-function nil)
-(put 'do 'lisp-indent-function 2)
-(put 'do* 'lisp-indent-function 2)
+(load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
 
 (menu-bar-mode -1)
 
