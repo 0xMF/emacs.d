@@ -28,12 +28,6 @@ Unfortunately this means I cannot provide *any* support for *any* Emacs or Elisp
 Experienced Emacs users may find my use of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el) in all their awesome glory appalling.
 Whereas experienced vi/Vim users may find some of my keybinding choices horribly confusing.
 At times I default to sticking with the Emacs keybindings and Emacs way of doing things.
-=======
-Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite. I often use `git push -f` to my publicly available repos. I want a linear git commit history without needless commits and I often do all my work on master alone. Gasp! This means I may squash, remove, or amend commits and their contents at any time (and I often do so).
-
-As of July 2022, I use Emacs daily. This means I know more Emacs and Elisp than when I started (late 2017). Many of my edits are in [init-0xMF-evil.el](lisp/init-0xMF-evil.el). As my knowledge of both Emacs and Elisp is limited, I tend to use the first edit that works. Unfortunately this means I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
-
-This repo tracks upstream and applies all my changes (using `git push -f`) on top of upstream (to maintain a linear commit history on this repo) meaning the side-effect of using `git push -f` *always* happens whenever conflict changes are brought in from upstream.
 
 This repo tracks upstream and applies all my changes (using `git push -f`) on top of upstream (to maintain a linear commit history on this repo) meaning the side-effect of using `git push -f` *always* happens whenever conflict changes are brought in from upstream.
 
