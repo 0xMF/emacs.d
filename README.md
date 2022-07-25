@@ -37,10 +37,6 @@ This repo tracks upstream and applies all my changes (using `git push -f`) on to
 maintain a linear commit history on this repo) meaning the side-effect of using `git push -f`
 *always* happens whenever conflict changes are brought in from upstream.
 
-As this repo tracks upstream and applies all changes on top of upstream (to maintain a linear
-commit history on this repo) meaning the side-effect of using `git push -f` *always* happens
-whenever conflict changes are brought in from upstream.
-
 Expert and experienced Emacs users may find my use [Evil](https://github.com/emacs-evil/evil)
 mode and [General](https://github.com/noctuid/general.el) in all their glory appalling, so this
 repo would not be their ideal choice. In addition, experienced vi and Vim users may find my
