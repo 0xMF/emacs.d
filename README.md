@@ -19,19 +19,19 @@ Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcel
 
 # Warning
 
-Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite because I
-use `git push -f` to my publicly available repos because I want a linear git commit history
-without needless commits. I often do all my work on master alone (Gasp!). This means I may squash,
-remove, or amend commits and their contents at any time.
+Unlike Purcell whose `emacs.d` repo is dependable, this repo may be the exact opposite. I often use
+`git push -f` to my publicly available repos. I want a linear git commit history without needless
+commits and I often do all my work on master alone. Gasp! This means I may squash, remove, or amend
+commits and their contents at any time (and I often do so).
 
-As of July 2022, I use Emacs daily, which means I know a bit more Emacs and Elisp than when I
-started. All my vi/Vim setup is in [init-0xMF-evil.el](lisp/init-0xMF-evil.el) but my knowledge of
-both Emacs and Elisp is limited. I use the first change that works. Unfortunately, I cannot provide
-*any* support for *any* Emacs or Elisp feature related to this setup.
+As of July 2022, I use Emacs daily. This means I know more Emacs and Elisp than when I started
+(late 2017). Many of my edits are in [init-0xMF-evil.el](lisp/init-0xMF-evil.el). As my knowledge
+of both Emacs and Elisp is limited, I tend to use the first edit that works. Unfortunately this
+means I cannot provide *any* support for *any* Emacs or Elisp feature related to this setup.
 
-As this repo tracks upstream and applies all changes on top of upstream (to maintain a linear
-commit history on this repo) meaning the side-effect of using `git push -f` *always* happens
-whenever conflict changes are brought in from upstream.
+This repo tracks upstream and applies all my changes (using `git push -f`) on top of upstream (to
+maintain a linear commit history on this repo) meaning the side-effect of using `git push -f`
+*always* happens whenever conflict changes are brought in from upstream.
 
 Expert and experienced Emacs users may find my use [Evil](https://github.com/emacs-evil/evil)
 mode and [General](https://github.com/noctuid/general.el) in all their glory appalling, so this
