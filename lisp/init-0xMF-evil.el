@@ -217,6 +217,14 @@
     (local-unset-key (kbd  "C-<return>"))
     (define-key map (kbd "C-<return>") 'slime-repl-newline-and-indent)))
 
+(defun 0xMF/settings/sly ()
+  "My sly settings."
+  (interactive)
+  (turn-on-evil-mode)
+  (dolist (map (list sly-repl-mode-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map (kbd "C-<return>") 'sly-repl-newline-and-indent)))
+
 (defun 0xMF/settings/vi ()
   "My Vi settings."
   ;; jump j/k always even in visual mode
