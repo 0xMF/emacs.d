@@ -15,10 +15,6 @@ Thanks Steve!
 If you are new to Purcell's setup, read his [README](README_Purcell.md) (archived here since July 2020).
 
 # Warning
-Purcell's `emacs.d` repo proved dependable (logically consistent and remarkably stable) over
-the years I used it. The eye-candy features Purcell keeps adding to his `emacs.d` setup has made
-Emacs truly a delight that I enjoy using. Thanks Steve! If you are new to Purcell's setup, read his
-[README](README_Purcell.md) (archived here since July 2020).
 
 Unlike Purcell whose `emacs.d` repo is dependable, this repo can be and, at times, has been unstable because I value a linear commit history and will use the first Elisp or Emacs settings that work the way I want.
 I track Purcell's upstream repo and apply my own settings to upstream master before merging it back here.
@@ -26,9 +22,9 @@ This means I squash upstream often using `git push -f`.
 Gasp!
 This means I may squash, remove, or amend commits and their contents at any time (and I often do so).
 
+All my vi/Vim related setup is kept in [init-0xMF-evil.el](lisp/init-0xMF-evil.el).
 As of July 2022, I use Emacs daily.
 This means I know more Emacs and Elisp than when I started (late 2017).
-All my vi/Vim related setup is kept in [init-0xMF-evil.el](lisp/init-0xMF-evil.el).
 So while my knowledge of Emacs and Elisp is more than when I began (late 2017) it is still limited.
 I use the first edit that works the way I want Emacs to work like how I use Vim.
 
