@@ -304,6 +304,235 @@
                                          (interactive)
                                          (save-current-buffer)
                                          (kill-current-buffer)))
+(defun 0xMF/settings/ivy-minibuffer ()
+  "Bring sanity back to up/down keybindings."
+  (interactive)
+  (dolist (map  (list ivy-minibuffer-map))
+    (define-key map [up] 'ivy-previous-line)))
+(add-hook 'ivy-minibuffer-hook '0xMF/settings/ivy-minibuffer)
+(add-hook 'ivy-mode-hook '0xMF/settings/ivy-minibuffer)
+
+(defun 0xMF/toggle-browser-eww ()
+  "Toggle between eww and chromium as default browser for html files."
+  (interactive)
+  (setq browse-url-browser-function
+        (if (equal browse-url-browser-function 'eww-browse-url)
+            'browse-url-chromium
+            'eww-browse-url))
+  (message "setting browser to '%s'" browse-url-browser-function))
+
+(setq 0xMF/toggle-font-large-normal nil)
+(defun 0xMF/toggle-font-large-normal ()
+  "Toggle font sizes between large/normal."
+  (interactive)
+  (if (get '0xMF/toggle-font-large-normal 'state)
+      (progn
+        (set-frame-font "Source Code Pro-13:style=Semibold" nil t)
+        (put '0xMF/toggle-font-large-normal 'state nil))
+      (progn
+        (set-frame-font "Source Code Pro-15:style=Semibold" nil t)
+        (put '0xMF/toggle-font-large-normal 'state t)))
+  (message 0xMF/toggle-font-large-normal))
+
+(defun 0xMF/normal-font ()
+  "Increase font size."
+  (interactive)
+  (when (member "Source Code Pro" (font-family-list))
+    (set-frame-font "Source Code Pro-13:style=Semibold" nil t)))
+
+;; ----------------------------------
+;; Calendar setup
+;; avoid evil keybindings in these modes by default
+(require 'calendar)
+
+(add-to-list 'evil-emacs-state-modes 'calendar-mode 'package-menu-mode)
+(evil-set-initial-state 'calendar-mode 'emacs)
+(evil-set-initial-state 'package-menu-mode 'emacs)
+
+(defun insdate-insert-current-date (&optional omit-day-of-week-p)
+  "Insert today's date using the current locale.
+  Default does not OMIT-DAY-OF-WEEK-P.
+  With a prefix argument,the date is inserted without the day of the week."
+  (interactive "P*")
+  (insert (calendar-date-string (calendar-current-date) nil
+                                omit-day-of-week-p)))
+
+(defun 0xMF/settings/calendar-mode ()
+  "My calendar mode settings."
+  (interactive)
+  ;;(local-set-key (kbd "i") 'diary-insert-entry)
+  (message "added settings for calendar-mode"))
+
+(defun 0xMF/settings/orgmode-emphasis-markers-toggle ()
+  "Toggle emphasis markers in current buffer."
+  (interactive)
+  (org-toggle-link-display)
+  (setq org-hide-emphasis-markers (if (eq org-hide-emphasis-markers nil) t nil))
+  (font-lock-fontify-buffer))
+
+(defun 0xMF/settings/orgmode ()
+"My Org+Evil settings.
+  Turn on spell check automatically; maketext wrap at 81; and make
+  'org-mode' default for scratch (new) buffers."
+(interactive)
+(setq initial-major-mode 'org-mode)
+(setq initial-scratch-message
+      (concat "# Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+(org-bullets-mode 1)
+(evil-define-key 'normal org-mode-map [tab] #'org-cycle)
+(evil-define-key 'normal org-mode-map (kbd "S-TAB") #'org-shifttab)
+(turn-on-flyspell)
+(set-fill-column 81))
+(add-hook 'org-mode-hook '0xMF/settings/orgmode)
+
+(defun 0xMF/settings/textmode ()
+  "Wrap lines (hard return) around column 81."
+  (interactive)
+  (menu-bar--toggle-truncate-long-lines)
+  (turn-off-auto-fill)
+  (set-fill-column 81)
+  (turn-on-visual-line-mode))
+(add-hook 'text-mode-hook '0xMF/settings/textmode)
+
+(defun 0xMF/settings/wrap-line-length (textwidth)
+  "Wrap lines (hard return) around TEXTWIDTH."
+  (interactive "nEnter text width for wrapping: ")
+  (set-fill-column textwidth)
+  (turn-on-auto-fill))
+
+(defun 0xMF/orgmode-remove-tag (tag)
+  "Remove TAG from line."
+  (interactive "sTag:")
+  (org-toggle-tag tag 'off))
+
+(defun 0xMF/settings/package-menu-mode ()
+  "My settings for package menu."
+
+  (define-key package-menu-mode-map (kbd "; s") '0xMF/startup)
+  (define-key package-menu-mode-map (kbd "/ n") nil )
+  (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
+
+(defun 0xMF/insert-braces ()
+  "Source: stackoverflow.com/questions/2951797/wrapping-selecting-text-in-enclosing-characters-in-emacs."
+  (interactive)
+  (if (region-active-p)
+      (insert-pair 1 ?{ ?})
+      (insert "{}")
+      (backward-char)))
+
+(defun 0xMF/kill-some-buffers (regexp)
+  "Kill buffers matching REGEXP without confirmation."
+  (interactive "Kill buffers matching the regex given: ")
+  (cl-letf (((symbol-function 'kill-buffer-ask)
+             #'(lambda (buffer) (kill-buffer buffer))))
+    (kill-matching-buffers regexp)))
+
+(defvar 0xMF/kill-all-magit t "Removes all magit-buffers (inucluding magit process).")
+
+(defun 0xMF/cleanup-Emacs-buffer-list ()
+  "Remove all kinds of needless buffers."
+  (0xMF/kill-some-buffers "^\\Diary")
+  (0xMF/kill-some-buffers "^\\*Aprops*")
+  (0xMF/kill-some-buffers "^\\*Backtrace*")
+  (0xMF/kill-some-buffers "^\\*Buffer List*")
+  (0xMF/kill-some-buffers "^\\*Calculator*")
+  (0xMF/kill-some-buffers "^\\*Calendar*")
+  (0xMF/kill-some-buffers "^\\*Command Line*")
+  (when (get-buffer "*Compile-Log*")
+    (kill-buffer "*Compile-Log*"))
+  (0xMF/kill-some-buffers "^\\*Ediff Registry*")
+  (0xMF/kill-some-buffers "^\\*Flycheck error messages*")
+  (0xMF/kill-some-buffers "^\\*Flymake log*")
+  (0xMF/kill-some-buffers "^\\*Help*")
+  (0xMF/kill-some-buffers "^\\*HS-Error*")
+  (0xMF/kill-some-buffers "^\\*List of Slides*")
+  (0xMF/kill-some-buffers "^\\*Org-Babel Error Output*")
+  (0xMF/kill-some-buffers "^\\*Org PDF Latex Output*")
+  (0xMF/kill-some-buffers "^\\*Packages*")
+  (0xMF/kill-some-buffers "^\\*PP Eval Output*")
+  (0xMF/kill-some-buffers "^\\*Outline ")
+  (0xMF/kill-some-buffers "^\\*WoMan-Log*")
+  (0xMF/kill-some-buffers "^\\*Warnings*")
+  (0xMF/kill-some-buffers "^\\*cabal")
+  (0xMF/kill-some-buffers "^\\*compilation*")
+  (0xMF/kill-some-buffers "^\\*dante:")
+  (mapc #'(lambda (buffer)
+            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+              (kill-buffer buffer))) (buffer-list))
+  (0xMF/kill-some-buffers "^\\*eldoc*")
+  (0xMF/kill-some-buffers "^\\*hs-lint*")
+  (when (bound-and-true-p 0xMF/kill-all-magit)
+    (0xMF/kill-some-buffers "^magit:")
+    (0xMF/kill-some-buffers "^magit-diff:")
+    (0xMF/kill-some-buffers "^magit-log:")
+    (0xMF/kill-some-buffers "^magit-merge-preview:")
+    (0xMF/kill-some-buffers "^magit-process:")
+    (0xMF/kill-some-buffers "^magit-revision:")
+    (0xMF/kill-some-buffers "^\\*magit-todos--scan-with-git-grep"))
+  (0xMF/kill-some-buffers "^popup-win-dummy")
+  (0xMF/kill-some-buffers "^\\*vc-diff*")
+  (0xMF/settings/orgmode)
+  (get-buffer-create "*scratch*"))
+
+(defun 0xMF/startup ()
+  "Start/reset Emacs the way like it ;-)."
+  (interactive)
+  (0xMF/cleanup-Emacs-buffer-list)
+  (global-display-line-numbers-mode -1)
+  (display-line-numbers-mode -1)
+  (line-number-mode t)
+  (org-toggle-pretty-entities)
+  (org-toggle-pretty-entities)
+  (when (equal major-mode 'org-mode)
+    (org-set-visibility-according-to-property)
+    (setq electric-pair-mode nil))
+  (when (equal major-mode 'Info-mode)
+    (0xMF/settings/Info-mode))
+  (when (fboundp 'ivy-minibuffer-map)
+    (0xMF/settings/ivy-minibuffer))
+  (when (fboundp '0xMF/local)
+    (0xMF/local))
+  (0xMF/settings/vi)
+  (message "0xMF/startup"))
+
+(defun 0xMF/wrap ()
+  "Toggle line wrapping."
+  (interactive)
+  (toggle-truncate-lines))
+
+(defun 0xMF/shrink ()
+  "Shrink table according to cookie at point."
+  (interactive)
+  (org-table-shrink))
+
+(defun 0xMF/vi ()
+  "Reset/set settings to vim."
+  (interactive)
+  (turn-on-evil-mode)
+  (toggle-truncate-lines))
+
+(defun 0xMF/zero ()
+  "Put Emacs into distraction free mode."
+  (interactive)
+  (0xMF/kill-some-buffers "^\\*Fancy Diary Entries*")
+  (0xMF/kill-some-buffers "^\\timelog")
+  (0xMF/kill-some-buffers "^\\*Info*")
+  (0xMF/startup)
+  (message "0xMF/zero"))
+
+(add-hook 'after-init-hook '0xMF/startup)
+
+(defun 0xMF/evil-magit ()
+  "Enable evil-magit support."
+  (interactive)
+  (require 'evil-magit)
+  (evil-magit-init)
+  (setq evil-magit-state 'motion))
+
+(defun file-reload ()
+  "Reload file without confirmation."
+  (interactive)
+  (revert-buffer :ignore-auto :noconfirm))
 
 ;; Local Variables:
 ;; coding: utf-8
