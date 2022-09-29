@@ -15,14 +15,9 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq 0xMF-required-packages '(evil evil-collection
-                                    fill-column-indicator general go-mode
-                                    haskell-mode hide-mode-line hindent
-                                    keychain-environment org-beautify-theme
-                                    org-bullets org-caldav org-gcal
-                                    org-noter-pdftools org-pdftools
-                                    org-present racket-mode ssh-agency
-                                    undo-fu use-package yafolding))
+(setq 0xMF-required-packages '(evil evil-collection general keychain-environment
+                                    org-bullets org-noter-pdftools org-pdftools
+                                    undo-fu use-package))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -312,9 +307,9 @@ minibuffer."
 (eval-after-load "org" '(require 'htmlize))
 
 (require 'use-package)
-(pdf-tools-install)
 (use-package org-pdftools
   :hook (org-load . org-pdftools-setup-link))
+(pdf-tools-install)
 
 (use-package org-noter-pdftools
   :after org-noter
@@ -444,17 +439,6 @@ minibuffer."
 ;; Language mode settings
 ;;----------------------------------------------------------------------------
 
-(require 'haskell-mode)
-(require 'hindent)
-
-(defun 0xMF/settings/haskell-mode ()
-  "Override some evil-mode settings when in haskell-mode."
-  (interactive)
-  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill))
-
-(with-eval-after-load 'haskell-mode
-  (add-hook 'haskell-mode-hook '0xMF/settings/haskell-mode))
-
 (use-package markdown-mode)
 :init
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -463,14 +447,6 @@ minibuffer."
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
-
-;; elm-mode
-(setq elm-interactive-command '("elm" "repl")
-      elm-reactor-command '("elm" "reactor")
-      elm-reactor-arguments '("--port" "8000")
-      elm-compile-command '("elm" "make")
-      elm-compile-arguments '("--output=elm.js" "--debug")
-      elm-package-command '("elm" "package"))
 
 ;;----------------------------------------------------------------------------
 ;; Other misc. yet imp stuff goes here. Credit: technomancy/better-defaults
@@ -611,7 +587,6 @@ minibuffer."
 ;; Miscalleanous settings
 ;; User mode settings for UI/keyboard/look and feel
 ;;----------------------------------------------------------------------------
-(require 'org-gcal)
 (require 'yafolding)
 
 (add-hook 'prog-mode-hook
