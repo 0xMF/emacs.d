@@ -15,10 +15,10 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq 0xMF-required-packages '(evil evil-collection general keychain-environment
-                                    org-bullets org-noter-pdftools org-pdftools
-                                    undo-fu use-package))
-(dolist (package 0xMF-required-packages)
+(setq sanityinc/required-packages (append sanityinc/required-packages '(evil evil-collection general keychain-environment
+                                                                             org-bullets org-noter-pdftools org-pdftools
+                                                                             undo-fu use-package)))
+(dolist (package sanityinc/required-packages)
   (unless (package-installed-p package)
     (package-install package)))
 
