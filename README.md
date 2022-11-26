@@ -1,7 +1,7 @@
 # A reasonable Emacs config for this vi/Vim user
 
 This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor.
-It tweaks [Steve Purcell's emacs.d](https://github.com/purcell/emacs.d) and makes his setup more natural for me, a seasoned vi/[Vim](https://www.vim.org) user, to use.
+It builds on [Steve Purcell's emacs.d](https://github.com/purcell/emacs.d) by making that configuration feel a bit more natural to me - a seasoned vi/[Vim](https://www.vim.org) user.
 
 In late 2017 I began by putting Emacs-specific settings into a sub-directory within my [dotfiles](https://github.com/0xMF/dotfiles) repo but by May 2020 I found that strategy ineffective and counter-intuitive particularly when making significant commit history changes.
 Once after I cloned my `dotfiles` on several machines and realized I probably would never use the desktop version of Emacs on those machines, I decided to fork Purcell's repo and put all my Emacs settings in here so these settings and my `dotfiles` settings continue to be independent of each other at all times.
