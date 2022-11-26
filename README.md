@@ -1,4 +1,4 @@
-# A reasonable Emacs config for a seasoned vi/Vim user
+# A reasonable Emacs config for this vi/Vim user
 
 This is my setup for the [GNU Emacs](https://www.gnu.org/software/emacs/) editor.
 It tweaks [Steve Purcell's emacs.d](https://github.com/purcell/emacs.d) and makes his setup more natural for me, a seasoned vi/[Vim](https://www.vim.org) user, to use.
