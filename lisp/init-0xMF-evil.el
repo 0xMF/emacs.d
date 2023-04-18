@@ -178,7 +178,6 @@
                     "p" '0xMF/settings/theme
                     "P" '0xMF/settings/show-cursor-toggle ;;pdf-view ;;start-slideshw ;;'org-present
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
-                    "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
                     "T" 'org-set-tags
