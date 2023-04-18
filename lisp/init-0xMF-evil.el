@@ -13,6 +13,501 @@
 (require 'general)
 (require 'undo-fu)
 (evil-mode 1)
+;;(evil-collection-init)
+
+(setq evil-default-state-cursor '("green" box))
+(setq evil-insert-state-cursor '("red" bar))
+(setq evil-normal-state-cursor '("green" box))
+(setq evil-operator-state-cursor '("red" hollow))
+(setq evil-replace-state-cursor '("red" box))
+(setq evil-visual-state-cursor '("orange" box))
+
+;; better clipboard copy-paste with evil
+(fset 'evil-visual-update-x-selection 'ignore)
+
+(add-hook 'evil-mode-hook '0xMF/default-cursor)
+(add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
+(add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
+
+;;----------------------------------------------------------------------------
+;; General keymap settings
+;;----------------------------------------------------------------------------
+
+;; bind a key globally in normal state
+(setq general-default-keymaps 'evil-normal-state-map)
+
+;; bind j and k in normal state globally
+(general-define-key "j" 'evil-next-visual-line
+                    "k" 'evil-previous-visual-line
+                    "SPC" 'evil-scroll-page-down
+                    "DEL" 'evil-scroll-page-up)
+
+;; bind wm and wc
+(general-define-key :prefix "w"
+                    "a" 'org-toggle-link-display ; 'beginning-of-line
+                    "c" 'whitespace-cleanup
+                    "d" #'(lambda ()
+                            (interactive)
+                            (kill-buffer)
+                            (unless (one-window-p)
+                              (delete-window)))
+                    "e" 'end-of-line
+                    "f" '0xMF/toggle-font-large-normal
+                    "|" 'fci-mode
+                    "h" 'previous-buffer
+                    "j" 'next-buffer
+                    "k" 'kill-this-buffer
+                    "l" 'previous-buffer
+                    "m" 'writeroom-mode
+                    "n" 'next-buffer
+                    "N" 'other-window
+                    "t" 'whitespace-mode
+                    "o" 'other-window
+                    "O" #'(lambda ()
+                            (interactive)
+                            (other-window 1)
+                            (unless (one-window-p)
+                              (delete-other-windows)))
+                    "p" 'previous-buffer
+                    ;; "P" 'other-window
+                    "r" 'evil-window-rotate-upwards
+                    "R" 'evil-window-rotate-downwards
+                    "u" 'winner-undo
+                    "U" 'winner-redo
+                    "w" 'delete-other-windows
+                    "W" 'delete-window
+                    "0" 'delete-window
+                    "1" 'delete-window)
+
+(general-define-key :prefix "z"
+                    "b" 'paredit-forward-barf-sexp
+                    "B" 'paredit-backward-barf-sexp
+                    "c" 'comment-or-uncomment-region
+                    "e" 'eval-last-sexp
+                    "E" 'eval-region
+                    "d" #'yafolding-toggle-all
+                    "f" 'paredit-forward-slurp-sexp
+                    "F" 'paredit-backward-slurp-sexp
+                    "k" #'0xMF/shrink
+                    "g" 'save-this-word
+                    "o" 'org-open-at-point
+                    "O" 'org-open-at-point
+                    "s" 'paredit-forward-slurp-sexp
+                    "S" 'paredit-backward-slurp-sexp
+                    "t" 'save-this-word
+                    "x" '0xMF/orgmode-remove-tag
+                    "y" #'yafolding-toggle-element)
+
+;; named prefix key allows ; to be used a mapper for my keybindings
+(setq 0xMF-leader1 ";")
+(general-define-key :prefix 0xMF-leader1
+                    "a" '0xMF/settings/orgmode-emphasis-markers-toggle
+                    "A" 'org-agenda
+                    "B" 'switch-to-buffer
+                    "c" 'comment-region
+                    "C" 'org-capture
+                    "d" 'insdate-insert-current-date
+                    "D" 'org-agenda-list
+                    "e" 'eval-last-sexp
+                    "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
+                    "f" 'set-fill-column
+                    "F" 'fill-paragraph
+                    "g" 'magit-status
+                    "i" '0xMF/settings/Info-mode
+                    "k" 'kill-this-buffer
+                    "l" 'whitespace-mode
+                    "L" 'org-open-at-point
+                    "m" 'magit-mode
+                    "n" 'display-line-numbers-mode
+                    "o" 'find-file
+                    "O" 'org-open-at-point
+                    "p" '0xMF/settings/theme
+                    "P" '0xMF/settings/show-cursor-toggle ;;pdf-view ;;start-slideshw ;;'org-present
+                    "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
+                    "R" 'file-reload ;;'undo-tree-redo
+                    "s" '0xMF/startup
+                    "T" 'org-set-tags
+                    "u" 'undo-tree-undo
+                    "v" '0xMF/vi
+                    "w" 'toggle-truncate-lines
+                    "W" #'(lambda () (interactive) (org-agenda-list 7))
+                    "x" 'evil-delete
+                    "y" 'timeclock-out
+                    "Y" 'timeclock-in
+                    "z" '0xMF/zero
+                    "+" #'(lambda () (interactive) (text-scale-increase 2))
+                    "=" #'(lambda () (interactive) (text-scale-increase 3))
+                    "-" 'text-scale-decrease
+                    "0" #'(lambda () (interactive) (text-scale-adjust 0))
+                    "$" 'toggle-truncate-lines
+                    "/" 'org-tags-view
+                    "." 'org-tags-view
+                    "\\" 'org-match-sparse-tree)
+
+;;"Bind keys in multiple states of Org-mode."
+(general-define-key :keymaps 'org-mode-map
+                    :states '(insert emacs)
+                    "<tab>" 'org-cycle)
+
+;; smooth scrolling
+(setq scroll-margin 5
+      scroll-conservatively 9999
+      scroll-step 1)
+
+(defun 0xMF/settings/slime ()
+  "My slime settings."
+  (interactive)
+  (turn-on-evil-mode)
+  (dolist (map (list slime-repl-mode-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map (kbd "C-<return>") 'slime-repl-newline-and-indent)))
+
+(defun 0xMF/settings/sly ()
+  "My sly settings."
+  (interactive)
+  (turn-on-evil-mode)
+  (dolist (map (list sly-repl-mode-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map (kbd "C-<return>") 'sly-repl-newline-and-indent)))
+
+(defun 0xMF/settings/vi ()
+  "My Vi settings."
+  ;; jump j/k always even in visual mode
+  (interactive)
+  (turn-on-evil-mode)
+  (dolist (map  (list evil-normal-state-map))
+    (define-key map (kbd "b") 'evil-backward-word-begin)
+    (define-key map (kbd "j") 'evil-next-visual-line)
+    (define-key map (kbd "k") 'evil-previous-visual-line)
+    (define-key map (kbd "p") 'evil-paste-after)
+    (define-key map (kbd "q") 'keyboard-quit)
+    (define-key map (kbd "u") 'undo)
+    (define-key map [escape] 'keyboard-quit)
+    (define-key map [prior] 'evil-scroll-page-up)
+    (define-key map [next] 'evil-scroll-page-down)
+    (define-key map (kbd "C-a") 'mark-whole-buffer)
+    (define-key map (kbd "C-j") #'(lambda () (interactive) (evil-scroll-down nil)))
+    (define-key map (kbd "C-d") 'save-buffer)
+    (define-key map (kbd "C-n") 'next-buffer)
+    (define-key map (kbd "C-p") 'previous-buffer)
+    (define-key map (kbd "M-p") 'evil-scroll-page-up)
+    (define-key map (kbd "M-n") 'evil-scroll-page-down)
+    (define-key map (kbd "C-r") 'undo-fu-only-redo))
+
+  (define-key minibuffer-local-map [tab] 'vertico-insert)
+  (define-key minibuffer-local-map (kbd "M-<return>") 'vertico-exit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+  (when (boundp 'company-mode-map)
+    (define-key company-active-map [tab] 'company-complete-common))
+  (dolist (map  (list company-active-map))
+    (define-key map (kbd "<tab>") 'company-complete-common))
+
+  (dolist (map  (list minibuffer-local-isearch-map))
+    (define-key map (kbd "n") 'isearch-printing-char))
+
+  (global-set-key [escape] 'evil-exit-emacs-state)
+
+  (define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
+  ;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
+  (global-set-key [?\S- ] 'evil-scroll-page-up)
+
+  ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
+  (evil-define-key nil evil-ex-map "wq" #'(lambda ()
+                                            (interactive)
+                                            (save-current-buffer)
+                                            (kill-current-buffer)))
+  (evil-define-key nil evil-ex-map "q" #'(lambda ()
+                                           (interactive)
+                                           (save-current-buffer)
+                                           (kill-current-buffer)))
+  (evil-define-key nil evil-ex-map "q" '(lambda ()
+                                          (interactive)
+                                          (save-current-buffer)
+                                          (kill-current-buffer))))
+
+(defun 0xMF/settings/vertico ()
+  "My setup for vertico-mode."
+  (interactive)
+  (dolist (map (list vertico-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map [tab] 'vertico-insert)
+    (define-key map (kbd "C-l") 'vertico-insert)
+    (define-key map (kbd "<return>") 'vertico-exit)
+    (define-key map (kbd "C-<return>") 'vertico-exit)
+    (define-key map (kbd "M-<return>") 'vertico-exit)))
+(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
+
+(defun 0xMF/settings/vertico ()
+  "My setup for vertico-mode."
+  (interactive)
+  (dolist (map (list vertico-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map [tab] 'vertico-insert)
+    (define-key map (kbd "C-l") 'vertico-insert)
+    (define-key map (kbd "<return>") 'vertico-exit)
+    (define-key map (kbd "C-<return>") 'vertico-exit)
+    (define-key map (kbd "M-<return>") 'vertico-exit)))
+(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
+
+(defun 0xMF/settings/vertico ()
+  "My setup for vertico-mode."
+  (interactive)
+  (dolist (map (list vertico-map))
+    (local-unset-key (kbd  "C-<return>"))
+    (define-key map [tab] 'vertico-insert)
+    (define-key map (kbd "C-<return>") 'vertico-exit)
+    (define-key map (kbd "M-<return>") 'vertico-exit)))
+(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
+
+;; Credit: [StackOverflow] in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
+(defun save-this-word ()
+  "Save word to personal dict."
+  (interactive)
+  (let ((current-location (point))
+        (word (flyspell-get-word)))
+    (when (consp word)
+      (flyspell-do-correct 'save nil (car word) current-location
+                           (cadr word) (caddr word) current-location))))
+;; ---
+
+;; esc quits
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active,just deactivate
+it; then it takes a second \\[keyboard-quit] to abort the
+minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+      (when (get-buffer "*Completions*")
+        (delete-windows-on "*Completions*"))
+      (abort-recursive-edit)))
+
+;; 2 spaces for tabs
+(setq-default tab-width 2 indent-tabs-mode nil)
+(setq-default c-basic-offset 2 c-default-style "bsd")
+(setq tab-width 2
+      tab-stop-list (number-sequence 2 20 2)
+      indent-line-function 'tab-to-tab-stop)
+
+;; no backups
+(setq make-backup-files nil)
+
+;; important for markdown, GFM export, and viewing pdfs
+(eval-after-load "org" '(require 'ox-md nil t))
+(eval-after-load "org" '(require 'ox-gfm nil t))
+(eval-after-load "org" '(require 'org-pdftools))
+(eval-after-load "org" '(require 'htmlize))
+
+(require 'use-package)
+(pdf-tools-install)
+(use-package org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
+(pdf-tools-install)
+
+(use-package org-noter-pdftools
+  :after org-noter
+  :config
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+(add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+
+(defun 0xMF/settings/eww ()
+  "Enable vi-style keybindings."
+  (interactive)
+  (dolist (map  (list eww-mode-map))
+    (define-key map (kbd "h") 'previous-char)
+    (define-key map (kbd "j") 'next-line)
+    (define-key map (kbd "k") 'previous-line)
+    (define-key map (kbd "l") 'next-char)
+    (define-key map (kbd "n") 'eww-forward-url)
+    (define-key map (kbd "p") 'eww-back-url)))
+(add-hook 'eww-mode-hook '0xMF/settings/eww)
+
+;; Credit: Bozhidar Batsov
+;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
+(defun 0xMF/settings/pdf-links-minor-mode ()
+  "Reset f keybinding from 'pdf-links-isearch-link."
+  (interactive)
+  (when (boundp 'pdf-links-minor-mode)
+    (dolist (map  (list pdf-links-minor-mode-map))
+      (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+      (define-key map (kbd "t") 'pdf-outline)
+      (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
+    (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
+          (newmap (make-sparse-keymap)))
+      (set-keymap-parent newmap oldmap)
+      (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
+      (make-local-variable 'minor-mode-overriding-map-alist)
+      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
+(add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
+
+(defun 0xMF/settings/pdf-view ()
+  "Disable blinking in pdf-view-mode and enable vi-style keybindings."
+  (interactive)
+  (0xMF/settings/pdf-links-minor-mode)
+  (evil-set-initial-state 'pdf-view-mode 'emacs)
+  (setq blink-cursor-mode nil)
+  (turn-off-evil-mode)
+  (setq pdf-view-continuous 't)
+  (hide-mode-line-mode)
+  (set (make-local-variable 'evil-emacs-state-cursor) (list nil))
+  (set (make-local-variable 'evil-evilified-state-cursor) (list nil))
+  (0xMF/settings/pdf-links-minor-mode)
+  (local-unset-key (kbd  "C-n"))
+  (local-unset-key (kbd  "C-p"))
+  (local-set-key (kbd  "C-n") 'next-buffer)
+  (local-set-key (kbd  "C-p") 'previous-buffer)
+  (local-unset-key (kbd "b"))
+  (local-set-key (kbd "b") 'pdf-view-scroll-down-or-previous-page)
+  (local-set-key (kbd "f") 'pdf-view-scroll-up-or-next-page)
+  (local-set-key (kbd "j") 'pdf-view-next-line-or-next-page)
+  (local-set-key (kbd "k") 'pdf-view-previous-line-or-previous-page)
+  (local-unset-key (kbd "m"))
+  (local-set-key (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+  (local-unset-key (kbd "n"))
+  (local-set-key (kbd "n") 'pdf-view-scroll-up-or-next-page)
+  (local-unset-key (kbd "p"))
+  (local-set-key (kbd "p") 'pdf-view-scroll-down-or-previous-page)
+  (local-set-key (kbd "J") 'pdf-view-next-page)
+  (local-set-key (kbd "K") 'pdf-view-previous-page)
+  (local-set-key (kbd "g") 'pdf-view-goto-page)
+  (local-set-key (kbd "G") 'pdf-view-goto-page)
+  (local-unset-key (kbd "h"))
+  (local-set-key (kbd "h") 'image-backward-hscroll)
+  (local-unset-key (kbd "l"))
+  (local-set-key (kbd "l") 'image-forward-hscroll)
+  (local-set-key (kbd "t") 'pdf-outline)
+  (local-set-key (kbd "W") 'pdf-view-fit-width-to-window)
+  (local-set-key (kbd "w") 'delete-other-windows)
+  (local-set-key (kbd "H") 'pdf-view-fit-height-to-window)
+  (local-set-key (kbd "P") 'pdf-view-fit-page-to-window)
+  (local-set-key (kbd "/") 'isearch-forward)
+  (local-set-key (kbd "?") 'isearch-backward)
+  (local-set-key (kbd "<escape>")
+                 #'(lambda ()
+                     (interactive)
+                     (kill-this-buffer)
+                     (unless (one-window-p)
+                       (delete-window))))
+  (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
+  (dolist (map  (list pdf-view-mode-map))
+    (define-key map (kbd "b") 'pdf-view-scroll-down-or-previous-page)
+    (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page)
+    (define-key map (kbd "j") 'pdf-view-next-line-or-next-page)
+    (define-key map (kbd "k") 'pdf-view-previous-line-or-previous-page)
+    (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+    (define-key map (kbd "n") 'pdf-view-scroll-up-or-next-page)
+    (define-key map (kbd "p") 'pdf-view-scroll-down-or-previous-page)
+    (define-key map (kbd "J") 'pdf-view-next-page)
+    (define-key map (kbd "K") 'pdf-view-previous-page)
+    (define-key map (kbd "g") 'pdf-view-goto-page)
+    (define-key map (kbd "G") 'pdf-view-goto-page)
+    (define-key map (kbd "h") 'image-backward-hscroll)
+    (define-key map (kbd "l") 'image-forward-hscroll)
+    (define-key map (kbd "t") 'pdf-outline)
+    (define-key map (kbd "W") 'pdf-view-fit-width-to-window)
+    (define-key map (kbd "w") 'delete-other-windows)
+    (define-key map (kbd "H") 'pdf-view-fit-height-to-window)
+    (define-key map (kbd "P") 'pdf-view-fit-page-to-window)
+    (define-key map (kbd "/") 'isearch-forward)
+    (define-key map (kbd "?") 'isearch-backward)
+    (define-key map (kbd "<escape>")
+                #'(lambda ()
+                    (interactive)
+                    (kill-this-buffer)
+                    (unless (one-window-p)
+                      (delete-window))))
+    (define-key map (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+    (define-key map (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
+  (when (boundp 'pdf-history-minor-mode-map)
+    (dolist (map  (list pdf-history-minor-mode-map))
+      (local-unset-key (kbd "l"))
+      (define-key map (kbd "l") 'image-forward-hscroll)))
+  (internal-show-cursor nil nil))
+  (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
+(add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
+
+;; yes to powerline on a smart-mode-line
+(require 'powerline)
+(require 'smart-mode-line)
+(require 'smart-mode-line-powerline-theme)
+
+(defun 0xMF/settings/powerline ()
+  "Set/Reset powerline on a smart-mode-line."
+  (interactive)
+  (setq sml/theme 'powerline)
+  (setq sml/no-confirm-load-theme t)
+  (setq powerline-arrow-shape 'arrow)
+  (powerline-vim-theme)
+  (setf rm-blacklist "")
+  (display-time-mode t)
+  (sml/setup))
+(0xMF/settings/powerline)
+
+
+;;----------------------------------------------------------------------------
+;; Language mode settings
+;;----------------------------------------------------------------------------
+
+(require 'haskell-mode)
+(require 'hindent)
+
+(defun 0xMF/settings/haskell-mode ()
+  "Override some evil-mode settings when in haskell-mode."
+  (interactive)
+  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill)
+  (message "0xMF/settings/haskell-mode: ;-q"))
+
+(with-eval-after-load 'haskell-mode
+  (add-hook 'haskell-mode-hook '0xMF/settings/haskell-mode))
+
+(use-package markdown-mode)
+:init
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-hook 'markdown-mode-hook #'(lambda () (set-fill-column 81)))
+
+(unless (version< emacs-version "27")
+  (setq url-http-referer 'nil))
+
+;;----------------------------------------------------------------------------
+;; Other misc. yet imp stuff goes here. Credit: technomancy/better-defaults
+;;----------------------------------------------------------------------------
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+(require 'saveplace)
+(setq-default save-place t)
+
+(show-paren-mode 1)
+(setq-default indent-tabs-mode nil)
+(setq x-select-enable-clipboard t
+      x-select-enable-primary t
+      save-interprogram-paste-before-kill t
+      apropos-do-all t
+      apropos-sort-by-scores t
+      mouse-yank-at-point t
+      require-final-newline t
+      visible-bell t
+      load-prefer-newer t
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      save-place-file (concat user-emacs-directory "places")
+      backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+
+;;----------------------------------------------------------------------------
+;; Abbreviations
+;;----------------------------------------------------------------------------
+(setq-default abbrev-mode t)
+(read-abbrev-file "~/.abbrev_defs")
+(setq save-abbrevs t)
 
 ;;----------------------------------------------------------------------------
 ;; Keybindings
