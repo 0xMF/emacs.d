@@ -240,6 +240,8 @@
     (define-key map (kbd "C-d") 'save-buffer)
     (define-key map (kbd "C-n") 'next-buffer)
     (define-key map (kbd "C-p") 'previous-buffer)
+    (define-key map (kbd "M-p") 'evil-scroll-page-up)
+    (define-key map (kbd "M-n") 'evil-scroll-page-down)
     (define-key map (kbd "C-r") 'undo-fu-only-redo))
 
   (define-key minibuffer-local-map [tab] 'vertico-insert)
