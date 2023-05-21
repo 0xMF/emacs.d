@@ -651,6 +651,8 @@ minibuffer."
             "Enable vi-style keybindings."
             (interactive)
             (turn-off-evil-mode)
+            (local-set-key (kbd "g") 'beginning-of-buffer)
+            (local-set-key (kbd "G") 'end-of-buffer)
             (local-set-key (kbd "h") 'left-char)
             (local-set-key (kbd "j") 'next-line)
             (local-set-key (kbd "k") 'previous-line)
