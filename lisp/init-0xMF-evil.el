@@ -15,9 +15,9 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq sanityinc/required-packages (append sanityinc/required-packages '(evil evil-collection general keychain-environment
-                                                                             org-bullets org-noter-pdftools org-pdftools
-                                                                             undo-fu use-package)))
+(setq sanityinc/required-packages (append sanityinc/required-packages '(djvu evil evil-collection general keychain-environment
+                                                                             nov org-bullets org-noter-pdftools org-pdftools
+                                                                             undo-fu use-package yafolding)))
 (dolist (package sanityinc/required-packages)
   (unless (package-installed-p package)
     (package-install package)))
