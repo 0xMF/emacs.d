@@ -159,8 +159,8 @@
                     "C" 'org-capture
                     "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
-                    "e" 'org-babel-execute-src-block
-                    "E" 'org-babel-open-src-block-result
+                    "e" 'eval-last-sexp
+                    "E" 'org-babel-execute-src-block ; org-babel-open-src-block-result
                     "f" 'set-fill-column
                     "F" 'fill-paragraph
                     "g" 'magit-status
