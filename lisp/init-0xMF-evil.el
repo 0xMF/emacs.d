@@ -929,4 +929,5 @@ Turn on spell check automatically; maketext wrap at 81; and make
 ;; no-byte-compile: t
 ;; End:
 
-(provide 'init-0xMF-evil.el)
+(provide 'init-0xMF-evil)
+;;; init-0xMF-evil.el ends here.
