@@ -122,8 +122,8 @@
                     "R" 'evil-window-rotate-downwards
                     "u" 'winner-undo
                     "U" 'winner-redo
-                    "w" 'beginning-of-line
-                    "W" 'delete-other-windows
+                    "w" 'delete-other-windows
+                    "W" 'beginning-of-line
                     "0" 'delete-window
                     "1" 'delete-window)
 
@@ -131,7 +131,8 @@
                     "b" 'paredit-forward-barf-sexp
                     "B" 'paredit-backward-barf-sexp
                     "c" 'comment-or-uncomment-region
-                    "e" 'eval-region
+                    "e" 'eval-last-sexp
+                    "E" 'eval-region
                     "d" #'yafolding-toggle-all
                     "f" 'paredit-forward-slurp-sexp
                     "F" 'paredit-backward-slurp-sexp
@@ -156,7 +157,7 @@
                     "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
                     "e" 'eval-last-sexp
-                    "E" 'org-babel-execute-src-block ; org-babel-open-src-block-result
+                    "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
                     "f" 'set-fill-column
                     "F" 'fill-paragraph
                     "g" 'magit-status
@@ -907,4 +908,4 @@ minibuffer."
 ;; no-byte-compile: t
 ;; End:
 
-(provide 'init-0xMF-evil)
+(provide 'init-0xMF-evil.el)
