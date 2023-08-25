@@ -123,7 +123,7 @@
                     "u" 'winner-undo
                     "U" 'winner-redo
                     "w" 'delete-other-windows
-                    "W" 'beginning-of-line
+                    "W" 'delete-window
                     "0" 'delete-window
                     "1" 'delete-window)
 
