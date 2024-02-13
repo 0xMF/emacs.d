@@ -1,3 +1,18 @@
+# 0xMF: gitignore -
+/abbrev_defs
+/agenda
+/aspell.en.prepl
+/aspell.en.pws
+/custom.el
+/diary
+/nov-places
+/persist
+/request
+/sounds
+/themes
+/timelog
+# ---- xXoXx ----
+
 /url/cache
 /.emacs.desktop
 /auto-save-list
