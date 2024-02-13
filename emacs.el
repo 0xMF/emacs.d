@@ -12,6 +12,7 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 ;(package-initialize)
+;;(setq package-check-signature nil)
 
 ;; grab all files in lisp and any sub-dirs inside it
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
