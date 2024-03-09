@@ -172,7 +172,7 @@
                     "n" 'display-line-numbers-mode
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "P" '0xMF/settings/pdf-view ;;start-slideshw ;;'org-present
+                    "P" '0xMF/settings/pdf-view
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
@@ -678,54 +678,6 @@ minibuffer."
     (define-key map [up] 'ivy-previous-line)))
 (add-hook 'ivy-minibuffer-hook '0xMF/settings/ivy-minibuffer)
 (add-hook 'ivy-mode-hook '0xMF/settings/ivy-minibuffer)
-
-(require 'org-present)
-(require 'hide-mode-line)
-(autoload 'org-present "org-present" nil t)
-(eval-after-load "org-present"
-  '(progn
-     (add-hook 'org-present-mode-hook
-               (lambda ()
-                 (org-present-big)
-                 (turn-off-evil-mode)
-                 (org-display-inline-images)
-                 (org-present-hide-cursor)
-                 (local-set-key (kbd "n") 'org-present-next)
-                 (local-set-key (kbd [space]) 'org-present-next)
-                 (local-set-key (kbd "p") 'org-present-prev)
-                 (local-set-key (kbd "q") 'org-present-quit)
-                 (local-set-key (kbd "<") 'org-present-beginning)
-                 (local-set-key (kbd "G") 'org-present-end)
-                 (local-set-key (kbd ">") 'org-present-end)
-                 (dolist (map  (list org-present-mode-map))
-                   (define-key map (kbd "gg")  'org-present-beginning)
-                   (define-key map [backspace] 'org-present-prev)
-                   (define-key map [?\S- ]  'org-present-prev)
-                   (define-key map [up]     'org-present-prev)
-                   (define-key map [down]   'org-present-next))
-                 (org-present-read-only)))
-     (add-hook 'org-present-mode-quit-hook
-               (lambda ()
-                 (org-present-small)
-                 (local-unset-key (kbd "n"))
-                 (local-unset-key (kbd "p"))
-                 (local-unset-key (kbd "G"))
-                 (turn-on-evil-mode)
-                 (org-remove-inline-images)
-                 (org-present-show-cursor)
-                 (hide-mode-line-mode -1)
-                 (org-present-read-write)))))
-
-(add-hook 'org-present-mode-hook #'hide-mode-line-mode)
-
-(setq counsel-find-file-ignore-regexp (concat "\\(.~undo-tree~\\|"
-                                              ".desktop\\|"
-                                              ".git\\|"
-                                              ".historian\\|"
-                                              ".lock\\|"
-                                              ".*.fasl\\|"
-                                              ".*~\\|"
-                                              "#*#\\)"))
 
 (defun 0xMF/toggle-browser-eww ()
   "Toggle between eww and chromium as default browser for html files."
