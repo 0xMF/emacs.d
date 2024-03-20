@@ -432,7 +432,8 @@ minibuffer."
       (define-key map (kbd "l") 'image-forward-hscroll)))
   (internal-show-cursor nil nil))
   (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
-  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
+  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
+  (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
