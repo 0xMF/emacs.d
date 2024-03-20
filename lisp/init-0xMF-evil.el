@@ -204,22 +204,6 @@
       scroll-conservatively 9999
       scroll-step 1)
 
-(defun 0xMF/settings/slime ()
-  "My slime settings."
-  (interactive)
-  (turn-on-evil-mode)
-  (dolist (map (list slime-repl-mode-map))
-    (local-unset-key (kbd  "C-<return>"))
-    (define-key map (kbd "C-<return>") 'slime-repl-newline-and-indent)))
-
-(defun 0xMF/settings/sly ()
-  "My sly settings."
-  (interactive)
-  (turn-on-evil-mode)
-  (dolist (map (list sly-repl-mode-map))
-    (local-unset-key (kbd  "C-<return>"))
-    (define-key map (kbd "C-<return>") 'sly-repl-newline-and-indent)))
-
 (defun 0xMF/settings/vi ()
   "My Vi settings."
   ;; jump j/k always even in visual mode
@@ -415,7 +399,8 @@ minibuffer."
                     (unless (one-window-p)
                       (delete-window))))
   (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
-  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
+  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
+  (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
 
