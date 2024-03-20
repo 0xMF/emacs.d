@@ -172,7 +172,7 @@
                     "n" 'display-line-numbers-mode
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "P" '0xMF/settings/pdf-view
+                    "P" '0xMF/settings/show-cursor-toggle
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
@@ -656,6 +656,13 @@ minibuffer."
   (unless hide-mode-line-mode
     (redraw-display)))
 
+(defun 0xMF/settings/show-cursor-toggle ()
+  "Toggle showing cursor."
+  (interactive)
+  (if (boundp pdf-view-display-size)
+    (internal-show-cursor nil nil)
+   (internal-show-cursor nil t)))
+
 (defun 0xMF/settings/ivy-minibuffer ()
   "Bring sanity back to up/down keybindings."
   (interactive)
@@ -703,8 +710,8 @@ minibuffer."
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
-Default does not OMIT-DAY-OF-WEEK-P.
-With a prefix argument,the date is inserted without the day of the week."
+  Default does not OMIT-DAY-OF-WEEK-P.
+  With a prefix argument,the date is inserted without the day of the week."
   (interactive "P*")
   (insert (calendar-date-string (calendar-current-date) nil
                                 omit-day-of-week-p)))
@@ -724,8 +731,8 @@ With a prefix argument,the date is inserted without the day of the week."
 
 (defun 0xMF/settings/orgmode ()
 "My Org+Evil settings.
-Turn on spell check automatically; maketext wrap at 81; and make
-'org-mode' default for scratch (new) buffers."
+  Turn on spell check automatically; maketext wrap at 81; and make
+  'org-mode' default for scratch (new) buffers."
 (interactive)
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message
