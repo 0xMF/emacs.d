@@ -15,7 +15,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq sanityinc/required-packages (append sanityinc/required-packages '(djvu evil evil-collection general keychain-environment
+(setq sanityinc/required-packages (append sanityinc/required-packages '(djvu evil general keychain-environment
                                                                              nov org-bullets org-noter-pdftools org-pdftools
                                                                              undo-fu use-package yafolding)))
 (dolist (package sanityinc/required-packages)
@@ -50,7 +50,7 @@
 ;; Evil mode settings
 ;;----------------------------------------------------------------------------
 (require 'evil)
-(require 'evil-collection)
+;;(require 'evil-collection)
 (require 'general)
 (require 'undo-fu)
 
@@ -61,7 +61,7 @@
       (set-cursor-color "white")))
 
 (evil-mode 1)
-(evil-collection-init)
+;;(evil-collection-init)
 
 (setq evil-default-state-cursor '("green" box))
 (setq evil-insert-state-cursor '("red" bar))
