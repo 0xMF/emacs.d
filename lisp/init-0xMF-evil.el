@@ -770,8 +770,6 @@ minibuffer."
  ((member "DejaVu Sans Mono" (font-family-list))
   (set-frame-font "DejaVu Sans Mono-10")))
 
-(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
-(setq exec-path (append exec-path '("~/bin")))
 (setq-default major-mode 'org-mode)
 
 (unless (version<= emacs-version "25")
