@@ -98,11 +98,11 @@
 (general-define-key :prefix "w"
                     "a" 'beginning-of-line
                     "c" 'whitespace-cleanup
-                    "d" '(lambda ()
-                           (interactive)
-                           (kill-buffer)
-                           (unless (one-window-p)
-                             (delete-window)))
+                    "d" #'(lambda ()
+                            (interactive)
+                            (kill-buffer)
+                            (unless (one-window-p)
+                              (delete-window)))
                     "e" 'end-of-line
                     "f" '0xMF/toggle-font-large-normal
                     "|" 'fci-mode
@@ -115,11 +115,11 @@
                     "N" 'other-window
                     "t" 'whitespace-mode
                     "o" 'other-window
-                    "O" '(lambda ()
-                           (interactive)
-                           (other-window 1)
-                           (unless (one-window-p)
-                             (delete-other-windows)))
+                    "O" #'(lambda ()
+                            (interactive)
+                            (other-window 1)
+                            (unless (one-window-p)
+                              (delete-other-windows)))
                     "p" 'previous-buffer
                     ;; "P" 'other-window
                     "r" 'evil-window-rotate-upwards
@@ -180,15 +180,15 @@
                     "u" 'undo-tree-undo
                     "v" '0xMF/vi
                     "w" 'toggle-truncate-lines
-                    "W" '(lambda () (interactive) (org-agenda-list 7))
+                    "W" #'(lambda () (interactive) (org-agenda-list 7))
                     "x" 'evil-delete
                     "y" 'timeclock-out
                     "Y" 'timeclock-in
                     "z" '0xMF/zero
-                    "+" '(lambda () (interactive) (text-scale-increase 2))
-                    "=" '(lambda () (interactive) (text-scale-increase 3))
+                    "+" #'(lambda () (interactive) (text-scale-increase 2))
+                    "=" #'(lambda () (interactive) (text-scale-increase 3))
                     "-" 'text-scale-decrease
-                    "0" '(lambda () (interactive) (text-scale-adjust 0))
+                    "0" #'(lambda () (interactive) (text-scale-adjust 0))
                     "$" 'toggle-truncate-lines
                     "/" 'org-tags-view
                     "." 'org-tags-view
@@ -220,7 +220,7 @@
     (define-key map [prior] 'evil-scroll-page-up)
     (define-key map [next] 'evil-scroll-page-down)
     (define-key map (kbd "C-a") 'mark-whole-buffer)
-    (define-key map (kbd "C-j") (lambda () (interactive) (evil-scroll-down nil)))
+    (define-key map (kbd "C-j") #'(lambda () (interactive) (evil-scroll-down nil)))
     (define-key map (kbd "C-d") 'save-buffer)
     (define-key map (kbd "C-n") 'next-buffer)
     (define-key map (kbd "C-p") 'previous-buffer)
@@ -244,19 +244,19 @@
 
   (global-set-key [escape] 'evil-exit-emacs-state)
 
-  (define-key evil-normal-state-map (kbd "C-k") (lambda () (interactive) (evil-scroll-up nil)))
+  (define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
   ;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
   (global-set-key [?\S- ] 'evil-scroll-page-up)
 
   ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
-  (evil-define-key nil evil-ex-map "wq" '(lambda ()
+  (evil-define-key nil evil-ex-map "wq" #'(lambda ()
+                                            (interactive)
+                                            (save-current-buffer)
+                                            (kill-current-buffer)))
+  (evil-define-key nil evil-ex-map "q" #'(lambda ()
                                            (interactive)
                                            (save-current-buffer)
-                                           (kill-current-buffer)))
-  (evil-define-key nil evil-ex-map "q" '(lambda ()
-                                          (interactive)
-                                          (save-current-buffer)
-                                          (kill-current-buffer))))
+                                           (kill-current-buffer))))
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
@@ -393,42 +393,42 @@ minibuffer."
   (local-set-key (kbd "/") 'isearch-forward)
   (local-set-key (kbd "?") 'isearch-backward)
   (local-set-key (kbd "<escape>")
-                 '(lambda ()
-                    (interactive)
-                    (kill-this-buffer)
-                    (unless (one-window-p)
-                      (delete-window))))
+                 #'(lambda ()
+                     (interactive)
+                     (kill-this-buffer)
+                     (unless (one-window-p)
+                       (delete-window))))
   (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
   (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
   (dolist (map  (list pdf-view-mode-map))
-  (define-key map (kbd "b") 'pdf-view-scroll-down-or-previous-page)
-  (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page)
-  (define-key map (kbd "j") 'pdf-view-next-line-or-next-page)
-  (define-key map (kbd "k") 'pdf-view-previous-line-or-previous-page)
-  (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
-  (define-key map (kbd "n") 'pdf-view-scroll-up-or-next-page)
-  (define-key map (kbd "p") 'pdf-view-scroll-down-or-previous-page)
-  (define-key map (kbd "J") 'pdf-view-next-page)
-  (define-key map (kbd "K") 'pdf-view-previous-page)
-  (define-key map (kbd "g") 'pdf-view-goto-page)
-  (define-key map (kbd "G") 'pdf-view-goto-page)
-  (define-key map (kbd "h") 'pdf-view-previous-page)
-  (define-key map (kbd "l") 'pdf-view-next-page)
-  (define-key map (kbd "t") 'pdf-outline)
-  (define-key map (kbd "W") 'pdf-view-fit-width-to-window)
-  (define-key map (kbd "w") 'delete-other-windows)
-  (define-key map (kbd "H") 'pdf-view-fit-height-to-window)
-  (define-key map (kbd "P") 'pdf-view-fit-page-to-window)
-  (define-key map (kbd "/") 'isearch-forward)
-  (define-key map (kbd "?") 'isearch-backward)
-  (define-key map (kbd "<escape>")
-                 '(lambda ()
+    (define-key map (kbd "b") 'pdf-view-scroll-down-or-previous-page)
+    (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page)
+    (define-key map (kbd "j") 'pdf-view-next-line-or-next-page)
+    (define-key map (kbd "k") 'pdf-view-previous-line-or-previous-page)
+    (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+    (define-key map (kbd "n") 'pdf-view-scroll-up-or-next-page)
+    (define-key map (kbd "p") 'pdf-view-scroll-down-or-previous-page)
+    (define-key map (kbd "J") 'pdf-view-next-page)
+    (define-key map (kbd "K") 'pdf-view-previous-page)
+    (define-key map (kbd "g") 'pdf-view-goto-page)
+    (define-key map (kbd "G") 'pdf-view-goto-page)
+    (define-key map (kbd "h") 'pdf-view-previous-page)
+    (define-key map (kbd "l") 'pdf-view-next-page)
+    (define-key map (kbd "t") 'pdf-outline)
+    (define-key map (kbd "W") 'pdf-view-fit-width-to-window)
+    (define-key map (kbd "w") 'delete-other-windows)
+    (define-key map (kbd "H") 'pdf-view-fit-height-to-window)
+    (define-key map (kbd "P") 'pdf-view-fit-page-to-window)
+    (define-key map (kbd "/") 'isearch-forward)
+    (define-key map (kbd "?") 'isearch-backward)
+    (define-key map (kbd "<escape>")
+                #'(lambda ()
                     (interactive)
                     (kill-this-buffer)
                     (unless (one-window-p)
                       (delete-window))))
-  (define-key map (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
-  (define-key map (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
+    (define-key map (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+    (define-key map (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
@@ -452,7 +452,7 @@ minibuffer."
 :init
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook (lambda () (set-fill-column 81)))
+(add-hook 'markdown-mode-hook #'(lambda () (set-fill-column 81)))
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
@@ -608,7 +608,7 @@ minibuffer."
 (require 'yafolding)
 
 (add-hook 'prog-mode-hook
-          (lambda () (yafolding-mode)))
+          #'(lambda () (yafolding-mode)))
 
 (set-default 'truncate-lines t)
 
@@ -812,7 +812,7 @@ minibuffer."
   "Kill buffers matching REGEXP without confirmation."
   (interactive "Kill buffers matching the regex given: ")
   (cl-letf (((symbol-function 'kill-buffer-ask)
-             (lambda (buffer) (kill-buffer buffer))))
+             #'(lambda (buffer) (kill-buffer buffer))))
     (kill-matching-buffers regexp)))
 
 (defvar 0xMF/kill-all-magit t "Removes all magit-buffers (inucluding magit process).")
@@ -844,9 +844,9 @@ minibuffer."
   (0xMF/kill-some-buffers "^\\*cabal")
   (0xMF/kill-some-buffers "^\\*compilation*")
   (0xMF/kill-some-buffers "^\\*dante:")
-  (mapc (lambda (buffer)
-          (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
-            (kill-buffer buffer))) (buffer-list))
+  (mapc #'(lambda (buffer)
+            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+              (kill-buffer buffer))) (buffer-list))
   (0xMF/kill-some-buffers "^\\*eldoc*")
   (0xMF/kill-some-buffers "^\\*hs-lint*")
   (when (bound-and-true-p 0xMF/kill-all-magit)
