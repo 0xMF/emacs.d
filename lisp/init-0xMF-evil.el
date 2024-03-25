@@ -30,6 +30,8 @@
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments nil)
+(setq exec-path-from-shell-check-startup-files nil)
+(setq exec-path (append exec-path '("~/bin")))
 (exec-path-from-shell-initialize)
 
 ;; disable cl-lib deprecated warnings
@@ -643,8 +645,6 @@ minibuffer."
  ((member "DejaVu Sans Mono" (font-family-list))
   (set-frame-font "DejaVu Sans Mono-10")))
 
-(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
-(setq exec-path (append exec-path '("~/bin")))
 (setq-default major-mode 'org-mode)
 
 (unless (version<= emacs-version "25")
