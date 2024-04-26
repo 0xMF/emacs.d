@@ -10,7 +10,6 @@ That is when I forked Purcell's repo and started to track changes to upstream in
 The advantage of this approach means I can keep my dotfiles and emacs.d repos independent of each other.
 
 Over the years of using of Purcell's `emacs.d` repo, I found it to be dependable (logically consistent and stable) yet seamlessly extensible to work with my own vi/Vim setup of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el).
-.
 The eye-candy features Purcell keeps adding to his `emacs.d` has made Emacs truly a delight for me to keep using.
 Thanks Steve!
 If you would like to know more about Purcell's setup, you can read his [README](README_Purcell.md) (archived here since July 2020).
