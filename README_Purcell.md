@@ -34,6 +34,12 @@ Included is a nice setup for in-buffer autocompletion with
 is used to immediately highlight syntax errors in Ruby, Python,
 Javascript, Haskell and a number of other languages.
 
+In particular, there's a nice config for *autocompletion* with
+[company](https://company-mode.github.io/), and
+`flymake` (re-using backends from [flycheck](http://www.flycheck.org))
+is used to immediately highlight syntax errors in Ruby, Python,
+Javascript, Haskell and a number of other languages.
+
 Various popular Emacs tools are included and configured here, such as
 `magit`, `docker.el`, `projectile`, `org-mode` etc., but the focus is moderate
 
