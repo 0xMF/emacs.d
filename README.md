@@ -6,8 +6,8 @@ It builds on [Steve Purcell's emacs.d](https://github.com/purcell/emacs.d) by ma
 In late 2017 I began by putting Emacs-specific settings into a sub-directory within my [dotfiles](https://github.com/0xMF/dotfiles) repo but by May 2020 I found that strategy ineffective and counter-intuitive particularly when making significant commit history changes.
 Once after I cloned my `dotfiles` on several machines and realized I probably would never use the desktop version of Emacs on those machines, I decided to fork Purcell's repo and put all my Emacs settings in here so these settings and my `dotfiles` settings continue to be independent of each other at all times.
 
-Purcell's `emacs.d` repo proved dependable (logically consistent and remarkably stable) over the years I used it.
-The eye-candy features Purcell keeps adding to his `emacs.d` setup has made Emacs truly a delight that I enjoy using.
+Over the years of using of Purcell's `emacs.d` repo, I found it to be dependable (logically consistent and stable) yet seamlessly extensible to work with my own vi/Vim setup of [Evil mode](https://github.com/emacs-evil/evil) and [General](https://github.com/noctuid/general.el).
+The eye-candy features Purcell keeps adding to his `emacs.d` has made Emacs truly a delight for me to keep using.
 Thanks Steve!
 If you are new to Purcell's setup, read his [README](README_Purcell.md) (archived here since July 2020).
 
