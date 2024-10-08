@@ -648,6 +648,94 @@ minibuffer."
 
 (defun 0xMF/settings/general ()
   "General keyboard settings."
+;; Do not ceate backups.
+(setq  make-backup-files nil)
+
+(defun load-if-file-exists (FILE)
+  "Check if FILE exists before loading it."
+  (if (file-readable-p FILE)
+      (load-file FILE)))
+
+(load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
+
+;; M-x slime calls sbcl
+(load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
+(require 'slime-autoloads)
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl")
+
+(require 'slime-autoloads)
+(setq slime-default-lisp 'sbcl)
+(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (set (make-local-variable 'lisp-indent-function)
+                 'common-lisp-indent-function)))
+(put 'lambda 'lisp-indent-function 'defun)
+(put 'while 'lisp-indent-function 1)
+(put 'unless 'lisp-indent-function 1)
+(put 'if 'lisp-indent-function nil)
+(put 'do 'lisp-indent-function 2)
+(put 'do* 'lisp-indent-function 2)
+
+(menu-bar-mode -1)
+
+;; Using mouse to select and copy text to the clipboard
+;; Source: [StackOverflow] how-to-combine-emacs-primary-clipboard-copy-and-paste-behavior-on-ms-windows
+(setq select-active-regions nil)
+(setq mouse-drag-copy-region t)
+(global-set-key [mouse-2] 'mouse-yank-at-click)
+;;
+
+;; Set default font
+;; (used and saved through menu Options->Set Default Font... into cutom.el)
+
+;; optionally (set-frame-font "Source Code Pro Semibold-10")
+(cond
+ ((member "Source Code Pro" (font-family-list))
+  (set-frame-font "Source Code Pro-13:style=Semibold" nil t))
+ ((member "Source Code Variable" (font-family-list))
+  (set-frame-font "Source Code Variable-13:style=Semibold" nil t))
+ ((member "DejaVu Sans Mono" (font-family-list))
+  (set-frame-font "DejaVu Sans Mono-10")))
+
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
+(setq exec-path (append exec-path '("~/bin")))
+(setq-default major-mode 'org-mode)
+
+(unless (version<= emacs-version "25")
+  (require 'fill-column-indicator))
+
+;;(benchmark-init/show-durations-tabulated)
+;; show battery indicator on mode
+(display-battery-mode t)
+
+;; hide trailing whitespace in command output from showing up in eshell
+(add-hook 'eshell-mode-hook
+          (defun hide-trailing-whitespace ()
+            (interactive)
+            (setq show-trailing-whitespace nil)))
+
+(add-hook 'Info-mode-hook
+          (defun 0xMF/settings/Info-mode ()
+            "Enable vi-style keybindings."
+            (interactive)
+            (turn-off-evil-mode)
+            (local-set-key (kbd "g") 'beginning-of-buffer)
+            (local-set-key (kbd "G") 'end-of-buffer)
+            (local-set-key (kbd "h") 'left-char)
+            (local-set-key (kbd "j") 'next-line)
+            (local-set-key (kbd "k") 'previous-line)
+            (local-set-key (kbd "l") 'right-char)
+            (local-set-key (kbd "<return>") 'Info-follow-nearest-node)
+            (dolist (map  (list Info-mode-map))
+              (define-key map (kbd "n") 'Info-forward-node)
+              (define-key map (kbd "p") 'Info-backward-node)
+              (define-key map (kbd "m") 'Info-menu))
+            (message "0xMF/settings/Info-mode")))
+
+(defun 0xMF/settings/hide-mode-line-toggle ()
+  "Toggle mode line toggle."
   (interactive)
 
   ;; bind j and k in normal state globally
@@ -844,6 +932,11 @@ minibuffer."
 (add-to-list 'evil-emacs-state-modes 'calendar-mode 'package-menu-mode)
 (evil-set-initial-state 'calendar-mode 'emacs)
 (evil-set-initial-state 'package-menu-mode 'emacs)
+(evil-set-initial-state 'pdf-view-mode 'emacs)
+(add-hook 'pdf-view-mode-hook
+          (lambda ()
+            (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
