@@ -694,7 +694,6 @@ minibuffer."
 
 (evil-define-key 'insert org-mode-map (kbd "C-<tab>") #'tab-to-tab-stop)
 
-
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)
 
@@ -767,6 +766,8 @@ minibuffer."
  ((member "DejaVu Sans Mono" (font-family-list))
   (set-frame-font "DejaVu Sans Mono-10")))
 
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
+(setq exec-path (append exec-path '("~/bin")))
 (setq-default major-mode 'org-mode)
 
 (unless (version<= emacs-version "25")
@@ -944,7 +945,6 @@ minibuffer."
 (add-hook 'pdf-view-mode-hook
           (lambda ()
             (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
-
 
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
