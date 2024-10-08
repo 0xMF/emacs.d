@@ -146,7 +146,7 @@
                     "o" 'org-open-at-point
                     "p" 'previous-buffer
                     "r" '0xMF/reset
-                    "t" '(lambda () (interactive) (kill-buffer)(delete-window))
+                    "t" #'(lambda () (interactive) (kill-buffer)(delete-window))
                     "T" 'sanityinc/toggle-delete-other-windows
                     "x" 'evil-delete)
 
@@ -282,7 +282,7 @@
                                            (interactive)
                                            (save-current-buffer)
                                            (kill-current-buffer)))
-  (evil-define-key nil evil-ex-map "q" '(lambda ()
+  (evil-define-key nil evil-ex-map "q" #'(lambda ()
                                           (interactive)
                                           (save-current-buffer)
                                           (kill-current-buffer))))
@@ -512,7 +512,7 @@ minibuffer."
   (define-key map (kbd "/") 'isearch-forward)
   (define-key map (kbd "?") 'isearch-backward)
   (define-key map (kbd "<escape>")
-                 '(lambda ()
+                 #'(lambda ()
                     (interactive)
                     (kill-this-buffer)
                     (unless (one-window-p)
@@ -746,7 +746,7 @@ minibuffer."
 (setq slime-default-lisp 'sbcl)
 (setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
 (add-hook 'lisp-mode-hook
-          (lambda ()
+          #'(lambda ()
             (set (make-local-variable 'lisp-indent-function)
                  'common-lisp-indent-function)))
 (put 'lambda 'lisp-indent-function 'defun)
@@ -874,7 +874,7 @@ minibuffer."
 (eval-after-load "org-present"
   '(progn
      (add-hook 'org-present-mode-hook
-               (lambda ()
+               #'(lambda ()
                  (org-present-big)
                  (turn-off-evil-mode)
                  (org-display-inline-images)
@@ -894,7 +894,7 @@ minibuffer."
                    (define-key map [down]   'org-present-next))
                  (org-present-read-only)))
      (add-hook 'org-present-mode-quit-hook
-               (lambda ()
+               #'(lambda ()
                  (org-present-small)
                  (local-unset-key (kbd "n"))
                  (local-unset-key (kbd "p"))
@@ -954,7 +954,7 @@ minibuffer."
 (evil-set-initial-state 'package-menu-mode 'emacs)
 (evil-set-initial-state 'pdf-view-mode 'emacs)
 (add-hook 'pdf-view-mode-hook
-          (lambda ()
+          #'(lambda ()
             (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
 
 
