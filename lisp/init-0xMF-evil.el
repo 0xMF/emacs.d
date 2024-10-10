@@ -16,13 +16,13 @@
   (package-refresh-contents))
 
 (setq sanityinc/required-packages (append sanityinc/required-packages '(djvu evil general keychain-environment
-                                                                             nov org-bullets org-noter-pdftools org-pdftools
-                                                                             undo-fu use-package yafolding)))
+                                                                             nov org-bullets org-pdftools
+                                                                             org-noter-pdftools undo-fu
+                                                                             use-package yafolding)))
 (dolist (package sanityinc/required-packages)
-(setq 0xMF-required-packages '(evil evil-collection
-                                    fill-column-indicator general go-mode haskell-mode hide-mode-line
-                                    hindent keychain-environment org-beautify-theme org-caldav
-                                    org-gcal racket-mode smart-mode-line smart-mode-line-powerline-theme
+(setq 0xMF-required-packages '(evil fill-column-indicator general go-mode hide-mode-line
+                                    hindent keychain-environment org-beautify-theme
+                                    powerline smart-mode-line smart-mode-line-powerline-theme
                                     ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
@@ -163,6 +163,7 @@
                     "g" 'save-this-word
                     "o" 'org-open-at-point
                     "O" 'org-open-at-point
+                    "n" 'menu-bar--display-line-numbers-mode-relative
                     "s" 'paredit-forward-slurp-sexp
                     "S" 'paredit-backward-slurp-sexp
                     "t" 'save-this-word
@@ -190,6 +191,7 @@
                     "L" 'org-open-at-point
                     "m" 'magit-mode
                     "n" 'display-line-numbers-mode
+                    "N" 'menu-bar--display-line-numbers-mode-absolute
                     "o" 'find-file
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/theme
@@ -261,8 +263,8 @@
 
   (when (boundp 'company-mode-map)
     (define-key company-active-map [tab] 'company-complete-common))
-  (dolist (map  (list company-active-map))
-    (define-key map (kbd "<tab>") 'company-complete-common))
+  ;(dolist (map  (list company-active-map))
+  ;  (define-key map (kbd "<tab>") 'company-complete-common))
 
   (dolist (map  (list minibuffer-local-isearch-map))
     (define-key map (kbd "n") 'isearch-printing-char))
@@ -362,7 +364,6 @@ minibuffer."
 (eval-after-load "org" '(require 'htmlize))
 
 (require 'use-package)
-(pdf-tools-install)
 (use-package org-pdftools
   :hook (org-load . org-pdftools-setup-link))
 (pdf-tools-install)
@@ -717,7 +718,7 @@ minibuffer."
 ;; Miscalleanous settings
 ;; User mode settings for UI/keyboard/look and feel
 ;;----------------------------------------------------------------------------
-(require 'org-gcal)
+;;(require 'org-gcal)
 (require 'yafolding)
 
 (add-hook 'prog-mode-hook
@@ -734,27 +735,27 @@ minibuffer."
       (load-file FILE)))
 
 (load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
-(load-if-file-exists (expand-file-name "~/.comp.misc/lisp/quicklisp/clhs-use-local.el"))
 
 ;; M-x slime calls sbcl
-(load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
-(require 'slime-autoloads)
+;;(load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
+;;(load-if-file-exists (expand-file-name "~/.comp.misc/lisp/quicklisp/clhs-use-local.el"))
+;;(require 'slime-autoloads)
 ;; Replace "sbcl" with the path to your implementation
-(setq inferior-lisp-program "sbcl")
+;;(setq inferior-lisp-program "sbcl")
 
-(require 'slime-autoloads)
-(setq slime-default-lisp 'sbcl)
-(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
-(add-hook 'lisp-mode-hook
-          #'(lambda ()
-            (set (make-local-variable 'lisp-indent-function)
-                 'common-lisp-indent-function)))
-(put 'lambda 'lisp-indent-function 'defun)
-(put 'while 'lisp-indent-function 1)
-(put 'unless 'lisp-indent-function 1)
-(put 'if 'lisp-indent-function nil)
-(put 'do 'lisp-indent-function 2)
-(put 'do* 'lisp-indent-function 2)
+;;;(require 'slime-autoloads)
+;;;(setq slime-default-lisp 'sbcl)
+;;;(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
+;;;(add-hook 'lisp-mode-hook
+;;          #'(lambda ()
+;;            (set (make-local-variable 'lisp-indent-function)
+;;                 'common-lisp-indent-function)))
+;;(put 'lambda 'lisp-indent-function 'defun)
+;;(put 'while 'lisp-indent-function 1)
+;;(put 'unless 'lisp-indent-function 1)
+;;(put 'if 'lisp-indent-function nil)
+;;(put 'do 'lisp-indent-function 2)
+;;(put 'do* 'lisp-indent-function 2)
 
 (menu-bar-mode -1)
 
@@ -824,7 +825,7 @@ minibuffer."
   (interactive)
   (if (boundp pdf-view-display-size)
     (internal-show-cursor nil nil)
-   (internal-show-cursor nil t)))
+   (internal-show-cursor nil t))
   (let ((bg (face-background 'default)))
     (if (string= 0xMF-current-theme "dark")
         (progn
