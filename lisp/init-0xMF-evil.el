@@ -21,8 +21,8 @@
                                                                              use-package yafolding)))
 (dolist (package sanityinc/required-packages)
 (setq 0xMF-required-packages '(evil fill-column-indicator general go-mode hide-mode-line
-                                    hindent keychain-environment org-beautify-theme
-                                    powerline smart-mode-line smart-mode-line-powerline-theme
+                                    keychain-environment org-beautify-theme powerline
+                                    smart-mode-line smart-mode-line-powerline-theme
                                     ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
   (unless (package-installed-p package)
@@ -64,7 +64,7 @@
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
   (if (string= (symbol-value 'evil-state) "normal")
       (set-cursor-color "green")
-      (set-cursor-color "white")))
+    (set-cursor-color "white")))
 
 (evil-mode 1)
 ;;(evil-collection-init)
@@ -263,8 +263,8 @@
 
   (when (boundp 'company-mode-map)
     (define-key company-active-map [tab] 'company-complete-common))
-  ;(dolist (map  (list company-active-map))
-  ;  (define-key map (kbd "<tab>") 'company-complete-common))
+                                      ;(dolist (map  (list company-active-map))
+                                      ;  (define-key map (kbd "<tab>") 'company-complete-common))
 
   (dolist (map  (list minibuffer-local-isearch-map))
     (define-key map (kbd "n") 'isearch-printing-char))
@@ -285,9 +285,9 @@
                                            (save-current-buffer)
                                            (kill-current-buffer)))
   (evil-define-key nil evil-ex-map "q" #'(lambda ()
-                                          (interactive)
-                                          (save-current-buffer)
-                                          (kill-current-buffer))))
+                                           (interactive)
+                                           (save-current-buffer)
+                                           (kill-current-buffer))))
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
@@ -488,7 +488,7 @@ minibuffer."
     (dolist (map  (list pdf-history-minor-mode-map))
       (local-unset-key (kbd "l"))
       (define-key map (kbd "l") 'image-forward-hscroll)))
-  (internal-show-cursor nil nil))
+    (internal-show-cursor nil nil))
   (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
   (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
   (dolist (map  (list pdf-view-mode-map))
@@ -551,17 +551,6 @@ minibuffer."
 ;;----------------------------------------------------------------------------
 ;; Language mode settings
 ;;----------------------------------------------------------------------------
-
-(require 'haskell-mode)
-(require 'hindent)
-
-(defun 0xMF/settings/haskell-mode ()
-  "Override some evil-mode settings when in haskell-mode."
-  (interactive)
-  (evil-local-set-key 'normal (kbd "; q") 'hindent-reformat-decl-or-fill))
-
-(with-eval-after-load 'haskell-mode
-  (add-hook 'haskell-mode-hook '0xMF/settings/haskell-mode))
 
 (use-package markdown-mode)
 :init
