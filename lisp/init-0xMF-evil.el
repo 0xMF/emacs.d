@@ -13,31 +13,26 @@
 
 ;; bring in my preferred packages specified in custom.el/package-selected-packages
 (unless package-archive-contents
-  (package-refresh-contents))
+     (package-refresh-contents))
 
-(setq sanityinc/required-packages (append sanityinc/required-packages '(djvu evil general keychain-environment
-                                                                             nov org-bullets org-pdftools
-                                                                             org-noter-pdftools undo-fu
-                                                                             use-package yafolding)))
-(dolist (package sanityinc/required-packages)
-(setq 0xMF-required-packages '(evil fill-column-indicator general go-mode hide-mode-line
-                                    keychain-environment org-beautify-theme powerline
-                                    smart-mode-line smart-mode-line-powerline-theme
+(setq 0xMF-required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
+                                    keychain-environment nov org-bullets org-beautify-theme
+                                    org-pdftools org-noter-pdftools
                                     ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF-required-packages)
-  (unless (package-installed-p package)
-    (package-install package)))
+        (unless (package-installed-p package)
+               (package-install package)))
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments nil)
 (setq exec-path-from-shell-check-startup-files nil)
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
 (setq exec-path (append exec-path '("~/bin")))
 (exec-path-from-shell-initialize)
 
 ;; disable cl-lib deprecated warnings
 (setq byte-compile-warnings '(cl-functions))
 
-;; install the missing packages when using Emacs 24.5.1 and below
 (setq vc-follow-symlinks t)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
@@ -47,16 +42,14 @@
 
 (keychain-refresh-environment)
 
-
 ;; use Noto Color Emoji for emoji support
 (when (member "Noto Color Emoji" (font-family-list))
-  (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend))
+     (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend))
 
 ;;----------------------------------------------------------------------------
 ;; Evil mode settings
 ;;----------------------------------------------------------------------------
 (require 'evil)
-;;(require 'evil-collection)
 (require 'general)
 (require 'undo-fu)
 
@@ -67,7 +60,6 @@
     (set-cursor-color "white")))
 
 (evil-mode 1)
-;;(evil-collection-init)
 
 (setq evil-default-state-cursor '("green" box))
 (setq evil-insert-state-cursor '("red" bar))
@@ -87,8 +79,8 @@
 ;; General keymap settings
 ;;----------------------------------------------------------------------------
 
-;; bind a key globally in normal state
-(setq general-default-keymaps 'evil-normal-state-map)
+ ;; bind a key globally in normal state
+ (setq general-default-keymaps 'evil-normal-state-map)
 
 ;; bind j and k in normal state globally
 (general-define-key "j" 'evil-next-visual-line
@@ -171,6 +163,9 @@
                     "y" #'yafolding-toggle-element)
 
 ;; named prefix key allows ; to be used a mapper for my keybindings
+;; bind a key globally in normal state
+(setq general-default-keymaps 'evil-normal-state-map)
+
 (setq 0xMF-leader1 ";")
 (general-define-key :prefix 0xMF-leader1
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
@@ -228,6 +223,7 @@
 (setq scroll-margin 5
       scroll-conservatively 9999
       scroll-step 1)
+
 
 (defun 0xMF/settings/vi ()
   "My Vi settings."
@@ -333,7 +329,6 @@
       (flyspell-do-correct 'save nil (car word) current-location
                            (cadr word) (caddr word) current-location))))
 ;; ---
-
 ;; esc quits
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
@@ -386,6 +381,7 @@ minibuffer."
     (define-key map (kbd "n") 'eww-forward-url)
     (define-key map (kbd "p") 'eww-back-url)))
 (add-hook 'eww-mode-hook '0xMF/settings/eww)
+
 
 ;; Credit: Bozhidar Batsov
 ;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
@@ -488,7 +484,7 @@ minibuffer."
     (dolist (map  (list pdf-history-minor-mode-map))
       (local-unset-key (kbd "l"))
       (define-key map (kbd "l") 'image-forward-hscroll)))
-    (internal-show-cursor nil nil))
+    (internal-show-cursor nil nil)
   (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
   (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
   (dolist (map  (list pdf-view-mode-map))
@@ -522,31 +518,6 @@ minibuffer."
   (define-key map (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page))
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
-
-;; yes to powerline on a smart-mode-line
-(require 'powerline)
-(require 'smart-mode-line)
-(require 'smart-mode-line-powerline-theme)
-(setq sml/theme 'powerline)
-(setq sml/no-confirm-load-theme t)
-(setq powerline-arrow-shape 'arrow)
-(powerline-vim-theme)
-(setf rm-blacklist "")
-(display-time-mode t)
-(sml/setup)
-(setq sml/no-confirm-load-theme t)
-(setq sml/theme 'powerline)
-
-(defun 0xMF/settings/powerline ()
-  "Set/Reset powerline on a smart-mode-line."
-  (interactive)
-  (powerline-vim-theme)
-  (setf rm-blacklist "")
-  (setq powerline-arrow-shape 'arrow)
-  (display-time-mode t)
-  (sml/setup))
-(0xMF/settings/powerline)
-
 
 ;;----------------------------------------------------------------------------
 ;; Language mode settings
@@ -680,7 +651,6 @@ minibuffer."
 (setq org-table-auto-blank-field nil)
 (setq org-time-stamp-custom-formats '("<%b-%d %a>" "<%m/%d/%y %a>" "<%m/%d/%y %a %H:%M>"))
 
-
 ;; Use bullets (default if uncommented)
 (require 'org-bullets)
 (require 'org-tempo)
@@ -702,6 +672,7 @@ minibuffer."
 ;; refer: https://github.com/gongzhitaao/orgcss
 (setq org-html-htmlize-output-type 'css)
 
+(setq-default major-mode 'org-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Miscalleanous settings
@@ -725,27 +696,6 @@ minibuffer."
 
 (load-if-file-exists (expand-file-name "~/.emacs.d/lisp/secrets.el"))
 
-;; M-x slime calls sbcl
-;;(load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
-;;(load-if-file-exists (expand-file-name "~/.comp.misc/lisp/quicklisp/clhs-use-local.el"))
-;;(require 'slime-autoloads)
-;; Replace "sbcl" with the path to your implementation
-;;(setq inferior-lisp-program "sbcl")
-
-;;;(require 'slime-autoloads)
-;;;(setq slime-default-lisp 'sbcl)
-;;;(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
-;;;(add-hook 'lisp-mode-hook
-;;          #'(lambda ()
-;;            (set (make-local-variable 'lisp-indent-function)
-;;                 'common-lisp-indent-function)))
-;;(put 'lambda 'lisp-indent-function 'defun)
-;;(put 'while 'lisp-indent-function 1)
-;;(put 'unless 'lisp-indent-function 1)
-;;(put 'if 'lisp-indent-function nil)
-;;(put 'do 'lisp-indent-function 2)
-;;(put 'do* 'lisp-indent-function 2)
-
 (menu-bar-mode -1)
 
 ;; Using mouse to select and copy text to the clipboard
@@ -767,9 +717,6 @@ minibuffer."
  ((member "DejaVu Sans Mono" (font-family-list))
   (set-frame-font "DejaVu Sans Mono-10")))
 
-(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
-(setq exec-path (append exec-path '("~/bin")))
-(setq-default major-mode 'org-mode)
 
 (unless (version<= emacs-version "25")
   (require 'fill-column-indicator))
@@ -849,53 +796,6 @@ minibuffer."
   (when (string= 0xMF-current-theme "light")
     (load-theme 'blueknight-light))
   (message "changed to %s mode" 0xMF-current-theme))
-
-(defun 0xMF/settings/ivy-minibuffer ()
-  "Bring sanity back to up/down keybindings."
-  (interactive)
-  (dolist (map  (list ivy-minibuffer-map))
-    (define-key map [up] 'ivy-previous-line)))
-(add-hook 'ivy-minibuffer-hook '0xMF/settings/ivy-minibuffer)
-(add-hook 'ivy-mode-hook '0xMF/settings/ivy-minibuffer)
-
-(require 'org-present)
-(require 'hide-mode-line)
-(autoload 'org-present "org-present" nil t)
-(eval-after-load "org-present"
-  '(progn
-     (add-hook 'org-present-mode-hook
-               #'(lambda ()
-                 (org-present-big)
-                 (turn-off-evil-mode)
-                 (org-display-inline-images)
-                 (org-present-hide-cursor)
-                 (local-set-key (kbd "n") 'org-present-next)
-                 (local-set-key (kbd [space]) 'org-present-next)
-                 (local-set-key (kbd "p") 'org-present-prev)
-                 (local-set-key (kbd "q") 'org-present-quit)
-                 (local-set-key (kbd "<") 'org-present-beginning)
-                 (local-set-key (kbd "G") 'org-present-end)
-                 (local-set-key (kbd ">") 'org-present-end)
-                 (dolist (map  (list org-present-mode-map))
-                   (define-key map (kbd "gg")  'org-present-beginning)
-                   (define-key map [backspace] 'org-present-prev)
-                   (define-key map [?\S- ]  'org-present-prev)
-                   (define-key map [up]     'org-present-prev)
-                   (define-key map [down]   'org-present-next))
-                 (org-present-read-only)))
-     (add-hook 'org-present-mode-quit-hook
-               #'(lambda ()
-                 (org-present-small)
-                 (local-unset-key (kbd "n"))
-                 (local-unset-key (kbd "p"))
-                 (local-unset-key (kbd "G"))
-                 (turn-on-evil-mode)
-                 (org-remove-inline-images)
-                 (org-present-show-cursor)
-                 (hide-mode-line-mode -1)
-                 (org-present-read-write)))))
-
-(add-hook 'org-present-mode-hook #'hide-mode-line-mode)
 
 (setq counsel-find-file-ignore-regexp (concat "\\(.~undo-tree~\\|"
                                               ".desktop\\|"
@@ -1032,6 +932,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
   "Remove all kinds of needless buffers."
   (0xMF/kill-some-buffers "^\\Diary")
   (0xMF/kill-some-buffers "^\\*Aprops*")
+  (0xMF/kill-some-buffers "^\\*Async-native-compile-log*")
   (mapc #'(lambda (buffer)
           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
             (kill-buffer buffer))) (buffer-list))
