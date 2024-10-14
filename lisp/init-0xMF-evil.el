@@ -21,12 +21,15 @@
                                     ssh-agency undo-fu use-package yafolding))
 (dolist (package 0xMF/required-packages)
         (unless (package-installed-p package)
-               (package-install package)))
+               (package-install package)
+               (message "installed package %s" package)))
 
-(setq 0xMF/delete-packages '(projectile-rails))
-(dolist (package 0xMF/delete-packages)
+(setq 0xMF/unused-packages '(dimmer eat projectile-rails sly zig-mode))
+(dolist (package 0xMF/unused-packages)
         (unless (package-installed-p package)
-               (package-delete package)))
+               (package-delete package)
+               (message "unused package %s was removed" package)))
+
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments nil)
