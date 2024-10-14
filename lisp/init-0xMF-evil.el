@@ -15,13 +15,18 @@
 (unless package-archive-contents
      (package-refresh-contents))
 
-(setq 0xMF-required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
+(setq 0xMF/required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
                                     keychain-environment nov org-bullets org-beautify-theme
                                     org-pdftools org-noter-pdftools
                                     ssh-agency undo-fu use-package yafolding))
-(dolist (package 0xMF-required-packages)
+(dolist (package 0xMF/required-packages)
         (unless (package-installed-p package)
                (package-install package)))
+
+(setq 0xMF/delete-packages '(projectile-rails))
+(dolist (package 0xMF/delete-packages)
+        (unless (package-installed-p package)
+               (package-delete package)))
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments nil)
