@@ -17,8 +17,8 @@
 
 (setq 0xMF/required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
                                     keychain-environment nov org-bullets org-beautify-theme
-                                    org-pdftools org-noter-pdftools
-                                    ssh-agency undo-fu use-package yafolding))
+                                    org-pdftools org-noter-pdftools ssh-agency undo-fu
+                                    use-package vline yafolding))
 (dolist (package 0xMF/required-packages)
         (unless (package-installed-p package)
                (package-install package)
@@ -61,11 +61,18 @@
 (require 'general)
 (require 'undo-fu)
 
-(defun 0xMF/show-cursor()
+(defun 0xMF/settings/show-cursor-emacs-evil-toggle()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
+  (interactive)
   (if (string= (symbol-value 'evil-state) "normal")
       (set-cursor-color "green")
     (set-cursor-color "white")))
+
+(defun 0xMF/settings/show-cursor-column-toggle()
+  (interactive)
+  "Show and follow cursor column."
+  (set-face-background vline-face "firebrick")
+  (vline-mode 'toggle))
 
 (evil-mode 1)
 
@@ -79,7 +86,7 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(add-hook 'evil-mode-hook '0xMF/show-cursor)
+(add-hook 'evil-mode-hook '0xMF/settings/show-cursor-emacs-evil-toggle)
 (add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
 (add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
 
@@ -197,8 +204,8 @@
                     "N" 'menu-bar--display-line-numbers-mode-absolute
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "p" '0xMF/settings/theme
-                    "P" '0xMF/settings/show-cursor-toggle ;;pdf-view ;;start-slideshw ;;'org-present
+                    "p" '0xMF/settings/show-cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
+                    "P" '0xMF/settings/theme
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
