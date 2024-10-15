@@ -61,7 +61,7 @@
 (require 'general)
 (require 'undo-fu)
 
-(defun 0xMF/default-cursor()
+(defun 0xMF/show-cursor()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
   (if (string= (symbol-value 'evil-state) "normal")
       (set-cursor-color "green")
@@ -79,7 +79,7 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(add-hook 'evil-mode-hook '0xMF/default-cursor)
+(add-hook 'evil-mode-hook '0xMF/show-cursor)
 (add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
 (add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
 
@@ -768,42 +768,10 @@ minibuffer."
   "Toggle showing cursor."
   (interactive)
   (if (boundp pdf-view-display-size)
-    (internal-show-cursor nil nil)
-   (internal-show-cursor nil t))
-  (let ((bg (face-background 'default)))
-    (if (string= 0xMF-current-theme "dark")
-        (progn
-          (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "NavyBlue" :box `(:line-width -3 :color ,bg :style "released-button"))
-          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#7f0007")))))
-          (custom-set-faces '(org-drawer ((t (:foreground "Wheat" :background "#f5f5dc")))))
-          (custom-set-faces '(org-hide ((t (:foreground "#f5f5dc")))))
-          (custom-set-faces '(org-macro ((t (:foreground "DarkOliveGreen" :bold t)))))
-          (custom-set-faces '(org-table ((t (:foreground "MidnightBlue")))))
-          (load-theme 'blueknight-light)
-          (load-theme 'smart-mode-line-light-powerline)
-          (setq 0xMF-current-theme "light"))
-        (progn
-          (set-face-attribute 'org-checkbox nil :inherit 'default :background bg :foreground "Yellow" :box `(:line-width -3 :color ,bg :style "released-button"))
-          (custom-set-faces '(minibuffer-prompt ((t (:foreground "#d9d900")))))
-          (custom-set-faces '(org-drawer ((t (:foreground "#270372" :background "#180248")))))
-          (custom-set-faces '(org-hide ((t (:foreground "#180248")))))
-          (custom-set-faces '(org-table ((t (:foreground "#ebbbff")))))
-          (custom-set-faces '(org-macro ((t (:foreground "burlywood")))))
-          (setq sml/theme 'dark)
-          (load-theme 'blueknight-dark)
-          (0xMF/settings/powerline)
-          (custom-set-faces '(powerline-active1 ((t (:background "#00346e")))))
-          (custom-set-faces '(powerline-active2 ((t (:background "#003f8e")))))
-          (load-theme 'smart-mode-line-powerline)
-          (setq 0xMF-current-theme "dark"))
-        (mapcar #'(lambda (f) (set-face-background f bg)
-                    (set-border-color bg))
-                '(org-checkbox org-macro org-hide))))
-  (load-theme 'org-beautify)
-  (org-toggle-pretty-entities)
-  (when (string= 0xMF-current-theme "light")
-    (load-theme 'blueknight-light))
-  (message "changed to %s mode" 0xMF-current-theme))
+      (internal-show-cursor nil nil))
+  (if (internal-show-cursor-p)
+      (internal-show-cursor nil nil)
+    (internal-show-cursor nil t)))
 
 (setq counsel-find-file-ignore-regexp (concat "\\(.~undo-tree~\\|"
                                               ".desktop\\|"
