@@ -71,7 +71,9 @@
 (defun 0xMF/settings/show-cursor-column-toggle()
   (interactive)
   "Show and follow cursor column."
-  (set-face-background vline-face "firebrick")
+  (if (string= (face-background 'default) "#f5f5dc")
+      (set-face-background vline-face "light steel blue")
+    (set-face-background vline-face "firebrick"))
   (vline-mode 'toggle))
 
 (evil-mode 1)
@@ -205,7 +207,7 @@
                     "o" 'find-file
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/show-cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
-                    "P" '0xMF/settings/theme
+                    "P" '0xMF/settings/projector
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
