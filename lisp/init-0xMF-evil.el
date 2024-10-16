@@ -847,6 +847,11 @@ With a prefix argument,the date is inserted without the day of the week."
   ;;(local-set-key (kbd "i") 'diary-insert-entry)
   (message "added settings for calendar-mode"))
 
+(defun 0xMF/settings/orgmode-emphasis-markers-reset ()
+  "Reset emphasis markers in current buffer."
+  (interactive)
+  (setq org-hide-emphasis-markers t))
+
 (defun 0xMF/settings/orgmode-emphasis-markers-toggle ()
   "Toggle emphasis markers in current buffer."
   (interactive)
