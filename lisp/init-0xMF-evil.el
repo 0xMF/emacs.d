@@ -188,8 +188,8 @@
                     "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                     "A" 'org-agenda
                     "B" 'switch-to-buffer
-                    "c" 'comment-region
-                    "C" 'org-capture
+                    "c" '0xMF/settings/theme
+                    "C" 'comment-region ;; 'org-capture
                     "d" 'insdate-insert-current-date
                     "D" 'org-agenda-list
                     "e" 'eval-last-sexp
