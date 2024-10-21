@@ -16,7 +16,7 @@
      (package-refresh-contents))
 
 (setq 0xMF/required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
-                                    keychain-environment nov org-bullets org-beautify-theme
+                                    keychain-environment org-bullets org-beautify-theme
                                     org-pdftools org-noter-pdftools ssh-agency undo-fu
                                     use-package vline yafolding))
 (dolist (package 0xMF/required-packages)
@@ -61,20 +61,29 @@
 (require 'general)
 (require 'undo-fu)
 
-(defun 0xMF/settings/show-cursor-emacs-evil-toggle()
+(defun 0xMF/settings/cursor-emacs-evil-toggle()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
   (interactive)
   (if (string= (symbol-value 'evil-state) "normal")
       (set-cursor-color "green")
     (set-cursor-color "white")))
 
-(defun 0xMF/settings/show-cursor-column-toggle()
+(defun 0xMF/settings/cursor-column-toggle()
   (interactive)
   "Show and follow cursor column."
   (if (string= (face-background 'default) "#f5f5dc")
       (set-face-background vline-face "light steel blue")
     (set-face-background vline-face "firebrick"))
   (vline-mode 'toggle))
+
+(defun 0xMF/settings/cursor-toggle ()
+  "Toggle showing cursor."
+  (interactive)
+  (if (boundp pdf-view-display-size)
+      (internal-show-cursor nil nil))
+  (if (internal-show-cursor-p)
+      (internal-show-cursor nil nil)
+    (internal-show-cursor nil t)))
 
 (evil-mode 1)
 
@@ -88,7 +97,7 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(add-hook 'evil-mode-hook '0xMF/settings/show-cursor-emacs-evil-toggle)
+(add-hook 'evil-mode-hook '0xMF/settings/cursor-emacs-evil-toggle)
 (add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
 (add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
 
@@ -206,8 +215,7 @@
                     "N" 'menu-bar--display-line-numbers-mode-absolute
                     "o" 'find-file
                     "O" 'org-open-at-point
-                    "p" '0xMF/settings/show-cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
-                    "P" '0xMF/settings/projector
+                    "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
                     "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
@@ -772,15 +780,6 @@ minibuffer."
   (hide-mode-line-mode (if hide-mode-line-mode -1 +1))
   (unless hide-mode-line-mode
     (redraw-display)))
-
-(defun 0xMF/settings/show-cursor-toggle ()
-  "Toggle showing cursor."
-  (interactive)
-  (if (boundp pdf-view-display-size)
-      (internal-show-cursor nil nil))
-  (if (internal-show-cursor-p)
-      (internal-show-cursor nil nil)
-    (internal-show-cursor nil t)))
 
 (setq counsel-find-file-ignore-regexp (concat "\\(.~undo-tree~\\|"
                                               ".desktop\\|"
