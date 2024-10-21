@@ -71,10 +71,11 @@
 (defun 0xMF/settings/cursor-column-toggle()
   (interactive)
   "Show and follow cursor column."
-  (if (string= (face-background 'default) "#f5f5dc")
-      (set-face-background vline-face "light steel blue")
-    (set-face-background vline-face "firebrick"))
-  (vline-mode 'toggle))
+  (if (boundp vline-face)
+      (if (string= (face-background 'default) "#f5f5dc")
+          (set-face-background vline-face "light steel blue")
+        (set-face-background vline-face "firebrick"))
+    (vline-mode 'toggle)))
 
 (defun 0xMF/settings/cursor-toggle ()
   "Toggle showing cursor."
