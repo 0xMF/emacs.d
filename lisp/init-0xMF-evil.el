@@ -237,6 +237,7 @@
                     "$" 'toggle-truncate-lines
                     "/" 'org-tags-view
                     "." 'org-tags-view
+                    ";" 'recenter-top-bottom
                     "\\" 'org-match-sparse-tree)
 
 ;;"Bind keys in multiple states of Org-mode."
