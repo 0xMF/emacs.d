@@ -318,28 +318,6 @@
     (define-key map (kbd "M-<return>") 'vertico-exit)))
 (add-hook 'vertico-mode-hook '0xMF/settings/vertico)
 
-(defun 0xMF/settings/vertico ()
-  "My setup for vertico-mode."
-  (interactive)
-  (dolist (map (list vertico-map))
-    (local-unset-key (kbd  "C-<return>"))
-    (define-key map [tab] 'vertico-insert)
-    (define-key map (kbd "C-l") 'vertico-insert)
-    (define-key map (kbd "<return>") 'vertico-exit)
-    (define-key map (kbd "C-<return>") 'vertico-exit)
-    (define-key map (kbd "M-<return>") 'vertico-exit)))
-(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
-
-(defun 0xMF/settings/vertico ()
-  "My setup for vertico-mode."
-  (interactive)
-  (dolist (map (list vertico-map))
-    (local-unset-key (kbd  "C-<return>"))
-    (define-key map [tab] 'vertico-insert)
-    (define-key map (kbd "C-<return>") 'vertico-exit)
-    (define-key map (kbd "M-<return>") 'vertico-exit)))
-(add-hook 'vertico-mode-hook '0xMF/settings/vertico)
-
 ;; Credit: [StackOverflow] in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
 (defun save-this-word ()
   "Save word to personal dict."
@@ -891,7 +869,6 @@ Turn on spell check automatically; maketext wrap at 81; and make
 
 (defun 0xMF/settings/package-menu-mode ()
   "My settings for package menu."
-
   (define-key package-menu-mode-map (kbd "; s") '0xMF/startup)
   (define-key package-menu-mode-map (kbd "/ n") nil )
   (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
