@@ -131,9 +131,7 @@
                     "t" 'whitespace-mode
                     "o" #'(lambda ()
                             (interactive)
-                            (other-window 1)
-                            (unless (one-window-p)
-                              (delete-other-windows)))
+                            (other-window 1))
                     "O" 'org-open-at-point
                     "p" 'previous-buffer
                     ;; "P" 'other-window
