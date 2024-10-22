@@ -113,11 +113,6 @@
 (general-define-key :prefix "w"
                     "a" 'org-toggle-link-display ; 'beginning-of-line
                     "c" 'whitespace-cleanup
-                    "d" #'(lambda ()
-                            (interactive)
-                            (kill-buffer)
-                            (unless (one-window-p)
-                              (delete-window)))
                     "e" 'end-of-line
                     "f" '0xMF/toggle-font-large-normal
                     "|" 'fci-mode
@@ -132,7 +127,11 @@
                     "o" #'(lambda ()
                             (interactive)
                             (other-window 1))
-                    "O" 'org-open-at-point
+                    "O" #'(lambda ()
+                            (interactive)
+                            (unless (one-window-p)
+                              (other-window 1)
+                              (delete-window)))
                     "p" 'previous-buffer
                     ;; "P" 'other-window
                     "r" 'evil-window-rotate-upwards
