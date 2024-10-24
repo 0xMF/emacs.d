@@ -127,11 +127,7 @@
                     "o" #'(lambda ()
                             (interactive)
                             (other-window 1))
-                    "O" #'(lambda ()
-                            (interactive)
-                            (unless (one-window-p)
-                              (other-window 1)
-                              (delete-window)))
+                    "O" 'delete-other-windows
                     "p" 'previous-buffer
                     ;; "P" 'other-window
                     "r" 'evil-window-rotate-upwards
@@ -740,9 +736,10 @@ minibuffer."
             (local-set-key (kbd "l") 'right-char)
             (local-set-key (kbd "<return>") 'Info-follow-nearest-node)
             (dolist (map  (list Info-mode-map))
+              (define-key map (kbd "m") 'Info-menu)
               (define-key map (kbd "n") 'Info-forward-node)
               (define-key map (kbd "p") 'Info-backward-node)
-              (define-key map (kbd "m") 'Info-menu))
+              (define-key map (kbd "q") 'delete-other-windows))
             (message "0xMF/settings/Info-mode")))
 
 (defun 0xMF/settings/hide-mode-line-toggle ()
