@@ -204,7 +204,7 @@
                     "o" 'find-file
                     "O" 'org-open-at-point
                     "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
-                    "q" 'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
+                    "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                     "r" '0xMF/reset
                     "R" 'file-reload ;;'undo-tree-redo
                     "s" '0xMF/startup
@@ -225,7 +225,8 @@
                     "$" 'toggle-truncate-lines
                     "/" 'org-tags-view
                     "." 'org-tags-view
-                    ";" 'recenter-top-bottom
+                    "<SPC>" 'recenter-top-bottom
+                    ";" 'org-capture
                     "\\" 'org-match-sparse-tree)
 
 ;;"Bind keys in multiple states of Org-mode."
