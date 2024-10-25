@@ -62,8 +62,8 @@
     (set-cursor-color "white")))
 
 (defun 0xMF/settings/cursor-column-toggle()
-  (interactive)
   "Show and follow cursor column."
+  (interactive)
   (if (bound-and-true-p vline-face)
       (progn
         (if (string= (face-background 'default) "#f5f5dc")
@@ -100,159 +100,160 @@
 ;; General keymap settings
 ;;----------------------------------------------------------------------------
 
- ;; bind a key globally in normal state
- (setq general-default-keymaps 'evil-normal-state-map)
-
-;; bind j and k in normal state globally
-(general-define-key "j" 'evil-next-visual-line
-                    "k" 'evil-previous-visual-line
-                    "SPC" 'evil-scroll-page-down
-                    "DEL" 'evil-scroll-page-up)
-
-;; bind wm and wc
-(general-define-key :prefix "w"
-                    "a" 'org-toggle-link-display ; 'beginning-of-line
-                    "c" 'whitespace-cleanup
-                    "e" 'end-of-line
-                    "f" '0xMF/toggle-font-large-normal
-                    "|" 'fci-mode
-                    "h" 'previous-buffer
-                    "j" 'next-buffer
-                    "k" 'kill-this-buffer
-                    "l" 'previous-buffer
-                    "m" 'writeroom-mode
-                    "n" 'next-buffer
-                    "N" 'other-window
-                    "t" 'whitespace-mode
-                    "o" #'(lambda ()
-                            (interactive)
-                            (other-window 1))
-                    "O" 'delete-other-windows
-                    "p" 'previous-buffer
-                    ;; "P" 'other-window
-                    "r" 'evil-window-rotate-upwards
-                    "R" 'evil-window-rotate-downwards
-                    "u" 'winner-undo
-                    "U" 'winner-redo
-                    "w" 'delete-other-windows
-                    "W" 'delete-window
-                    "0" 'delete-window
-                    "1" 'delete-window)
-(general-define-key :prefix "b"
-                    "a" 'describe-bindings
-                    "b" 'evil-scroll-page-up
-                    "c" 'yank
-                    "d" 'org-time-stamp-inactive
-                    "D" 'org-time-stamp
-                    "f" 'markdown-follow-thing-at-point
-                    "h" 'previous-buffer
-                    "j" 'next-buffer
-                    "l" 'list-buffers
-                    "n" 'next-buffer
-                    "o" 'org-open-at-point
-                    "p" 'previous-buffer
-                    "r" '0xMF/reset
-                    "t" #'(lambda () (interactive) (kill-buffer)(delete-window))
-                    "T" 'sanityinc/toggle-delete-other-windows
-                    "x" 'evil-delete)
-
-(general-define-key :prefix "z"
-                    "b" 'paredit-forward-barf-sexp
-                    "B" 'paredit-backward-barf-sexp
-                    "c" 'comment-or-uncomment-region
-                    "e" 'eval-last-sexp
-                    "E" 'eval-region
-                    "d" #'yafolding-toggle-all
-                    "f" 'paredit-forward-slurp-sexp
-                    "F" 'paredit-backward-slurp-sexp
-                    "k" #'0xMF/shrink
-                    "g" 'save-this-word
-                    "o" 'org-open-at-point
-                    "O" 'org-open-at-point
-                    "n" 'menu-bar--display-line-numbers-mode-relative
-                    "s" 'paredit-forward-slurp-sexp
-                    "S" 'paredit-backward-slurp-sexp
-                    "t" 'save-this-word
-                    "x" '0xMF/orgmode-remove-tag
-                    "y" #'yafolding-toggle-element)
-
+;; bind a key globally in normal state
+(setq general-default-keymaps 'evil-normal-state-map)
 ;; named prefix key allows ; to be used a mapper for my keybindings
 ;; bind a key globally in normal state
 (setq general-default-keymaps 'evil-normal-state-map)
-
 (setq 0xMF-leader1 ";")
-(general-define-key :prefix 0xMF-leader1
-                    "a" '0xMF/settings/orgmode-emphasis-markers-toggle
-                    "A" 'org-agenda
-                    "B" 'switch-to-buffer
-                    "c" '0xMF/settings/theme
-                    "C" 'comment-region ;; 'org-capture
-                    "d" 'insdate-insert-current-date
-                    "D" 'org-agenda-list
-                    "e" 'eval-last-sexp
-                    "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
-                    "f" 'set-fill-column
-                    "F" 'file-reload ; 'fill-paragraph
-                    "g" 'magit-status
-                    "i" '0xMF/settings/Info-mode
-                    "k" 'kill-this-buffer
-                    "l" 'whitespace-mode
-                    "L" 'org-open-at-point
-                    "m" 'magit-mode
-                    "n" 'display-line-numbers-mode
-                    "N" 'menu-bar--display-line-numbers-mode-absolute
-                    "o" 'find-file
-                    "O" 'org-open-at-point
-                    "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
-                    "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
-                    "r" '0xMF/reset
-                    "R" 'file-reload ;;'undo-tree-redo
-                    "s" '0xMF/startup
-                    "t" '0xMF/settings/theme
-                    "T" 'org-set-tags
-                    "u" 'undo-tree-undo
-                    "v" '0xMF/vi
-                    "w" 'toggle-truncate-lines
-                    "W" #'(lambda () (interactive) (org-agenda-list 7))
-                    "x" 'evil-delete
-                    "y" 'timeclock-out
-                    "Y" 'timeclock-in
-                    "z" '0xMF/zero
-                    "+" #'(lambda () (interactive) (text-scale-increase 2))
-                    "=" #'(lambda () (interactive) (text-scale-increase 3))
-                    "-" 'text-scale-decrease
-                    "0" #'(lambda () (interactive) (text-scale-adjust 0))
-                    "$" 'toggle-truncate-lines
-                    "/" 'org-tags-view
-                    "." 'org-tags-view
-                    "<SPC>" 'recenter-top-bottom
-                    ";" 'org-capture
-                    "\\" 'org-match-sparse-tree)
-
 ;;"Bind keys in multiple states of Org-mode."
 (general-define-key :keymaps 'org-mode-map
                     :states '(insert emacs)
                     "<tab>" 'org-cycle)
+
+
+(defun 0xMF/settings/general ()
+  "General keyboard settings."
+  (interactive)
+
+  ;; bind j and k in normal state globally
+  (general-define-key "j" 'evil-next-visual-line
+                      "k" 'evil-previous-visual-line
+                      "SPC" 'evil-scroll-page-down
+                      "DEL" 'evil-scroll-page-up)
+
+  ;; bind wm and wc
+  (general-define-key :prefix "w"
+                      "a" 'org-toggle-link-display ; 'beginning-of-line
+                      "c" 'whitespace-cleanup
+                      "e" 'end-of-line
+                      "f" '0xMF/toggle-font-large-normal
+                      "|" 'fci-mode
+                      "h" 'previous-buffer
+                      "j" 'next-buffer
+                      "k" 'kill-this-buffer
+                      "l" 'previous-buffer
+                      "m" 'writeroom-mode
+                      "n" 'next-buffer
+                      "N" 'other-window
+                      "t" 'whitespace-mode
+                      "o" #'(lambda () (interactive) (other-window 1))
+                      "O" 'delete-other-windows
+                      "p" 'previous-buffer
+                      ;; "P" 'other-window
+                      "r" 'evil-window-rotate-upwards
+                      "R" 'evil-window-rotate-downwards
+                      "u" 'winner-undo
+                      "U" 'winner-redo
+                      "w" 'delete-other-windows
+                      "W" 'delete-window
+                      "0" 'delete-window
+                      "1" 'delete-window)
+
+  (general-define-key :prefix "b"
+                      "a" 'describe-bindings
+                      "b" 'evil-scroll-page-up
+                      "c" 'yank
+                      "d" 'org-time-stamp-inactive
+                      "D" 'org-time-stamp
+                      "f" 'markdown-follow-thing-at-point
+                      "h" 'previous-buffer
+                      "j" 'next-buffer
+                      "l" 'list-buffers
+                      "n" 'next-buffer
+                      "o" 'org-open-at-point
+                      "p" 'previous-buffer
+                      "r" '0xMF/reset
+                      "t" #'(lambda () (interactive) (kill-buffer)(delete-window))
+                      "T" 'sanityinc/toggle-delete-other-windows
+                      "x" 'evil-delete)
+
+  (general-define-key :prefix "z"
+                      "b" 'paredit-forward-barf-sexp
+                      "B" 'paredit-backward-barf-sexp
+                      "c" 'comment-or-uncomment-region
+                      "e" 'eval-last-sexp
+                      "E" 'eval-region
+                      "d" #'yafolding-toggle-all
+                      "f" 'paredit-forward-slurp-sexp
+                      "F" 'paredit-backward-slurp-sexp
+                      "k" #'0xMF/shrink
+                      "g" 'save-this-word
+                      "o" 'org-open-at-point
+                      "O" 'org-open-at-point
+                      "n" 'menu-bar--display-line-numbers-mode-relative
+                      "s" 'paredit-forward-slurp-sexp
+                      "S" 'paredit-backward-slurp-sexp
+                      "t" 'save-this-word
+                      "x" '0xMF/orgmode-remove-tag
+                      "y" #'yafolding-toggle-element)
+
+  (general-define-key :prefix 0xMF-leader1
+                      "a" '0xMF/settings/orgmode-emphasis-markers-toggle
+                      "A" 'org-agenda
+                      "B" 'switch-to-buffer
+                      "c" '0xMF/settings/theme
+                      "C" 'comment-region ;; 'org-capture
+                      "d" 'insdate-insert-current-date
+                      "D" 'org-agenda-list
+                      "e" 'eval-last-sexp
+                      "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
+                      "f" 'set-fill-column
+                      "F" 'file-reload ; 'fill-paragraph
+                      "g" 'magit-status
+                      "i" '0xMF/settings/Info-mode
+                      "k" 'kill-this-buffer
+                      "l" 'whitespace-mode
+                      "L" 'org-open-at-point
+                      "m" 'magit-mode
+                      "n" 'display-line-numbers-mode
+                      "N" 'menu-bar--display-line-numbers-mode-absolute
+                      "o" 'find-file
+                      "O" 'org-open-at-point
+                      "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
+                      "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
+                      "r" '0xMF/reset
+                      "R" 'file-reload ;;'undo-tree-redo
+                      "s" '0xMF/startup
+                      "t" '0xMF/settings/theme
+                      "T" 'org-set-tags
+                      "u" 'undo-tree-undo
+                      "v" '0xMF/vi
+                      "w" 'toggle-truncate-lines
+                      "W" #'(lambda () (interactive) (org-agenda-list 7))
+                      "x" 'evil-delete
+                      "y" 'timeclock-out
+                      "Y" 'timeclock-in
+                      "z" '0xMF/zero
+                      "+" #'(lambda () (interactive) (text-scale-increase 2))
+                      "=" #'(lambda () (interactive) (text-scale-increase 3))
+                      "-" 'text-scale-decrease
+                      "0" #'(lambda () (interactive) (text-scale-adjust 0))
+                      "$" 'toggle-truncate-lines
+                      "/" 'org-tags-view
+                      "." 'org-tags-view
+                      "<SPC>" 'recenter-top-bottom
+                      ";" 'org-capture
+                      "\\" 'org-match-sparse-tree))
 
 ;; smooth scrolling
 (setq scroll-margin 5
       scroll-conservatively 9999
       scroll-step 1)
 
-
 (defun 0xMF/settings/vi ()
   "My Vi settings."
   ;; jump j/k always even in visual mode
   (interactive)
   (turn-on-evil-mode)
+  (0xMF/settings/general)
   (dolist (map  (list evil-normal-state-map))
-    (define-key map (kbd "b") 'evil-backward-word-begin)
     (define-key map (kbd "j") 'evil-next-visual-line)
     (define-key map (kbd "k") 'evil-previous-visual-line)
     (define-key map (kbd "p") 'evil-paste-after)
-    (define-key map (kbd "q") 'keyboard-quit)
+    (define-key map (kbd "q") #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
     (define-key map (kbd "u") 'undo)
-    (define-key map [escape] 'keyboard-quit)
+    (define-key map [escape]  #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
     (define-key map [prior] 'evil-scroll-page-up)
     (define-key map [next] 'evil-scroll-page-down)
     (define-key map (kbd "C-a") 'mark-whole-buffer)
@@ -260,45 +261,41 @@
     (define-key map (kbd "C-d") 'save-buffer)
     (define-key map (kbd "C-n") 'next-buffer)
     (define-key map (kbd "C-p") 'previous-buffer)
-    (define-key map (kbd "M-p") 'evil-scroll-page-up)
+    (define-key map (kbd "C-r") 'undo-fu-only-redo)
     (define-key map (kbd "M-n") 'evil-scroll-page-down)
-    (define-key map (kbd "C-r") 'undo-fu-only-redo))
+    (define-key map (kbd "M-p") 'evil-scroll-page-up)))
 
-  (define-key minibuffer-local-map [tab] 'vertico-insert)
-  (define-key minibuffer-local-map (kbd "M-<return>") 'vertico-exit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-map [tab] 'vertico-insert)
+(define-key minibuffer-local-map (kbd "M-<return>") 'vertico-exit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
-  (when (boundp 'company-mode-map)
-    (define-key company-active-map [tab] 'company-complete-common))
-                                      ;(dolist (map  (list company-active-map))
-                                      ;  (define-key map (kbd "<tab>") 'company-complete-common))
+(when (boundp 'company-mode-map)
+  (define-key company-active-map [tab] 'company-complete-common))
+                                        ;(dolist (map  (list company-active-map))
+                                        ;  (define-key map (kbd "<tab>") 'company-complete-common))
 
-  (dolist (map  (list minibuffer-local-isearch-map))
-    (define-key map (kbd "n") 'isearch-printing-char))
+(dolist (map  (list minibuffer-local-isearch-map))
+  (define-key map (kbd "n") 'isearch-printing-char))
 
-  (global-set-key [escape] 'evil-exit-emacs-state)
+(global-set-key [escape] 'evil-exit-emacs-state)
 
-  (define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
-  ;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
-  (global-set-key [?\S- ] 'evil-scroll-page-up)
+(define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
+;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
+(global-set-key [?\S- ] 'evil-scroll-page-up)
 
-  ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
-  (evil-define-key nil evil-ex-map "wq" #'(lambda ()
-                                            (interactive)
-                                            (save-current-buffer)
-                                            (kill-current-buffer)))
-  (evil-define-key nil evil-ex-map "q" #'(lambda ()
-                                           (interactive)
-                                           (save-current-buffer)
-                                           (kill-current-buffer)))
-  (evil-define-key nil evil-ex-map "q" #'(lambda ()
-                                           (interactive)
-                                           (save-current-buffer)
-                                           (kill-current-buffer))))
+;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
+(evil-define-key nil evil-ex-map "wq" #'(lambda ()
+                                          (interactive)
+                                          (save-current-buffer)
+                                          (kill-current-buffer)))
+(evil-define-key nil evil-ex-map "q" #'(lambda ()
+                                         (interactive)
+                                         (save-current-buffer)
+                                         (kill-current-buffer)))
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
@@ -520,7 +517,7 @@ minibuffer."
 :init
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook #'(lambda () (set-fill-column 81)))
+(add-hook 'markdown-mode-hook #'(lambda () (interactive) (set-fill-column 81)))
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
@@ -675,7 +672,7 @@ minibuffer."
 (require 'yafolding)
 
 (add-hook 'prog-mode-hook
-          #'(lambda () (yafolding-mode)))
+          #'(lambda () (interactive) (yafolding-mode)))
 
 (set-default 'truncate-lines t)
 
@@ -700,7 +697,6 @@ minibuffer."
 
 ;; Set default font
 ;; (used and saved through menu Options->Set Default Font... into cutom.el)
-
 ;; optionally (set-frame-font "Source Code Pro Semibold-10")
 (cond
  ((member "Source Code Pro" (font-family-list))
@@ -798,7 +794,8 @@ minibuffer."
 (evil-set-initial-state 'pdf-view-mode 'emacs)
 (add-hook 'pdf-view-mode-hook
           #'(lambda ()
-            (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
+              (interactive)
+              (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
 
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
@@ -938,7 +935,6 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (global-display-line-numbers-mode -1)
   (display-line-numbers-mode -1)
   (line-number-mode t)
-  (org-toggle-pretty-entities)
   (org-toggle-pretty-entities)
   (when (equal major-mode 'org-mode)
     (org-set-visibility-according-to-property)
