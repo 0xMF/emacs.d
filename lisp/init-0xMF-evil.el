@@ -79,7 +79,6 @@
   (if (internal-show-cursor-p)
       (internal-show-cursor nil nil)
     (internal-show-cursor nil t)))
-
 (evil-mode 1)
 
 (setq evil-default-state-cursor '("green" box))
@@ -126,7 +125,6 @@
   (general-define-key :prefix "w"
                       "a" 'org-toggle-link-display ; 'beginning-of-line
                       "c" 'whitespace-cleanup
-                      "e" 'end-of-line
                       "f" '0xMF/toggle-font-large-normal
                       "|" 'fci-mode
                       "h" 'previous-buffer
@@ -140,7 +138,6 @@
                       "o" #'(lambda () (interactive) (other-window 1))
                       "O" 'delete-other-windows
                       "p" 'previous-buffer
-                      ;; "P" 'other-window
                       "r" 'evil-window-rotate-upwards
                       "R" 'evil-window-rotate-downwards
                       "u" 'winner-undo
@@ -163,7 +160,6 @@
                       "n" 'next-buffer
                       "o" 'org-open-at-point
                       "p" 'previous-buffer
-                      "r" '0xMF/reset
                       "t" #'(lambda () (interactive) (kill-buffer)(delete-window))
                       "T" 'sanityinc/toggle-delete-other-windows
                       "x" 'evil-delete)
@@ -212,7 +208,6 @@
                       "O" 'org-open-at-point
                       "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
                       "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
-                      "r" '0xMF/reset
                       "R" 'file-reload ;;'undo-tree-redo
                       "s" '0xMF/startup
                       "t" '0xMF/settings/theme
