@@ -202,7 +202,6 @@
                       "l" 'whitespace-mode
                       "L" 'org-open-at-point
                       "m" 'magit-mode
-                      "n" 'display-line-numbers-mode
                       "N" 'menu-bar--display-line-numbers-mode-absolute
                       "o" 'find-file
                       "O" 'org-open-at-point
