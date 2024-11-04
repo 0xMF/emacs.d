@@ -213,7 +213,6 @@
                       "t" '0xMF/settings/theme
                       "T" 'org-set-tags
                       "u" 'undo-tree-undo
-                      "v" '0xMF/vi
                       "w" 'toggle-truncate-lines
                       "W" #'(lambda () (interactive) (org-agenda-list 7))
                       "x" 'evil-delete
@@ -952,12 +951,6 @@ Turn on spell check automatically; maketext wrap at 81; and make
   "Shrink table according to cookie at point."
   (interactive)
   (org-table-shrink))
-
-(defun 0xMF/vi ()
-  "Reset/set settings to vim."
-  (interactive)
-  (turn-on-evil-mode)
-  (toggle-truncate-lines))
 
 (defun 0xMF/zero ()
   "Put Emacs into distraction free mode."
