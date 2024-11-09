@@ -188,8 +188,6 @@
                       "a" '0xMF/settings/orgmode-emphasis-markers-toggle
                       "A" 'org-agenda
                       "B" 'switch-to-buffer
-                      "c" '0xMF/settings/theme
-                      "C" 'comment-region ;; 'org-capture
                       "d" 'insdate-insert-current-date
                       "D" 'org-agenda-list
                       "e" 'eval-last-sexp
@@ -209,8 +207,6 @@
                       "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                       "R" 'file-reload ;;'undo-tree-redo
                       "s" '0xMF/startup
-                      "t" '0xMF/settings/theme
-                      "T" 'org-set-tags
                       "u" 'undo-tree-undo
                       "w" 'toggle-truncate-lines
                       "W" #'(lambda () (interactive) (org-agenda-list 7))
