@@ -219,8 +219,6 @@
                       "-" 'text-scale-decrease
                       "0" #'(lambda () (interactive) (text-scale-adjust 0))
                       "$" 'toggle-truncate-lines
-                      "/" 'org-tags-view
-                      "." 'org-tags-view
                       "<SPC>" 'recenter-top-bottom
                       ";" 'org-capture
                       "\\" 'org-match-sparse-tree))
