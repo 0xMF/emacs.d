@@ -687,11 +687,11 @@ minibuffer."
 ;; optionally (set-frame-font "Source Code Pro Semibold-10")
 (cond
  ((member "Source Code Pro" (font-family-list))
-  (set-frame-font "Source Code Pro-15:style=Semibold" nil t))
+  (set-frame-font "Source Code Pro-13:style=Semibold" nil t))
  ((member "Source Code Variable" (font-family-list))
-  (set-frame-font "Source Code Variable-15:style=Semibold" nil t))
+  (set-frame-font "Source Code Variable-13:style=Semibold" nil t))
  ((member "DejaVu Sans Mono" (font-family-list))
-  (set-frame-font "DejaVu Sans Mono-15")))
+  (set-frame-font "DejaVu Sans Mono-10")))
 
 
 (unless (version<= emacs-version "25")
@@ -758,10 +758,10 @@ minibuffer."
   (interactive)
   (if (get '0xMF/toggle-font-large-normal 'state)
       (progn
-        (set-frame-font "Source Code Pro-15:style=Semibold" nil t)
+        (set-frame-font "Source Code Pro-13:style=Semibold" nil t)
         (put '0xMF/toggle-font-large-normal 'state nil))
     (progn
-      (set-frame-font "Source Code Pro-17:style=Semibold" nil t)
+      (set-frame-font "Source Code Pro-15:style=Semibold" nil t)
       (put '0xMF/toggle-font-large-normal 'state t)))
   (message 0xMF/toggle-font-large-normal))
 
@@ -769,7 +769,7 @@ minibuffer."
   "Increase font size."
   (interactive)
   (when (member "Source Code Pro" (font-family-list))
-    (set-frame-font "Source Code Pro-15:style=Semibold" nil t)))
+    (set-frame-font "Source Code Pro-13:style=Semibold" nil t)))
 
 ;; ----------------------------------
 ;; Calendar setup
