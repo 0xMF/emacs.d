@@ -717,6 +717,8 @@ minibuffer."
             (local-set-key (kbd "G") 'end-of-buffer)
             (local-set-key (kbd "h") 'left-char)
             (local-set-key (kbd "j") 'next-line)
+            (local-set-key [down] 'pixel-scroll-up)
+            (local-set-key [up] 'pixel-scroll-down)
             (local-set-key (kbd "k") 'previous-line)
             (local-set-key (kbd "l") 'right-char)
             (local-set-key (kbd "<return>") 'Info-follow-nearest-node)
