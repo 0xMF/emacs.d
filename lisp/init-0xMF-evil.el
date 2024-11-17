@@ -22,6 +22,7 @@
 (dolist (package 0xMF/required-packages)
   (unless (package-installed-p package)
     (package-install package)
+    (append package-selected-packages package)
     (message "installed package %s" package)))
 
 (require 'exec-path-from-shell)
