@@ -613,6 +613,9 @@ minibuffer."
 (global-set-key (kbd "M-{") '0xMF/insert-braces)
 (global-set-key (kbd "M-\"") 'insert-pair)
 
+(global-set-key (kbd "C-h r") 'info-display-manual)
+(global-set-key (kbd "C-h R") 'info-emacs-manual)
+
 ;;----------------------------------------------------------------------------
 ;; Org mode settings
 ;;----------------------------------------------------------------------------
