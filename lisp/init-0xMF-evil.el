@@ -65,12 +65,12 @@
 (defun 0xMF/settings/cursor-column-toggle()
   "Show and follow cursor column."
   (interactive)
+  (vline-mode 'toggle)
   (if (bound-and-true-p vline-face)
       (progn
         (if (string= (face-background 'default) "#f5f5dc")
             (set-face-background vline-face "light steel blue")
-          (set-face-background vline-face "firebrick")
-          (vline-mode 'toggle)))))
+          (set-face-background vline-face "firebrick")))))
 
 (defun 0xMF/settings/cursor-toggle ()
   "Toggle showing cursor."
@@ -195,7 +195,7 @@
                       "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
                       "f" 'set-fill-column
                       "F" 'file-reload ; 'fill-paragraph
-                      "g" 'magit-status
+                      "g" '0xMF/settings/cursor-column-toggle ;; magit-status
                       "i" '0xMF/settings/Info-mode
                       "k" 'kill-this-buffer
                       "l" 'whitespace-mode
@@ -204,7 +204,6 @@
                       "N" 'menu-bar--display-line-numbers-mode-absolute
                       "o" 'find-file
                       "O" 'org-open-at-point
-                      "p" '0xMF/settings/cursor-column-toggle ;;pdf-view ;;start-slideshw ;;'org-present
                       "q" 'delete-other-windows ;;'toggle-truncate-lines ;;'visual-line-mode ;;fill-paragraph
                       "R" 'file-reload ;;'undo-tree-redo
                       "s" '0xMF/startup
