@@ -204,7 +204,7 @@
                       "k" 'kill-this-buffer
                       "l" 'whitespace-mode
                       "L" 'org-open-at-point
-                      "m" 'magit-mode
+                      "m" '0xMF/settings/hide-mode-line-toggle
                       "N" 'menu-bar--display-line-numbers-mode-absolute
                       "o" 'find-file
                       "O" 'org-open-at-point
