@@ -16,14 +16,18 @@
      (package-refresh-contents))
 
 (setq 0xMF/required-packages '(djvu evil fill-column-indicator general go-mode hide-mode-line
-                                    keychain-environment org-bullets org-beautify-theme
-                                    org-pdftools org-noter-pdftools ssh-agency undo-fu
-                                    use-package vline yafolding))
-(dolist (package 0xMF/required-packages)
-  (unless (package-installed-p package)
-    (package-install package)
+                                    keychain-environment org-bullets org-pdftools
+                                    org-noter-pdftools ssh-agency undo-fu use-package
+                                    vline yafolding))
+
+(defun 0xMF/update-package-selected-packages()
+  (interactive)
+  (dolist (package 0xMF/required-packages)
     (append package-selected-packages package)
-    (message "installed package %s" package)))
+    (unless  (package-installed-p package)
+      (package-install package)
+      (message "installed package %s" package))))
+(0xMF/update-package-selected-packages)
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments nil)
