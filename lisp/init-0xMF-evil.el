@@ -556,6 +556,10 @@ minibuffer."
 ;; Keybindings
 ;;----------------------------------------------------------------------------
 ;;
+
+(define-key input-decode-map "\e[6;5~" [C-down])
+(define-key input-decode-map "\e[5;5~" [C-up])
+
 ;; C-h-b: to check keybinding and which functions are bound to which keys
 ;; C-h-k: to check which key is bound to which function
 ;; C-h-m: to list current major mode's keys
@@ -598,9 +602,10 @@ minibuffer."
 (global-set-key (kbd "C-M-<return>") 'org-insert-heading)
 (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
 (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
-(global-set-key (kbd "C-<prior>") 'previous-buffer)
-(global-set-key (kbd "C-<next>") 'next-buffer)
+(global-set-key (kbd "C-<prior>") 'scroll-up-command)
+(global-set-key (kbd "C-<next>") 'scroll-down-command)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;;(global-set-key (kbd "<tab>") 'tab-to-tab-stop)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
