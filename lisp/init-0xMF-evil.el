@@ -248,6 +248,8 @@
     (define-key map [prior] 'evil-scroll-page-up)
     (define-key map [next] 'evil-scroll-page-down)
     (define-key map (kbd "C-a") 'mark-whole-buffer)
+    (define-key map (kbd "C-f") 'scroll-up-command)
+    (define-key map (kbd "C-b") 'scroll-down-command)
     (define-key map (kbd "C-j") #'(lambda () (interactive) (evil-scroll-down nil)))
     (define-key map (kbd "C-d") 'save-buffer)
     (define-key map (kbd "C-n") 'next-buffer)
@@ -275,7 +277,8 @@
 (global-set-key [escape] 'evil-exit-emacs-state)
 
 (define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
-;;(global-set-key (kbd "S-SPC") 'evil-scroll-page-up)
+(global-set-key (kbd "SPC") 'scroll-up-command)
+(global-set-key (kbd "M-SPC") 'scroll-down-command)
 (global-set-key [?\S- ] 'evil-scroll-page-up)
 
 ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
