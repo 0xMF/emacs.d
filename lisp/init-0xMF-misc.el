@@ -69,18 +69,6 @@ minibuffer."
 ;; no backups
 (setq make-backup-files nil)
 
-(require 'use-package)
-(use-package org-pdftools
-  :hook (org-load . org-pdftools-setup-link))
-(pdf-tools-install)
-
-(use-package org-noter-pdftools
-  :after org-noter
-  :config
-  (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
-(add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-
 (defun 0xMF/settings/eww ()
   "Enable vi-style keybindings."
   (interactive)
@@ -286,7 +274,6 @@ minibuffer."
 ;; Miscalleanous settings
 ;; User mode settings for UI/keyboard/look and feel
 ;;----------------------------------------------------------------------------
-;;(require 'org-gcal)
 (require 'yafolding)
 
 (add-hook 'prog-mode-hook
@@ -450,12 +437,6 @@ With a prefix argument,the date is inserted without the day of the week."
   (set-fill-column textwidth)
   (turn-on-auto-fill))
 
-(defun 0xMF/settings/package-menu-mode ()
-  "My settings for package menu."
-  (define-key package-menu-mode-map (kbd "; s") '0xMF/startup)
-  (define-key package-menu-mode-map (kbd "/ n") nil )
-  (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
-
 (defun 0xMF/insert-braces ()
   "Source: stackoverflow.com/questions/2951797/wrapping-selecting-text-in-enclosing-characters-in-emacs."
   (interactive)
@@ -485,22 +466,24 @@ With a prefix argument,the date is inserted without the day of the week."
     (setq electric-pair-mode nil))
   (when (equal major-mode 'Info-mode)
     (0xMF/settings/Info-mode))
-  (when (fboundp 'ivy-minibuffer-map)
+  (when (boundp 'ivy-minibuffer-map)
     (0xMF/settings/ivy-minibuffer))
-  (when (fboundp '0xMF/local)
+  (when (boundp '0xMF/local)
     (0xMF/local))
-  (0xMF/settings/vi)
+  (when (boundp 'evil-mode)
+    (0xMF/settings/vi))
   (message "0xMF/startup"))
+
+(defun 0xMF/settings/package-menu-mode ()
+  "My settings for package menu."
+  (define-key package-menu-mode-map (kbd "; s") '0xMF/startup)
+  (define-key package-menu-mode-map (kbd "/ n") nil )
+  (define-key package-menu-mode-map (kbd "/ j") 'package-menu-filter-by-name))
 
 (defun 0xMF/wrap ()
   "Toggle line wrapping."
   (interactive)
   (toggle-truncate-lines))
-
-(defun 0xMF/shrink ()
-  "Shrink table according to cookie at point."
-  (interactive)
-  (org-table-shrink))
 
 (defun 0xMF/zero ()
   "Put Emacs into distraction free mode."

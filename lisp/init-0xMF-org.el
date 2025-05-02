@@ -24,8 +24,26 @@
 (setq org-time-stamp-custom-formats '("<%b-%d %a>" "<%m/%d/%y %a>" "<%m/%d/%y %a %H:%M>"))
 
 ;; Use bullets (default if uncommented)
+(require 'use-package)
 (require 'org-bullets)
 (require 'org-tempo)
+;;(require 'org-gcal)
+ (use-package org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
+(pdf-tools-install)
+
+(use-package org-noter-pdftools
+   :after org-noter
+   :config
+   (with-eval-after-load 'pdf-annot
+     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+ (add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+(eval-after-load "org" '(require 'org-pdftools))
+
+(defun 0xMF/org/shrink ()
+  "Shrink table according to cookie at point."
+  (interactive)
+  (org-table-shrink))
 
 ;; do not ask before prompting
 (setq org-confirm-babel-evaluate nil)
@@ -39,7 +57,6 @@
 ;; important for markdown, GFM export, and viewing pdfs
 (eval-after-load "org" '(require 'ox-md nil t))
 (eval-after-load "org" '(require 'ox-gfm nil t))
-(eval-after-load "org" '(require 'org-pdftools))
 (eval-after-load "org" '(require 'htmlize))
 
 (defun 0xMF/settings/orgmode ()
