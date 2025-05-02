@@ -8,6 +8,12 @@
 ;;  all my Vi preferences and customizations are here.
 
 ;;; Code:
+
+(require 'evil)
+(require 'general)
+(require 'undo-fu)
+(evil-mode 1)
+
 ;;----------------------------------------------------------------------------
 ;; Keybindings
 ;;----------------------------------------------------------------------------
@@ -84,16 +90,13 @@
 ;;----------------------------------------------------------------------------
 ;; Evil mode settings
 ;;----------------------------------------------------------------------------
-(require 'evil)
-(require 'general)
-(require 'undo-fu)
-
 (defun 0xMF/settings/cursor-emacs-evil-toggle()
   "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
   (interactive)
-  (if (string= (symbol-value 'evil-state) "normal")
-      (set-cursor-color "green")
-    (set-cursor-color "white")))
+  (when (display-graphic-p)
+    (if (string= (symbol-value 'evil-state) "normal")
+        (set-cursor-color "green")
+      (set-cursor-color "white"))))
 
 (defun 0xMF/settings/cursor-column-toggle()
   "Show and follow cursor column."
@@ -264,25 +267,28 @@
   (interactive)
   (turn-on-evil-mode)
   (0xMF/settings/general)
-  (dolist (map  (list evil-normal-state-map))
-    (define-key map (kbd "j") 'evil-next-visual-line)
-    (define-key map (kbd "k") 'evil-previous-visual-line)
-    (define-key map (kbd "p") 'evil-paste-after)
-    (define-key map (kbd "q") #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
-    (define-key map (kbd "u") 'undo)
-    (define-key map [escape]  #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
-    (define-key map [prior] 'evil-scroll-page-up)
-    (define-key map [next] 'evil-scroll-page-down)
-    (define-key map (kbd "C-a") 'mark-whole-buffer)
-    (define-key map (kbd "C-f") 'scroll-up-command)
-    (define-key map (kbd "C-b") 'scroll-down-command)
-    (define-key map (kbd "C-j") #'(lambda () (interactive) (evil-scroll-down nil)))
-    (define-key map (kbd "C-d") 'save-buffer)
-    (define-key map (kbd "C-n") 'next-buffer)
-    (define-key map (kbd "C-p") 'previous-buffer)
-    (define-key map (kbd "C-r") 'undo-fu-only-redo)
-    (define-key map (kbd "M-n") 'evil-scroll-page-down)
-    (define-key map (kbd "M-p") 'evil-scroll-page-up)))
+    (dolist (map  (list evil-normal-state-map))
+      (define-key map (kbd "j") 'evil-next-visual-line)
+      (define-key map (kbd "k") 'evil-previous-visual-line)
+      (define-key map (kbd "p") 'evil-paste-after)
+      (define-key map (kbd "q") #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
+      (define-key map (kbd "u") 'undo)
+      (define-key map [escape]  #'(lambda () (interactive) (unless (one-window-p) (delete-other-windows)) (keyboard-quit)))
+      (define-key map [prior] 'evil-scroll-page-up)
+      (define-key map [next] 'evil-scroll-page-down)
+      (define-key map (kbd "C-a") 'mark-whole-buffer)
+      (define-key map (kbd "C-f") 'scroll-up-command)
+      (define-key map (kbd "C-b") 'scroll-down-command)
+      (define-key map (kbd "C-j") #'(lambda () (interactive) (evil-scroll-down nil)))
+      (define-key map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
+      (define-key map (kbd "SPC") 'scroll-up-command)
+      (define-key map (kbd "M-SPC") 'scroll-down-command)
+      (define-key map (kbd "C-d") 'save-buffer)
+      (define-key map (kbd "C-n") 'next-buffer)
+      (define-key map (kbd "C-p") 'previous-buffer)
+      (define-key map (kbd "C-r") 'undo-fu-only-redo)
+      (define-key map (kbd "M-n") 'evil-scroll-page-down)
+      (define-key map (kbd "M-p") 'evil-scroll-page-up)))
 
 (define-key minibuffer-local-map [tab] 'vertico-insert)
 (define-key minibuffer-local-map (kbd "M-<return>") 'vertico-exit)
@@ -302,9 +308,6 @@
 
 (global-set-key [escape] 'evil-exit-emacs-state)
 
-(define-key evil-normal-state-map (kbd "C-k") #'(lambda () (interactive) (evil-scroll-up nil)))
-;;(global-set-key (kbd "SPC") 'scroll-up-command)
-;;(global-set-key (kbd "M-SPC") 'scroll-down-command)
 (global-set-key [?\S- ] 'evil-scroll-page-up)
 
 ;; EXPERIMENTAL: Save current buffer and close but don't close Emacs on :wq
