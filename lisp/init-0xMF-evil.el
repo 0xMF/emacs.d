@@ -19,8 +19,8 @@
 ;;----------------------------------------------------------------------------
 ;;
 
-(define-key input-decode-map "\e[6;5~" [C-down])
-(define-key input-decode-map "\e[5;5~" [C-up])
+;;(define-key input-decode-map "\e[6;5~" [C-down])
+;;(define-key input-decode-map "\e[5;5~" [C-up])
 
 ;; C-h-b: to check keybinding and which functions are bound to which keys
 ;; C-h-k: to check which key is bound to which function
@@ -28,12 +28,12 @@
 ;; C-g:   to close that opened Bindings window
 ;; checkout: http://ergoemacs.org/emacs/keyboard_shortcuts.html
 
-(global-set-key (kbd "C-z") nil)
+;;(global-set-key (kbd "C-z") nil)
 (global-set-key (kbd "M-z") nil)
 (global-set-key (kbd "C-;") ctl-x-map)
 (global-set-key (kbd "C-z") ctl-x-map)
-(global-set-key (kbd "C-j") nil)
-(global-set-key (kbd "C-j") (kbd "C-c")) ; maps one key to another
+;;(global-set-key (kbd "C-j") nil)
+;;(global-set-key (kbd "C-j") (kbd "C-c")) ; maps one key to another
 (global-set-key (kbd "M-s") 'execute-extended-command)
 (global-set-key (kbd "M-z") 'execute-extended-command)
 (global-set-key (kbd "C-n") 'next-buffer)
@@ -111,7 +111,7 @@
 (defun 0xMF/settings/cursor-toggle ()
   "Toggle showing cursor."
   (interactive)
-  (if (boundp pdf-view-display-size)
+  (if (fboundp pdf-view-display-size)
       (internal-show-cursor nil nil))
   (if (internal-show-cursor-p)
       (internal-show-cursor nil nil)
@@ -298,7 +298,7 @@
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
-(when (boundp 'company-mode-map)
+(when (fboundp 'company-mode-map)
   (define-key company-active-map [tab] 'company-complete-common))
                                         ;(dolist (map  (list company-active-map))
                                         ;  (define-key map (kbd "<tab>") 'company-complete-common))
