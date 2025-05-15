@@ -186,23 +186,6 @@
                       "0" 'delete-window
                       "1" 'delete-window)
 
-  (general-define-key :prefix "b"
-                      "a" 'describe-bindings
-                      "b" 'evil-scroll-page-up
-                      "c" 'yank
-                      "d" 'org-time-stamp-inactive
-                      "D" 'org-time-stamp
-                      "f" 'markdown-follow-thing-at-point
-                      "h" 'previous-buffer
-                      "j" 'next-buffer
-                      "l" 'list-buffers
-                      "n" 'next-buffer
-                      "o" 'org-open-at-point
-                      "p" 'previous-buffer
-                      "t" #'(lambda () (interactive) (kill-buffer)(delete-window))
-                      "T" 'sanityinc/toggle-delete-other-windows
-                      "x" 'evil-delete)
-
   (general-define-key :prefix "z"
                       "b" 'paredit-forward-barf-sexp
                       "B" 'paredit-backward-barf-sexp
