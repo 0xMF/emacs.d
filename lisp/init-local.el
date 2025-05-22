@@ -21,6 +21,7 @@
 (defun 0xMF/update-package-selected-packages()
   (interactive)
   (dolist (package 0xMF/required-packages)
+    (add-to-list 'sanityinc/required-packages package)
     (append package-selected-packages package)
     (unless  (package-installed-p package)
       (package-install package)
