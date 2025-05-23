@@ -298,19 +298,6 @@ minibuffer."
       scroll-conservatively 9999
       scroll-step 1)
 
-
-;; Set default font
-;; (used and saved through menu Options->Set Default Font... into cutom.el)
-;; optionally (set-frame-font "Source Code Pro Semibold-10")
-(cond
- ((member "Source Code Pro" (font-family-list))
-  (set-frame-font "Source Code Pro-13:style=Semibold" nil t))
- ((member "Source Code Variable" (font-family-list))
-  (set-frame-font "Source Code Variable-13:style=Semibold" nil t))
- ((member "DejaVu Sans Mono" (font-family-list))
-  (set-frame-font "DejaVu Sans Mono-10")))
-
-
 (unless (version<= emacs-version "25")
   (require 'fill-column-indicator))
 
