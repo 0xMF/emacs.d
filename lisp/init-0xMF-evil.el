@@ -25,7 +25,7 @@
 ;; better clipboard copy-paste with evil
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(add-hook 'evil-mode-hook '0xMF/default-cursor)
+;;(add-hook 'evil-mode-hook '0xMF/default-cursor)
 (add-hook 'calendar-mode-hook '0xMF/settings/calendar-mode)
 (add-hook 'package-menu-mode-hook '0xMF/settings/package-menu-mode)
 
@@ -430,29 +430,29 @@ minibuffer."
   (when (boundp 'pdf-history-minor-mode-map)
     (dolist (map  (list pdf-history-minor-mode-map))
       (local-unset-key (kbd "l"))
-      (define-key map (kbd "l") 'image-forward-hscroll)))
-  (internal-show-cursor nil nil))
-  (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
-  (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)
+      (define-key map (kbd "l") 'image-forward-hscroll)
+      (local-set-key (kbd "<mouse-5>") 'pdf-view-next-line-or-next-page)
+      (local-set-key (kbd "<mouse-4>") 'pdf-view-previous-line-or-previous-page)))
+
   (internal-show-cursor nil nil))
 (add-hook 'pdf-view-mode-hook '0xMF/settings/pdf-view)
 
 ;; yes to powerline on a smart-mode-line
-(require 'powerline)
-(require 'smart-mode-line)
-(require 'smart-mode-line-powerline-theme)
+;;(require 'powerline)
+;;(require 'smart-mode-line)
+;;(require 'smart-mode-line-powerline-theme)
 
-(defun 0xMF/settings/powerline ()
-  "Set/Reset powerline on a smart-mode-line."
-  (interactive)
-  (setq sml/theme 'powerline)
-  (setq sml/no-confirm-load-theme t)
-  (setq powerline-arrow-shape 'arrow)
-  (powerline-vim-theme)
-  (setf rm-blacklist "")
-  (display-time-mode t)
-  (sml/setup))
-(0xMF/settings/powerline)
+;;(defun 0xMF/settings/powerline ()
+;;  "Set/Reset powerline on a smart-mode-line."
+;;  (interactive)
+;;  (setq sml/theme 'powerline)
+;;  (setq sml/no-confirm-load-theme t)
+;;  (setq powerline-arrow-shape 'arrow)
+;;  (powerline-vim-theme)
+;;  (setf rm-blacklist "")
+;;  (display-time-mode t)
+;;  (sml/setup))
+;;(0xMF/settings/powerline)
 
 
 ;;----------------------------------------------------------------------------
@@ -649,8 +649,8 @@ minibuffer."
 
 (defun 0xMF/settings/general ()
   "General keyboard settings."
-;; Do not ceate backups.
-(setq  make-backup-files nil)
+  ;; Do not ceate backups.
+  (setq  make-backup-files nil))
 
 (defun load-if-file-exists (FILE)
   "Check if FILE exists before loading it."
