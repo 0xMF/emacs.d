@@ -84,21 +84,38 @@ minibuffer."
 
 ;; Credit: Bozhidar Batsov
 ;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
+;;(defun 0xMF/settings/pdf-links-minor-mode ()
+;;  "Reset f keybinding from 'pdf-links-isearch-link."
+;;  (interactive)
+;;  (when (fboundp 'pdf-links-minor-mode)
+;;    (dolist (map  (list pdf-links-minor-mode-map))
+;;      (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+;;      (define-key map (kbd "t") 'pdf-outline)
+;;      (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
+;;    (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
+;;          (newmap (make-sparse-keymap)))
+;;      (set-keymap-parent newmap oldmap)
+;;      (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
+;;      (make-local-variable 'minor-mode-overriding-map-alist)
+;;      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
+;;(add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
+
+;; Credit: Bozhidar Batsov
+;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
 (defun 0xMF/settings/pdf-links-minor-mode ()
   "Reset f keybinding from 'pdf-links-isearch-link."
   (interactive)
-  (when (fboundp 'pdf-links-minor-mode)
-    (dolist (map  (list pdf-links-minor-mode-map))
-      (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
-      (define-key map (kbd "t") 'pdf-outline)
-      (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
+  (when (boundp 'pdf-links-minor-mode-map)
     (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
           (newmap (make-sparse-keymap)))
       (set-keymap-parent newmap oldmap)
+      (define-key newmap (kbd "m") '0xMF/settings/hide-mode-line-toggle)
+      (define-key newmap (kbd "t") 'pdf-outline)
       (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
       (make-local-variable 'minor-mode-overriding-map-alist)
       (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
 (add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
+
 
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
