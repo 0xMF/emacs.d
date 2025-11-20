@@ -112,7 +112,7 @@
                     "E" 'eval-region ;; org-babel-execute-src-block org-babel-open-src-block-result
                     "f" 'set-fill-column
                     "F" 'fill-paragraph
-                    "g" 'magit-status
+                    "g" '0xMF/settings/cursor-column-toggle ;;magit-status
                     "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
                     "l" 'whitespace-mode
