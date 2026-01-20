@@ -10,7 +10,6 @@
 ;;----------------------------------------------------------------------------
 ;; Org mode settings
 ;;----------------------------------------------------------------------------
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (setq org-export-with-section-numbers nil)
 (setq org-hide-leading-stars t)
 (setq org-indent-mode-turns-on-hiding-stars nil)
