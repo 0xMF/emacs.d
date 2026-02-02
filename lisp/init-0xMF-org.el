@@ -65,7 +65,7 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (interactive)
   (setq initial-major-mode 'org-mode)
   (org-bullets-mode 1)
-  (turn-on-flyspell)
+  (turn-off-flyspell)
   (set-fill-column 81))
 (add-hook 'org-mode-hook '0xMF/settings/orgmode)
 
