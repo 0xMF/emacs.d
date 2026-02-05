@@ -5,6 +5,7 @@
 ;;; Code:
 
 (when (maybe-require-package 'eglot)
+  (setq eglot-code-action-indications '(eldoc-hint mode-line))
   (maybe-require-package 'consult-eglot))
 
 
