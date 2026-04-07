@@ -385,8 +385,21 @@ minibuffer."
 (global-set-key (kbd "C-M-SPC") 'delete-other-windows)
 (global-set-key (kbd "C-M-RET") 'org-insert-heading)
 (global-set-key (kbd "C-M-<return>") 'org-insert-heading)
-(global-set-key (kbd "C-M-=") 'default-text-scale-increase)
-(global-set-key (kbd "C-M--") 'default-text-scale-decrease)
+
+;; fixes text resizing in Emacs 30.2
+;; ensuring line numbers scale with buffer text (C-x C-+)
+(global-set-key (kbd "C-=") #'(lambda()
+                                (interactive)
+                                (text-scale-increase 1)
+                                (set-face-attribute 'line-number nil :family 'unspecified :height 'unspecified :inherit 'default)
+                                (set-face-attribute 'line-number-current-line nil :family 'unspecified :height 'unspecified :inherit 'default)))
+
+(global-set-key (kbd "C--") #'(lambda()
+                                (interactive)
+                                (text-scale-decrease 1)
+                                (set-face-attribute 'line-number nil :family 'unspecified :height 'unspecified :inherit 'default)
+                                (set-face-attribute 'line-number-current-line nil :family 'unspecified :height 'unspecified :inherit 'default)))
+
 (global-set-key (kbd "C-<prior>") 'scroll-up-command)
 (global-set-key (kbd "C-<next>") 'scroll-down-command)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -419,7 +432,7 @@ minibuffer."
   (when (display-graphic-p)
     (if (string= (symbol-value 'evil-state) "normal")
         (set-cursor-color "green")
-      (set-cursor-color "white"))))
+        (set-cursor-color "white"))))
 
 (defun 0xMF/settings/cursor-column-toggle()
   "Show and follow cursor column."
@@ -429,7 +442,7 @@ minibuffer."
       (progn
         (if (string= (face-background 'default) "#f5f5dc")
             (set-face-background vline-face "light steel blue")
-          (set-face-background vline-face "firebrick")))))
+            (set-face-background vline-face "firebrick")))))
 
 (defun 0xMF/settings/cursor-toggle ()
   "Toggle showing cursor."
