@@ -113,6 +113,7 @@
                     "f" 'set-fill-column
                     "F" 'fill-paragraph
                     "g" '0xMF/settings/cursor-column-toggle ;;magit-status
+                    "h" 'hl-line-mode
                     "i" '0xMF/settings/Info-mode
                     "k" 'kill-this-buffer
                     "l" 'whitespace-mode
