@@ -350,6 +350,8 @@ minibuffer."
 ;; C-g:   to close that opened Bindings window
 ;; checkout: http://ergoemacs.org/emacs/keyboard_shortcuts.html
 
+(remove-hook 'after-init-hook 'default-text-scale-mode)
+
 ;;(global-set-key (kbd "C-z") nil)
 (global-set-key (kbd "M-z") nil)
 (global-set-key (kbd "C-;") ctl-x-map)
@@ -371,6 +373,9 @@ minibuffer."
 (global-set-key (kbd "C-M-h") 'previous-buffer)
 (global-set-key (kbd "C-M-k") 'kill-some-buffers)
 (global-set-key (kbd "C-M-l") 'next-buffer)
+(global-set-key (kbd "C-M-=") #'(lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "C-M--") #'(lambda () (interactive) (text-scale-decrease 1)))
+
 (global-set-key (kbd "C-M-<") 'previous-buffer)
 (global-set-key (kbd "C-M->") 'next-buffer)
 (global-set-key (kbd "C-M-<left>") 'previous-buffer)
