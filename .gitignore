@@ -4,7 +4,7 @@
 /aspell.en.prepl
 /aspell.en.pws
 /custom.el
-/devdocs
+/devdocs/*
 /diary
 /nov-places
 /persist
