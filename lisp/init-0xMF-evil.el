@@ -447,8 +447,8 @@ minibuffer."
   (if (bound-and-true-p vline-face)
       (progn
         (if (string= (face-background 'default) "#f5f5dc")
-            (set-face-background vline-face "light steel blue")
-            (set-face-background vline-face "firebrick")))))
+            (set-face-background vline-face "firebrick")
+            (set-face-background vline-face "light steel blue")))))
 
 (defun 0xMF/settings/cursor-toggle ()
   "Toggle showing cursor."
