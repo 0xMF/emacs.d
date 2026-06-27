@@ -16,7 +16,7 @@
 (setq org-indent-mode-turns-off-org-adapt-indentation nil)
 (setq org-list-allow-alphabetical t)
 (setq org-pretty-entities t)
-(setq org-startup-align-all-table t)
+(setq org-startup-align-all-tables t)
 (setq org-startup-folded 'content)
 (setq org-startup-indented nil)
 (setq org-table-auto-blank-field nil)
@@ -27,19 +27,19 @@
 (require 'org-bullets)
 (require 'org-tempo)
 ;;(require 'org-gcal)
- (use-package org-pdftools
-  :hook (org-load . org-pdftools-setup-link))
+(use-package org-pdftools
+  :hook (org-mode . org-pdftools-setup-link))
 (pdf-tools-install)
 
 (use-package org-noter-pdftools
-   :after org-noter
-   :config
-   (with-eval-after-load 'pdf-annot
-     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
- (add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+  :after org-noter
+  :config
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+(add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
 (eval-after-load "org" '(require 'org-pdftools))
 
-(defun 0xMF/org/shrink ()
+(defun 0xMF/shrink ()
   "Shrink table according to cookie at point."
   (interactive)
   (org-table-shrink))
@@ -85,6 +85,50 @@ Turn on spell check automatically; maketext wrap at 81; and make
   (org-toggle-link-display)
   (setq org-hide-emphasis-markers (if (eq org-hide-emphasis-markers nil) t nil))
   (font-lock-fontify-buffer))
+
+;; Source: emacs.stackexchange.com/questions/32031/org-mode-hide-tags-in-outline-view
+(defun org-toggle-tag-visibility (STATE)
+  "Run in `org-cycle-hook' using STATE as its initial value."
+  (message "%s" STATE)
+  (cond
+   ;; global cycling
+   ((memq STATE '(overview contents showall))
+    (org-map-entries
+     #'(lambda ()
+         (let ((tagstring (nth 5 (org-heading-components)))
+               start end)
+           (when tagstring
+             (save-excursion
+               (beginning-of-line)
+               (re-search-forward tagstring)
+               (setq start (match-beginning 0)
+                     end (match-end 0)))
+             (cond
+              ((memq STATE '(overview contents))
+               (outline-flag-region start end t))
+              (t
+               (outline-flag-region start end nil))))))))
+   ;; local cycling
+   ((memq STATE '(folded children subtree))
+    (save-restriction
+      (org-narrow-to-subtree)
+      (org-map-entries
+       #'(lambda ()
+           (let ((tagstring (nth 5 (org-heading-components)))
+                 start end)
+             (when tagstring
+               (save-excursion
+                 (beginning-of-line)
+                 (re-search-forward tagstring)
+                 (setq start (match-beginning 0)
+                       end (match-end 0)))
+               (cond
+                ((memq STATE '(folded children))
+                 (outline-flag-region start end t))
+                (t
+                 (outline-flag-region start end nil)))))))))))
+
+(add-hook 'org-cycle-hook 'org-toggle-tag-visibility)
 
 ;; Local Variables:
 ;; coding: utf-8
