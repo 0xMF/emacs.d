@@ -1,7 +1,7 @@
 ;;; init-0xMF-misc.el --  -*- lexical-binding: t -*-
 ;;; -----------------
 ;;
-;;; package: override Purcell's Emacs with my misc evil preferences
+;;; package: override Purcell's Emacs with my misc preferences
 ;;
 ;;; Commentary:
 ;;
@@ -22,7 +22,6 @@
 ;; use Noto Color Emoji for emoji support
 (when (member "Noto Color Emoji" (font-family-list))
   (set-fontset-font t 'unicode "Noto Color Emoji" nil 'prepend))
-
 
 (defun 0xMF/settings/vertico ()
   "My setup for vertico-mode."
@@ -45,7 +44,7 @@
     (when (consp word)
       (flyspell-do-correct 'save nil (car word) current-location
                            (cadr word) (caddr word) current-location))))
-;; ---
+
 ;; esc quits
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
@@ -81,25 +80,6 @@ minibuffer."
     (define-key map (kbd "p") 'eww-back-url)))
 (add-hook 'eww-mode-hook '0xMF/settings/eww)
 
-
-;; Credit: Bozhidar Batsov
-;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
-;;(defun 0xMF/settings/pdf-links-minor-mode ()
-;;  "Reset f keybinding from 'pdf-links-isearch-link."
-;;  (interactive)
-;;  (when (fboundp 'pdf-links-minor-mode)
-;;    (dolist (map  (list pdf-links-minor-mode-map))
-;;      (define-key map (kbd "m") '0xMF/settings/hide-mode-line-toggle)
-;;      (define-key map (kbd "t") 'pdf-outline)
-;;      (define-key map (kbd "f") 'pdf-view-scroll-up-or-next-page))
-;;    (let ((oldmap (cdr (assoc 'pdf-links-minor-mode-map minor-mode-map-alist)))
-;;          (newmap (make-sparse-keymap)))
-;;      (set-keymap-parent newmap oldmap)
-;;      (define-key newmap (kbd "f") 'pdf-view-scroll-up-or-next-page)
-;;      (make-local-variable 'minor-mode-overriding-map-alist)
-;;      (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
-;;(add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
-
 ;; Credit: Bozhidar Batsov
 ;; http://emacsredux.com/blog/2013/09/25/removing-key-bindings-from-minor-mode-keymaps/
 (defun 0xMF/settings/pdf-links-minor-mode ()
@@ -115,7 +95,6 @@ minibuffer."
       (make-local-variable 'minor-mode-overriding-map-alist)
       (push `(pdf-links-minor-mode . ,newmap) minor-mode-overriding-map-alist))))
 (add-hook 'pdf-links-minor-mode-hook '0xMF/settings/pdf-links-minor-mode)
-
 
 (defun 0xMF/settings/pdf-view ()
   "Disable blinking in pdf-view-mode and enable vi-style keybindings."
@@ -239,11 +218,11 @@ minibuffer."
 ;; Language mode settings
 ;;----------------------------------------------------------------------------
 
-(use-package markdown-mode)
-:init
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook #'(lambda () (interactive) (set-fill-column 81)))
+(use-package markdown-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-hook 'markdown-mode-hook #'(lambda () (interactive) (set-fill-column 81))))
 
 (unless (version< emacs-version "27")
   (setq url-http-referer 'nil))
@@ -298,9 +277,6 @@ minibuffer."
 
 (set-default 'truncate-lines t)
 
-;; Do not ceate backups.
-(setq  make-backup-files nil)
-
 (menu-bar-mode -1)
 
 ;; Using mouse to select and copy text to the clipboard
@@ -308,7 +284,6 @@ minibuffer."
 (setq select-active-regions nil)
 (setq mouse-drag-copy-region t)
 (global-set-key [mouse-2] 'mouse-yank-at-click)
-;;
 
 ;; smooth scrolling
 (setq scroll-margin 5
@@ -318,7 +293,6 @@ minibuffer."
 (unless (version<= emacs-version "25")
   (require 'fill-column-indicator))
 
-;;(benchmark-init/show-durations-tabulated)
 ;; show battery indicator on mode
 (display-battery-mode t)
 
@@ -389,28 +363,13 @@ minibuffer."
     (progn
       (set-frame-font "Source Code Pro-15:style=Semibold" nil t)
       (put '0xMF/toggle-font-large-normal 'state t)))
-  (message 0xMF/toggle-font-large-normal))
+  (message "Font large state: %s" (get '0xMF/toggle-font-large-normal 'state)))
 
 (defun 0xMF/normal-font ()
   "Increase font size."
   (interactive)
   (when (member "Source Code Pro" (font-family-list))
     (set-frame-font "Source Code Pro-13:style=Semibold" nil t)))
-
-;; ----------------------------------
-;; Calendar setup
-;; avoid evil keybindings in these modes by default
-(require 'calendar)
-
-(add-to-list 'evil-emacs-state-modes 'calendar-mode 'package-menu-mode)
-(evil-set-initial-state 'calendar-mode 'emacs)
-(evil-set-initial-state 'package-menu-mode 'emacs)
-(evil-set-initial-state 'pdf-view-mode 'emacs)
-(add-hook 'pdf-view-mode-hook
-          #'(lambda ()
-              (interactive)
-              (set (make-local-variable 'evil-emacs-state-cursor) (list nil))))
-
 
 (defun insdate-insert-current-date (&optional omit-day-of-week-p)
   "Insert today's date using the current locale.
@@ -423,7 +382,6 @@ With a prefix argument,the date is inserted without the day of the week."
 (defun 0xMF/settings/calendar-mode ()
   "My calendar mode settings."
   (interactive)
-  ;;(local-set-key (kbd "i") 'diary-insert-entry)
   (message "added settings for calendar-mode"))
 
 (defun 0xMF/settings/textmode ()
@@ -458,13 +416,61 @@ With a prefix argument,the date is inserted without the day of the week."
 
 (defvar 0xMF/kill-all-magit t "Removes all magit-buffers (inucluding magit process).")
 
+(defun 0xMF/cleanup-Emacs-buffer-list ()
+  "Remove all kinds of needless buffers."
+  (0xMF/kill-some-buffers "^\\Diary")
+  (0xMF/kill-some-buffers "^\\*Aprops*")
+  (0xMF/kill-some-buffers "^\\*Backtrace*")
+  (0xMF/kill-some-buffers "^\\*Buffer List*")
+  (0xMF/kill-some-buffers "^\\*Calculator*")
+  (0xMF/kill-some-buffers "^\\*Calendar*")
+  (0xMF/kill-some-buffers "^\\*Command Line*")
+  (when (get-buffer "*Compile-Log*")
+    (kill-buffer "*Compile-Log*"))
+  (0xMF/kill-some-buffers "^\\*Ediff Registry*")
+  (0xMF/kill-some-buffers "^\\*Flycheck error messages*")
+  (0xMF/kill-some-buffers "^\\*Flymake log*")
+  (0xMF/kill-some-buffers "^\\*Help*")
+  (0xMF/kill-some-buffers "^\\*HS-Error*")
+  (0xMF/kill-some-buffers "^\\*List of Slides*")
+  (0xMF/kill-some-buffers "^\\*Org-Babel Error Output*")
+  (0xMF/kill-some-buffers "^\\*Org PDF Latex Output*")
+  (0xMF/kill-some-buffers "^\\*Packages*")
+  (0xMF/kill-some-buffers "^\\*PP Eval Output*")
+  (0xMF/kill-some-buffers "^\\*Outline ")
+  (0xMF/kill-some-buffers "^\\*WoMan-Log*")
+  (0xMF/kill-some-buffers "^\\*Warnings*")
+  (0xMF/kill-some-buffers "^\\*cabal")
+  (0xMF/kill-some-buffers "^\\*compilation*")
+  (0xMF/kill-some-buffers "^\\*dante:")
+  (mapc #'(lambda (buffer)
+            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+              (kill-buffer buffer))) (buffer-list))
+  (0xMF/kill-some-buffers "^\\*eldoc*")
+  (0xMF/kill-some-buffers "^\\*hs-lint*")
+  (when (bound-and-true-p 0xMF/kill-all-magit)
+    (0xMF/kill-some-buffers "^magit:")
+    (0xMF/kill-some-buffers "^magit-diff:")
+    (0xMF/kill-some-buffers "^magit-log:")
+    (0xMF/kill-some-buffers "^magit-merge-preview:")
+    (0xMF/kill-some-buffers "^magit-process:")
+    (0xMF/kill-some-buffers "^magit-revision:")
+    (0xMF/kill-some-buffers "^\\*magit-todos--scan-with-git-grep"))
+  (0xMF/kill-some-buffers "^popup-win-dummy")
+  (0xMF/kill-some-buffers "^\\*vc-diff*")
+  (when (fboundp '0xMF/settings/orgmode)
+    (0xMF/settings/orgmode))
+  (get-buffer-create "*scratch*"))
+
 (defun 0xMF/startup ()
   "Start/reset Emacs the way like it ;-)."
   (interactive)
+  (0xMF/cleanup-Emacs-buffer-list)
   (global-display-line-numbers-mode -1)
   (display-line-numbers-mode -1)
   (line-number-mode t)
-  (org-toggle-pretty-entities)
+  (unless org-pretty-entities
+    (org-toggle-pretty-entities))
   (when (equal major-mode 'org-mode)
     (org-set-visibility-according-to-property)
     (setq electric-pair-mode nil))
@@ -474,7 +480,7 @@ With a prefix argument,the date is inserted without the day of the week."
     (0xMF/settings/ivy-minibuffer))
   (when (fboundp '0xMF/local)
     (0xMF/local))
-  (when (fboundp 'evil-mode)
+  (when (fboundp '0xMF/settings/vi)
     (0xMF/settings/vi))
   (message "0xMF/startup"))
 
@@ -500,13 +506,6 @@ With a prefix argument,the date is inserted without the day of the week."
 
 (add-hook 'after-init-hook '0xMF/startup)
 
-(defun 0xMF/evil-magit ()
-  "Enable evil-magit support."
-  (interactive)
-  (require 'evil-magit)
-  (evil-magit-init)
-  (setq evil-magit-state 'motion))
-
 (defun file-reload ()
   "Reload file without confirmation."
   (interactive)
@@ -514,8 +513,6 @@ With a prefix argument,the date is inserted without the day of the week."
 
 (defun kill-misc-buffers()
   "Permanently remove some buffers."
-  ;; (if (get-buffer "*scratch*")
-  ;;  (kill-buffer "*scratch*"))
   (if (get-buffer "*reg group-leader*")
       (kill-buffer "*reg group-leader*")))
 (add-hook 'after-change-major-mode-hook 'kill-misc-buffers)
@@ -526,6 +523,4 @@ With a prefix argument,the date is inserted without the day of the week."
 ;; End:
 
 (provide 'init-0xMF-misc)
-
-;;;  -*- mode: Lisp;-*
 ;;; init-0xMF-misc.el ends here
