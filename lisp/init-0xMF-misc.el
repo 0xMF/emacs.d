@@ -263,17 +263,17 @@ minibuffer."
 ;; Abbreviations
 ;;----------------------------------------------------------------------------
 (setq-default abbrev-mode t)
-(read-abbrev-file "~/.abbrev_defs")
-(setq save-abbrevs t)
+(when (file-exists-p (expand-file-name "~/.abbrev_defs"))
+  (read-abbrev-file (expand-file-name "~/.abbrev_defs"))
+  (setq save-abbrevs t))
 
 ;;----------------------------------------------------------------------------
 ;; Miscalleanous settings
 ;; User mode settings for UI/keyboard/look and feel
 ;;----------------------------------------------------------------------------
 (require 'yafolding)
-
 (add-hook 'prog-mode-hook
-          #'(lambda () (interactive) (yafolding-mode)))
+         #'(lambda () (interactive) (yafolding-mode)))
 
 (set-default 'truncate-lines t)
 

@@ -158,18 +158,19 @@
 ;; Bind keys in multiple states of Org-mode
 (general-define-key :keymaps 'org-mode-map
                     :states '(insert emacs)
+                    "C-<tab>" #'(lambda () (interactive) (insert "  "))
                     "<tab>" 'org-cycle)
 
 ;;----------------------------------------------------------------------------
 ;; Cursor and display toggle settings
 ;;----------------------------------------------------------------------------
 (defun 0xMF/settings/cursor-emacs-evil-toggle()
-     "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
-     (interactive)
-     (when (display-graphic-p)
-       (if (string= (symbol-value 'evil-state) "normal")
-           (set-cursor-color "green")
-         (set-cursor-color "white"))))
+  "Cursor color indicates mode: white = Emacs, green = evil (Vi/Vim)."
+  (interactive)
+  (when (display-graphic-p)
+    (if (string= (symbol-value 'evil-state) "normal")
+        (set-cursor-color "green")
+        (set-cursor-color "white"))))
 (add-hook 'evil-mode-hook '0xMF/settings/cursor-emacs-evil-toggle)
 
 (defun 0xMF/settings/cursor-column-toggle()
@@ -390,7 +391,8 @@
 ;; Slime Lisp Helper
 ;;----------------------------------------------------------------------------
 ;; M-x slime calls sbcl
-(load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
+(when (file-exists-p (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
+ (load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el")))
 (require 'slime-autoloads)
 (setq inferior-lisp-program "sbcl")
 (setq slime-default-lisp 'sbcl)
