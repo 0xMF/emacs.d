@@ -1,4 +1,5 @@
 # 0xMF: gitignore -
+/*.eld
 /abbrev_defs
 /agenda
 /aspell.en.prepl

@@ -27,17 +27,21 @@
 (require 'org-bullets)
 (require 'org-tempo)
 ;;(require 'org-gcal)
-(use-package org-pdftools
-  :hook (org-mode . org-pdftools-setup-link))
-(pdf-tools-install)
 
-(use-package org-noter-pdftools
-  :after org-noter
-  :config
-  (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
-(add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
-(eval-after-load "org" '(require 'org-pdftools))
+
+(unless noninteractive
+  (use-package org-pdftools
+    :hook (org-mode . org-pdftools-setup-link)
+    :config
+    (unless noninteractive
+      (add-to-list 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+      (eval-after-load "org" '(require 'org-pdftools))
+      (pdf-tools-install t t)))
+  (use-package org-noter-pdftools
+    :after org-noter
+    :config
+    (with-eval-after-load 'pdf-annot
+      (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note))))
 
 (defun 0xMF/shrink ()
   "Shrink table according to cookie at point."
