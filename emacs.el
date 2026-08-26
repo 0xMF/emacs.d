@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;; package --- 0xMF preferences for .emacs
 
 ;;; Commentary:

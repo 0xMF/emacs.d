@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;; package -- init.el
 
 ;;; Commentary:
@@ -39,6 +40,22 @@
   "Check if FILE exists before loading it."
   (if (file-readable-p FILE)
       (load-file (expand-file-name FILE))))
+
+(with-eval-after-load 'whitespace
+  ;; Force the face to use a standard color string so dimmer.el doesn't crash
+  (set-face-attribute 'whitespace-page-delimiter nil
+                      :foreground "gray"
+                      :underline nil))
+
+;; Disable modes
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (when (bound-and-true-p corfu-terminal-mode)
+              (corfu-terminal-mode -1))
+            (when (bound-and-true-p dimmer-mode)
+              (dimmer-mode -1))
+            (when (bound-and-true-p default-text-scale-mode)
+              (default-text-scale-mode -1))))
 
 (load "init-0xMF-evil")
 (load "init-0xMF-misc")

@@ -345,7 +345,9 @@
 (global-set-key (kbd "C-M-h") 'previous-buffer)
 (global-set-key (kbd "C-M-k") 'kill-some-buffers)
 (global-set-key (kbd "C-M-l") 'next-buffer)
-(global-set-key (kbd "C-M-=") #'(lambda () (interactive) (text-scale-increase 1)))
+;;(global-set-key (kbd "C-M-=") #'(lambda () (interactive) (text-scale-increase 1)))
+(global-set-key (kbd "C-M-=") 'global-text-scale-adjust)
+
 (global-set-key (kbd "C-M--") #'(lambda () (interactive) (text-scale-decrease 1)))
 
 (global-set-key (kbd "C-M-<") 'previous-buffer)

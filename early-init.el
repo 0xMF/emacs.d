@@ -8,6 +8,12 @@
 
 ;;; Code:
 
+;; Suppress file warnings (like lexical-binding) before packages load
+(with-eval-after-load 'warnings
+  (add-to-list 'warning-suppress-types '(files))
+  (add-to-list 'warning-suppress-types '(files missing-lexbind-cookie))
+  (add-to-list 'warning-suppress-log-types '(files missing-lexbind-cookie)))
+
 (setq package-enable-at-startup nil)
 
 ;; So we can detect this having been loaded
