@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t; -*-
-;;; package -- init.el
+;;; package -- init.el -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -16,8 +15,8 @@
 
 (setq 0xMF/required-packages '(djvu exec-path-from-shell evil fill-column-indicator general go-mode
                                     hide-mode-line hindent htmlize keychain-environment markdown-mode
-                                    nov org-bullets org-noter-pdftools org-pdftools slime ssh-agency
-                                    undo-fu use-package vline yafolding))
+                                    nov org-bullets org-pdftools slime ssh-agency undo-fu use-package
+                                    vline yafolding))
 
 (defun 0xMF/update-package-selected-packages()
   (interactive)
