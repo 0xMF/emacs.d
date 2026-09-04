@@ -193,16 +193,8 @@
     (internal-show-cursor nil t)))
 
 ;;----------------------------------------------------------------------------
-;; Lisp Repl settings (slime and sly)
+;; Lisp Repl settings
 ;;----------------------------------------------------------------------------
-(defun 0xMF/settings/slime ()
-  "My slime settings."
-  (interactive)
-  (turn-on-evil-mode)
-  (dolist (map (list slime-repl-mode-map))
-    (local-unset-key (kbd  "C-<return>"))
-    (define-key map (kbd "C-<return>") 'slime-repl-newline-and-indent)))
-
 (defun 0xMF/settings/sly ()
   "My sly settings."
   (interactive)
@@ -388,27 +380,6 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key (kbd "C-h r") 'info-display-manual)
 (global-set-key (kbd "C-h R") 'info-emacs-manual)
-
-;;----------------------------------------------------------------------------
-;; Slime Lisp Helper
-;;----------------------------------------------------------------------------
-;; M-x slime calls sbcl
-(when (file-exists-p (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el"))
- (load (expand-file-name "~/.comp.misc/lisp/quicklisp/slime-helper.el")))
-(require 'slime-autoloads)
-(setq inferior-lisp-program "sbcl")
-(setq slime-default-lisp 'sbcl)
-(setq slime-contribs '(slime-scratch slime-editing-commands slime-fancy))
-(add-hook 'lisp-mode-hook
-          (lambda ()
-            (set (make-local-variable 'lisp-indent-function)
-                 'common-lisp-indent-function)))
-(put 'lambda 'lisp-indent-function 'defun)
-(put 'while 'lisp-indent-function 1)
-(put 'unless 'lisp-indent-function 1)
-(put 'if 'lisp-indent-function nil)
-(put 'do 'lisp-indent-function 2)
-(put 'do* 'lisp-indent-function 2)
 
 ;;----------------------------------------------------------------------------
 ;; Magit evil support

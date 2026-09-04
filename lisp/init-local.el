@@ -15,7 +15,7 @@
 
 (setq 0xMF/required-packages '(djvu exec-path-from-shell evil fill-column-indicator general go-mode
                                     hide-mode-line hindent htmlize keychain-environment markdown-mode
-                                    nov org-bullets org-pdftools slime ssh-agency undo-fu use-package
+                                    nov org-bullets org-pdftools sly ssh-agency undo-fu use-package
                                     vline yafolding))
 
 (defun 0xMF/update-package-selected-packages()
